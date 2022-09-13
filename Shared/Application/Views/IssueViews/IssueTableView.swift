@@ -18,6 +18,7 @@ struct IssueTableView: View {
                     Text(vm.selectedProject.name)
                         .foregroundColor(.orange)
                     Text(" Issues")
+                    .fixedSize()
                 Spacer()
             }
             .font(.title)
@@ -44,5 +45,11 @@ struct IssueTableView: View {
             })
         }
         
+    }
+}
+
+struct IssueTableView_Preview: PreviewProvider {
+    static var previews: some View {
+        IssueTableView(vm: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())), isCreateIssueShowing: false)
     }
 }

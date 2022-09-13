@@ -14,8 +14,10 @@ struct WelcomePage: View {
     private var labels = ["New Project ", "Open Project", "     Feed      ", "Project List", "     Home      "]
     private var colors: [AnyGradient] = [Color.accentColor.gradient, Color.yellow.gradient, Color.teal.gradient, Color.mint.gradient, Color.brown.gradient]
     
-    private var gridItemLayout = [GridItem(.adaptive(minimum: 100), spacing: 10), GridItem(.adaptive(minimum: 100), spacing: 10), GridItem(.adaptive(minimum: 100), spacing: 10), GridItem(.adaptive(minimum: 100), spacing: 10)]
     var body: some View {
+#if os(iOS)
+        iOSWelcomePageVIew()
+        #else
         VStack {
             Text(String(describing: Date().formatted()))
                 .fontWeight(.ultraLight)
@@ -23,13 +25,12 @@ struct WelcomePage: View {
                 .font(.title)
                 .fontWeight(.heavy)
             
-            LazyVGrid(columns: gridItemLayout, spacing: 75) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
                 ForEach(0..<symbols.count) { i in
                     NavigationLink(destination: CreateProjectView(isShowing: $isShowing), label: {
                         VStack {
                             Image(systemName: symbols[i])
-                                .font(.system(size: 36))
-                                .fixedSize()
+                                .resizable()
                                 
                             Text(labels[i])
                                 .fixedSize()
@@ -41,11 +42,14 @@ struct WelcomePage: View {
                         .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
                     })
                     .buttonStyle(.plain)
-                }
+                    .padding()
+                }.aspectRatio(3.5/4, contentMode: .fit )
             }
-            .padding()
+            .padding(.horizontal)
         }
-       // .scaleEffect()
+         .scaleEffect()
+        #endif
+       
     }
 }
 

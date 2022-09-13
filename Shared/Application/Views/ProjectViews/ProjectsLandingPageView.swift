@@ -12,6 +12,27 @@ struct ProjectsLandingPageView: View {
     
     var body: some View {
         VStack {
+            #if os(iOS)
+            VStack {
+                ProjectItemView(vm: vm)
+                HStack {
+                    DeleteProjectView(parentVM: vm)
+                    Button {
+                        vm.showingCreateProject.toggle()
+                    } label: {
+                        Label("Create", systemImage: "plus")
+                    }
+                    .padding()
+                }
+            }
+            .border(Color.accentColor, width: 3)
+            .cornerRadius(3)
+            .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
+            IssueTableView(vm: vm)
+                .border(Color.accentColor, width: 3)
+                .cornerRadius(3)
+                .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
+            #else
             HStack {
                 VStack {
                     ProjectItemView(vm: vm)
@@ -21,11 +42,12 @@ struct ProjectsLandingPageView: View {
                             vm.showingCreateProject.toggle()
                         } label: {
                             Label("Create", systemImage: "plus")
-                                .fixedSize()
                         }
+                        
                         .padding()
                     }
                 }
+                .fixedSize()
                 .border(Color.accentColor, width: 3)
                 .cornerRadius(3)
                 .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
@@ -34,18 +56,19 @@ struct ProjectsLandingPageView: View {
                     .cornerRadius(3)
                     .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
             }
+            .scaledToFit()
             .padding()
-            
             .sheet(isPresented: $vm.showingCreateProject, content: {
                 CreateProjectView(isShowing: $vm.showingCreateProject)
                     .onDisappear(perform: {
                         vm.getProjects()
                     })
             })
+            #endif
             ProjectsTableView(vm: vm)
                 .padding()
         }
-        .scaleEffect()
+        //.scaledToFit()
     }
 }
 

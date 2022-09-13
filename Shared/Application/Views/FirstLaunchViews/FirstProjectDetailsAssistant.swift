@@ -14,9 +14,11 @@ struct FirstProjectDetailsAssistant: View {
     @State var selectedMenu: MenuItem?
     
     var body: some View {
+        ZStack {
+            Color.accentColor.ignoresSafeArea()
             VStack {
                 if nextView == true {
-                        LandingPageView()
+                    LandingPageView()
                         .background()
                 } else if previousView == true {
                     FirstProjectNamingAssistant()
@@ -33,48 +35,51 @@ struct FirstProjectDetailsAssistant: View {
                     }
                     .scaleEffect()
                     
-                    Form {
-                        VStack {
-                            Text("Details")
-                                .fixedSize()
-                                .bold()
-                            
-                            TextField("", text: $vm.project.info.withDefault(""))
-                                .labelsHidden()
-                                .background(.thickMaterial)
-                                .frame(width:150)
-                                .border(Color.accentColor, width: 2)
-                                .cornerRadius(2)
-                                .padding(.bottom)
-                            
-                            Text("Expected date of completion")
-                                .fixedSize()
-                                .bold()
-                            
-                            TextField("", text: $vm.project.deadline.withDefault(""))
-                                .labelsHidden()
-                                .background(.thickMaterial)
-                                .frame(width:150)
-                                .border(Color.accentColor, width: 2)
-                                .cornerRadius(2)
-                            Button {
-                                vm.execute()
+                    
+                    VStack {
+                        Text("Details")
+                            .fixedSize()
+                            .bold()
+                        
+                        TextField("", text: $vm.project.info.withDefault(""))
+                            .labelsHidden()
+                            .background(.thickMaterial)
+                            .frame(width:150)
+                            .border(Color.accentColor, width: 2)
+                            .cornerRadius(2)
+                            .padding(.bottom)
+                        
+                        Text("Expected date of completion")
+                            .fixedSize()
+                            .bold()
+                        
+                        TextField("", text: $vm.project.deadline.withDefault(""))
+                            .labelsHidden()
+                            .background(.thickMaterial)
+                            .frame(width:150)
+                            .border(Color.accentColor, width: 2)
+                            .cornerRadius(2)
+                        Button {
+                            vm.execute()
+                            withAnimation {
                                 nextView = true
-                            } label: {
-                                Image(systemName: "arrow.forward.square")
-                                    .bold()
-                                    .font(.system(size: 14))
-                                    .padding(2)
-                                    .background(Color.accentColor.gradient)
-                                    .cornerRadius(5)
                             }
-                            .buttonStyle(.plain)
+                            
+                        } label: {
+                            Image(systemName: "arrow.forward.square")
+                                .bold()
+                                .font(.system(size: 14))
+                                .padding(2)
+                                .background(Color.accentColor.gradient)
+                                .cornerRadius(5)
                         }
-                        .padding()
-                        .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 0.5, y: 1.5)
-                        .border(Color.accentColor.gradient, width: 2)
-                        .cornerRadius(2)
+                        .buttonStyle(.plain)
                     }
+                    .padding()
+                    .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 0.5, y: 1.5)
+                    .border(Color.accentColor.gradient, width: 2)
+                    .cornerRadius(2)
+                    
                     .padding(5)
                     .background(.orange.gradient)
                     .cornerRadius(5)
@@ -82,7 +87,10 @@ struct FirstProjectDetailsAssistant: View {
                     
                     HStack {
                         Button {
-                            previousView = true
+                            withAnimation {
+                                previousView = true
+                            }
+                            
                         } label: {
                             Text(".")
                                 .foregroundColor(Color.gray)
@@ -90,7 +98,9 @@ struct FirstProjectDetailsAssistant: View {
                         .buttonStyle(.plain)
                         Text(".")
                         Button {
-                            nextView = true
+                            withAnimation {
+                                nextView = true
+                            }
                         } label: {
                             Text(".")
                                 .foregroundColor(Color.gray)
@@ -102,10 +112,16 @@ struct FirstProjectDetailsAssistant: View {
                     .font(.system(size: 32))
                 }
             }
+        }
             .font(.system(.body, design: .rounded))
-            .labelsHidden()
-        .navigationTitle("")
-        .scaleEffect()
+            .foregroundColor(.white)
+            .navigationTitle("")
+            .scaleEffect()
     }
 }
 
+struct FirstProjectDetailsAssistant_Preview: PreviewProvider {
+    static var previews: some View {
+        FirstProjectDetailsAssistant(vm: CreateProjectViewModel(), nextView: false, previousView: false, selectedMenu: nil)
+    }
+}

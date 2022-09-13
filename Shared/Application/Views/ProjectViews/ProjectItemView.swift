@@ -61,7 +61,6 @@ struct ProjectItemView: View {
                         Text("\(vm.selectedProject.info ?? "")")
                     }
                 }
-                .fixedSize()
                 .padding(.leading, 10)
             }
             .font(.system(.body, design: .rounded))

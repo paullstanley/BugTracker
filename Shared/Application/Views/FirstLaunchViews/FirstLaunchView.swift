@@ -13,40 +13,58 @@ struct FirstProjectView: View {
     @State var skip = false
     
     var body: some View {
-            VStack {
-                if nextView == true {
-                    FirstProjectNamingAssistant()
-                } else if skip == true {
-                    LandingPageView()
-                } else {
-                    ZStack {
-                        Color.accentColor
+        VStack {
+            if nextView == true {
+                FirstProjectNamingAssistant()
+            } else if skip == true {
+                LandingPageView()
+            } else {
+                ZStack {
+                    Color.accentColor
+                        .ignoresSafeArea()
+                        Spacer()
                         VStack {
                             Spacer()
-                            Group {
+                                #if os(iOS)
                                 Text("Hello!")
                                     .font(.title)
                                     .fontWeight(.heavy)
-                                Text("It looks like this is the first time the app has launched.")
-                                    .fontWeight(.light)
-                                Text("Get started by creating a ")
-                                    .fontWeight(.ultraLight) +
-                                Text("new project.")
-                                    .fontWeight(.light)
-                                    .foregroundColor(Color.yellow)
-                            }
-                            .fixedSize()
-                            .font(.system(.body, design: .rounded))
-                            .padding(.horizontal)
+                                    .shadow(color: Color.black.opacity(0.5), radius: 4.0, x: 3.0, y: 3.0)
+                                VStack {
+                                    Text("It looks like this is the first time the app has launched.")
+                                        
+                                    Text("Get started by creating a ") +
+                                    Text("new project.")
+                                        .foregroundColor(Color.yellow)
+                                }
+                                .fixedSize()
+                                #else
+                                Text("Hello!")
+                                    .font(.system(size: 36))
+                                    .fontWeight(.heavy)
+                                    .shadow(color: Color.black.opacity(0.5), radius: 4.0, x: 3.0, y: 3.0)
+                               
+                                Group {
+                                    Text("It looks like this is the first time the app has launched.")
+                                    Text("Get started by creating a ") +
+                                    Text("new project.")
+                                        .foregroundColor(Color.yellow)
+                                }
+                                .fixedSize()
+                                .font(.system(size: 16))
+                                .fontWeight(.light)
+                                #endif
                             HStack {
                                 Image(systemName: "arrow.right.circle.fill")
-                                    .font(.title)
+                                    .font(.system(size: 26))
                                     .offset(x: moving ? -10 : -20)
                                     .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
                                     .animation(.spring(response: 1.0, dampingFraction: 0.0, blendDuration: 0.0).repeatForever(autoreverses: false), value: moving)
                                     .onAppear {
                                         DispatchQueue.main.async {
-                                            moving = true
+                                            withAnimation {
+                                                moving = true
+                                            }
                                         }
                                     }
                                 Button {
@@ -74,6 +92,7 @@ struct FirstProjectView: View {
                                     }
                                 } label: {
                                     Text("Skip")
+                                        .font(.system(size: 16))
                                         .bold()
                                         .underline()
                                     + Text(" >")
@@ -82,13 +101,22 @@ struct FirstProjectView: View {
                             }
                             .padding()
                         }
-                    }
+                        .font(.system(.body, design: .rounded))
+                        .scaledToFit()
                     
                 }
+                .foregroundColor(.white)
             }
+        }
         .toolbar(content: {
             Text(" ")
         })
         .navigationTitle("")
+    }
+}
+
+struct FirstProjectView_Preview: PreviewProvider {
+    static var previews: some View {
+        FirstProjectView()
     }
 }

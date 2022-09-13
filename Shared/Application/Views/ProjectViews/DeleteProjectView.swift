@@ -20,8 +20,12 @@ struct DeleteProjectView: View {
         } label: {
             Label("Delete", systemImage: "trash.circle")
         }
-        .background(Color.red)
         .cornerRadius(5)
     }
 }
 
+struct DeleteProjectView_Preview: PreviewProvider {
+    static var previews: some View {
+        DeleteProjectView(parentVM: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())))
+    }
+}

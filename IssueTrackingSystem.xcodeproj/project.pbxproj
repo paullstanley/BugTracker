@@ -127,6 +127,8 @@
 		FAB89AD528CAACAA00EE242B /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB89AD428CAACAA00EE242B /* MenuItem.swift */; };
 		FAB89AD728CAC9F100EE242B /* CreateIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB89AD628CAC9F100EE242B /* CreateIssueView.swift */; };
 		FAB89AD928CACCE200EE242B /* IssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB89AD828CACCE200EE242B /* IssueRepository.swift */; };
+		FAE4D9B128D03B13003F0004 /* iOSWelcomePageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */; };
+		FAE4D9B228D044A0003F0004 /* iOSWelcomePageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +216,7 @@
 		FAB89AD428CAACAA00EE242B /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		FAB89AD628CAC9F100EE242B /* CreateIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIssueView.swift; sourceTree = "<group>"; };
 		FAB89AD828CACCE200EE242B /* IssueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueRepository.swift; sourceTree = "<group>"; };
+		FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSWelcomePageVIew.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +254,7 @@
 		FA1E4B6628C8143B009D195A = {
 			isa = PBXGroup;
 			children = (
+				FAE4D9AF28D03AB2003F0004 /* iOS */,
 				FA1E4B6B28C8143B009D195A /* Shared */,
 				FA1E4B7D28C8143D009D195A /* macOS */,
 				FA1E4B8628C8143D009D195A /* Tests iOS */,
@@ -529,6 +533,14 @@
 			path = FirstLaunchViews;
 			sourceTree = "<group>";
 		};
+		FAE4D9AF28D03AB2003F0004 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -715,6 +727,7 @@
 				FAABDCD328CD315D0014DCFB /* ProjectMO+CoreDataProperties.swift in Sources */,
 				FAABDCA628CD30C10014DCFB /* MenuItem.swift in Sources */,
 				FAABDCCC28CD31470014DCFB /* ProjectsLandingPageView.swift in Sources */,
+				FAE4D9B128D03B13003F0004 /* iOSWelcomePageVIew.swift in Sources */,
 				FAABDCD228CD315A0014DCFB /* IssueMO+CoreDataProperties.swift in Sources */,
 				FAABDCAF28CD30E50014DCFB /* DeleteUser.swift in Sources */,
 				FAABDCC428CD31300014DCFB /* IssueItemView.swift in Sources */,
@@ -779,6 +792,7 @@
 				FA2C2F9328C990030006495E /* IIssueRepository.swift in Sources */,
 				FA2C2F9628C991DA0006495E /* ProjectRepository.swift in Sources */,
 				FA9E341728CB97920094A7BB /* Binding+Extensions.swift in Sources */,
+				FAE4D9B228D044A0003F0004 /* iOSWelcomePageVIew.swift in Sources */,
 				FA2C2F8628C98DEE0006495E /* GetAllIssuesForProject.swift in Sources */,
 				FA74DCBE28CCB91A00731EAF /* ProjectTableViewModel.swift in Sources */,
 				FA2C2F8028C98DB70006495E /* EditUser.swift in Sources */,
