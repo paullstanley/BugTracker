@@ -10,7 +10,7 @@ import Foundation
 class CreateProjectViewModel: ObservableObject {
     private let dataSource: ProjectRepository
     
-    @Published var project: ProjectDM = ProjectDM(id: "", name: "", creationDate: String(describing: Date()))
+    @Published var project: ProjectDM = ProjectDM(id: UUID(), name: "", creationDate: String(describing: Date()))
     
     init() {
         dataSource = ProjectRepository(_storageProvider: CoreDataStack())

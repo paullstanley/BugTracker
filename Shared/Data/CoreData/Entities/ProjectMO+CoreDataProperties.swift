@@ -18,13 +18,13 @@ extension ProjectMO {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ProjectMO> {
         return NSFetchRequest<ProjectMO>(entityName: "ProjectEntity")
     }
-
+    @NSManaged public var id: UUID
     @NSManaged public var name: String
     @NSManaged public var creationDate: Date
     @NSManaged public var info: String?
     @NSManaged public var stage: String
     @NSManaged public var deadline: String
-    @NSManaged public var issues: Set<IssueMO>
+    @NSManaged public var issues: Set<IssueMO>?
     @NSManaged public var team: Set<UserMO>?
 }
 
@@ -38,6 +38,7 @@ extension ProjectMO {
             return project
         } else {
             let project = ProjectMO(context: context)
+            project.id = UUID()
             project.name = name
             return project
         }
@@ -46,13 +47,14 @@ extension ProjectMO {
 
 extension ProjectMO {
     func toDomainModel()-> ProjectDM {
-        return ProjectDM(id: String(describing: id), name: name, creationDate: String(describing: creationDate), info: info, stage: stage, deadline: deadline, issues: issues.map { $0.toDomainModel() }, team: [])
+        return ProjectDM(id: id, name: name, creationDate: creationDate.formatted(), info: info, stage: stage, deadline: deadline, issues: sortedIssues.map { $0.toDomainModel() }, team: [])
+        
     }
 }
 
 extension ProjectMO {
     public var sortedIssues: Array<IssueMO> {
-        return Array(issues).sorted { lhs, rhs in
+        return Array(issues ?? []).sorted { lhs, rhs in
             return rhs.id > lhs.id
         }
     }
@@ -93,7 +95,5 @@ extension ProjectMO {
 
     @objc(removeTeam:)
     @NSManaged public func removeFromTeam(_ values: Set<UserMO>)
-
 }
 
-extension ProjectMO : Identifiable { public var id: NSManagedObjectID { objectID } }

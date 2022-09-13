@@ -9,18 +9,19 @@ import SwiftUI
 
 struct DeleteProjectView: View {
     @ObservedObject var vm = DeleteProjectViewModel()
-    var project: ProjectDM?
+    let parentVM: ProjectsLandingPageViewModel
     
     var body: some View {
-        Button("Delete Entity") {
-            if let projectToDelete = project {
-                if vm.execute(projectToDelete) == true {
-                    print("Successfully deleted \(project)")
-                } else {
-                    print("There was an issue deleting the project - \(project)")
-                }
+        Button {
+            DispatchQueue.main.async {
+                vm.execute(parentVM.selectedProject)
+                parentVM.getProjects()
             }
+        } label: {
+            Label("Delete", systemImage: "trash.circle")
         }
+        .background(Color.red)
+        .cornerRadius(5)
     }
 }
 

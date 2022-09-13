@@ -64,7 +64,6 @@
 		FA9DF65328CD8DFB0051DD04 /* FirstProjectDetailsAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9DF65228CD8DFB0051DD04 /* FirstProjectDetailsAssistant.swift */; };
 		FA9DF65428CD8DFB0051DD04 /* FirstProjectDetailsAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9DF65228CD8DFB0051DD04 /* FirstProjectDetailsAssistant.swift */; };
 		FA9E340C28CAEB4F0094A7BB /* ProjectsLandingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E340B28CAEB4F0094A7BB /* ProjectsLandingPageView.swift */; };
-		FA9E340E28CAF2610094A7BB /* ProjectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E340D28CAF2610094A7BB /* ProjectDetailsView.swift */; };
 		FA9E341028CAF3C80094A7BB /* IssueTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E340F28CAF3C80094A7BB /* IssueTableView.swift */; };
 		FA9E341528CB96FC0094A7BB /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E341428CB96FC0094A7BB /* MenuItems.swift */; };
 		FA9E341728CB97920094A7BB /* Binding+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E341628CB97920094A7BB /* Binding+Extensions.swift */; };
@@ -114,7 +113,6 @@
 		FAABDCCA28CD31420014DCFB /* DeleteProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA84514F28CA90E200FDCDCB /* DeleteProjectView.swift */; };
 		FAABDCCB28CD31440014DCFB /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA84515128CA91E000FDCDCB /* EditProjectView.swift */; };
 		FAABDCCC28CD31470014DCFB /* ProjectsLandingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E340B28CAEB4F0094A7BB /* ProjectsLandingPageView.swift */; };
-		FAABDCCD28CD31490014DCFB /* ProjectDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E340D28CAF2610094A7BB /* ProjectDetailsView.swift */; };
 		FAABDCCE28CD314C0014DCFB /* FirstLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA74DCCB28CCD8EC00731EAF /* FirstLaunchView.swift */; };
 		FAABDCCF28CD31500014DCFB /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F9528C991DA0006495E /* ProjectRepository.swift */; };
 		FAABDCD028CD31520014DCFB /* IssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB89AD828CACCE200EE242B /* IssueRepository.swift */; };
@@ -208,7 +206,6 @@
 		FA84515128CA91E000FDCDCB /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
 		FA9DF65228CD8DFB0051DD04 /* FirstProjectDetailsAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProjectDetailsAssistant.swift; sourceTree = "<group>"; };
 		FA9E340B28CAEB4F0094A7BB /* ProjectsLandingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsLandingPageView.swift; sourceTree = "<group>"; };
-		FA9E340D28CAF2610094A7BB /* ProjectDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailsView.swift; sourceTree = "<group>"; };
 		FA9E340F28CAF3C80094A7BB /* IssueTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableView.swift; sourceTree = "<group>"; };
 		FA9E341428CB96FC0094A7BB /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		FA9E341628CB97920094A7BB /* Binding+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extensions.swift"; sourceTree = "<group>"; };
@@ -426,7 +423,6 @@
 				FA84514F28CA90E200FDCDCB /* DeleteProjectView.swift */,
 				FA84515128CA91E000FDCDCB /* EditProjectView.swift */,
 				FA9E340B28CAEB4F0094A7BB /* ProjectsLandingPageView.swift */,
-				FA9E340D28CAF2610094A7BB /* ProjectDetailsView.swift */,
 			);
 			path = ProjectViews;
 			sourceTree = "<group>";
@@ -745,7 +741,6 @@
 				FAABDCC528CD31320014DCFB /* CreateIssueView.swift in Sources */,
 				FAABDCAE28CD30E20014DCFB /* EditUser.swift in Sources */,
 				FAABDCC728CD313A0014DCFB /* ProjectItemView.swift in Sources */,
-				FAABDCCD28CD31490014DCFB /* ProjectDetailsView.swift in Sources */,
 				FAABDCC128CD31270014DCFB /* MenuItems.swift in Sources */,
 				FAABDCBD28CD31180014DCFB /* LandingPageViewModel.swift in Sources */,
 				FAABDCA728CD30CA0014DCFB /* GetAllIssues.swift in Sources */,
@@ -776,7 +771,6 @@
 				FA2C2F8828C98DFE0006495E /* GetIssueById.swift in Sources */,
 				FA2C2F4428C848CA0006495E /* ProjectMO+CoreDataProperties.swift in Sources */,
 				FA1E4B9C28C8143D009D195A /* LandingPageView.swift in Sources */,
-				FA9E340E28CAF2610094A7BB /* ProjectDetailsView.swift in Sources */,
 				FA9E341A28CBA91D0094A7BB /* WelcomePage.swift in Sources */,
 				FA74DCCC28CCD8EC00731EAF /* FirstLaunchView.swift in Sources */,
 				FA84515228CA91E000FDCDCB /* EditProjectView.swift in Sources */,

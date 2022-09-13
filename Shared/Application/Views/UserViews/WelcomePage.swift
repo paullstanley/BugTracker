@@ -12,7 +12,7 @@ struct WelcomePage: View {
     @State var isShowing = false
     private var symbols = ["doc.fill.badge.plus", "doc", "chart.xyaxis.line", "scale.3d", "house"]
     private var labels = ["New Project ", "Open Project", "     Feed      ", "Project List", "     Home      "]
-    private var colors: [Color] = [.accentColor, .yellow, .teal, .mint, .brown]
+    private var colors: [AnyGradient] = [Color.accentColor.gradient, Color.yellow.gradient, Color.teal.gradient, Color.mint.gradient, Color.brown.gradient]
     
     private var gridItemLayout = [GridItem(.adaptive(minimum: 100), spacing: 10), GridItem(.adaptive(minimum: 100), spacing: 10), GridItem(.adaptive(minimum: 100), spacing: 10), GridItem(.adaptive(minimum: 100), spacing: 10)]
     var body: some View {
@@ -25,10 +25,10 @@ struct WelcomePage: View {
             
             LazyVGrid(columns: gridItemLayout, spacing: 75) {
                 ForEach(0..<symbols.count) { i in
-                    NavigationLink(destination: CreateProjectView(), label: {
+                    NavigationLink(destination: CreateProjectView(isShowing: $isShowing), label: {
                         VStack {
                             Image(systemName: symbols[i])
-                                .font(.system(size: 50))
+                                .font(.system(size: 36))
                                 .fixedSize()
                                 
                             Text(labels[i])

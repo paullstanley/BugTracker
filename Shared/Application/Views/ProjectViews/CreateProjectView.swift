@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CreateProjectView: View {
     @ObservedObject var vm = CreateProjectViewModel()
+    @Binding var isShowing: Bool
     
     var body: some View {
             VStack {
@@ -23,10 +24,19 @@ struct CreateProjectView: View {
                         Text("Project info")
                         TextField("", text: $vm.project.info.withDefault(""))
                         HStack {
-                            Button("Save") {
+                            Button {
                                 vm.execute()
+                                isShowing.toggle()
+                            } label: {
+                                Label("Create", systemImage: "plus")
                             }
                             .cornerRadius(5)
+                            Button {
+                                isShowing.toggle()
+                            } label: {
+                                Text("Cancel")
+                            }
+                            
                         }
                         .buttonStyle(.borderedProminent)
                     }
@@ -38,7 +48,6 @@ struct CreateProjectView: View {
             }
             .frame(width:300)
             .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
-            
     }
 }
 

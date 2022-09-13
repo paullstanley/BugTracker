@@ -15,7 +15,6 @@ struct IssueTrackingSystemApp: App {
         WindowGroup {
             if isFirstLaunch {
                 FirstProjectView()
-                //FirstProjectNamingAssistant()
             } else {
                 LandingPageView()
             }

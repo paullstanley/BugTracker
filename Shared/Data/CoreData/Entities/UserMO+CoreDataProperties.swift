@@ -47,7 +47,7 @@ extension UserMO {
 extension UserMO {
     public var sortedProjects: Array<ProjectMO> {
         return Array(projects ?? []).sorted { lhs, rhs in
-            return rhs.id > lhs.id
+            return rhs.name > lhs.name
         }
     }
 }

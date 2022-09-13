@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct LandingPageView: View {
+    @EnvironmentObject var repo: ProjectRepository
     @ObservedObject var vm = LandingPageViewModel()
+    @State var someBool: Bool = false
     
     var body: some View {
         TabView {
@@ -22,7 +24,7 @@ struct LandingPageView: View {
                 }
             } detail: {
                 if vm.selectedMenu?.name == "Create Ticket" {
-                    CreateProjectView()
+                    CreateProjectView(isShowing: $someBool)
                     
                 } else if vm.selectedMenu?.name == "Projects" {
                     ProjectsLandingPageView()
@@ -43,7 +45,6 @@ struct LandingPageView: View {
                     Label("Feed", systemImage: "chart.xyaxis.line")
                         .fixedSize()
                 }
-            ProjectsLandingPageView()
                 .tabItem {
                     Label("Projects", systemImage: "scale.3d")
                         .fixedSize()

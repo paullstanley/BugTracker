@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct FirstProjectNamingAssistant: View {
-    @State var name: String = ""
+    @ObservedObject var vm = CreateProjectViewModel()
     @State var nextView = false
     
     var body: some View {
             ZStack {
                 Color.accentColor
                 if nextView == true {
-                    FirstProjectDetailsAssistant()
+                    FirstProjectDetailsAssistant(vm: vm)
                 } else {
                     VStack {
                         Text("Let's start by giving your project a name")
@@ -25,7 +25,7 @@ struct FirstProjectNamingAssistant: View {
                             .padding()
                         Form {
                             HStack {
-                                TextField("", text: $name)
+                                TextField("", text: $vm.project.name)
                                     .labelsHidden()
                                     .background(.thickMaterial)
                                     .frame(width:150)

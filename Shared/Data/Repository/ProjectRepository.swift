@@ -6,22 +6,22 @@
 //
 
 import Foundation
+import CoreData
 
 class ProjectRepository: IProjectRepository, ObservableObject {
     var storageProvider: CoreDataStack
     
     init(_storageProvider: CoreDataStack) {
-       // let mockData = MockCoreData()
+         //let mockData = MockCoreData()
         storageProvider = _storageProvider
         
-        //mockData.populateDB(context: storageProvider.persistentContainer.newBackgroundContext())
+       // mockData.populateDB(context: storageProvider.persistentContainer.newBackgroundContext())
         
     }
     
     func getAll()-> [ProjectDM] {
         let request = ProjectMO.fetchRequest()
         request.returnsObjectsAsFaults = false
-        
         do {
             let projectModelObjects = try storageProvider.persistentContainer.viewContext.fetch(request)
             return projectModelObjects.map { $0.toDomainModel() }
@@ -42,15 +42,11 @@ class ProjectRepository: IProjectRepository, ObservableObject {
         }
     }
     
-    func create(_ project: ProjectDM) -> ProjectDM? {
-        let request = ProjectMO.fetchRequest()
-        request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.name), (project.name) as String)
-       
-        
-        if let project = try? storageProvider.persistentContainer.viewContext.fetch(request).first {
+    func create(_ _project: ProjectDM) -> ProjectDM? {
+        if let project = getById(_project.id) {
             return project.toDomainModel()
         } else {
-            let project = project.toManagedModel(in: storageProvider.persistentContainer.viewContext)
+            let project = _project.toManagedModel(in: storageProvider.persistentContainer.viewContext)
             do {
                 if storageProvider.persistentContainer.viewContext.hasChanges {
                     try storageProvider.persistentContainer.viewContext.save()
@@ -63,27 +59,32 @@ class ProjectRepository: IProjectRepository, ObservableObject {
     }
     
     func edit(_ _project: ProjectDM) -> ProjectDM {
-        let projectMO = _project.toManagedModel(in: storageProvider.childViewContext())
-        let project = storageProvider.persistentContainer.viewContext.object(with: projectMO.objectID) as! ProjectMO
-            project.name = "fart"
-            project.creationDate = DateFormatter().date(from: _project.creationDate) ?? Date()
-            project.stage = _project.stage ?? ""
-            project.deadline = _project.deadline ?? ""
+        var projectToEdit = _project
+        if let project = getById(_project.id) {
+            project.id = _project.id
+            project.name = _project.name
+            project.info = _project.info
+            project.creationDate = DateFormatter().date(from:_project.creationDate) ?? project.creationDate
+            project.stage = _project.stage ?? project.stage
+            projectToEdit = project.toDomainModel()
+            
             do {
                 try storageProvider.persistentContainer.viewContext.save()
-               // return project.toDomainModel()
             } catch {
-                
+                print("There was an issue saving the edited issue")
             }
-        print("There was an issue finding the entity to be edited")
-        return _project
+            
+        } else {
+            print("There was an issue fetching the the project to edit")
+        }
+        return projectToEdit
     }
     
-    func delete(_ project: ProjectDM) -> Bool {
+    func delete(_ _project: ProjectDM) -> Bool {
         let request = ProjectMO.fetchRequest()
-        request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.name), (project.name) as String)
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.id), _project.id as NSUUID)
         request.fetchLimit = 1
-        if let project = try? storageProvider.persistentContainer.viewContext.fetch(request).first {
+        if let project = getById(_project.id) {
             storageProvider.persistentContainer.viewContext.delete(project)
             do {
                 if storageProvider.persistentContainer.viewContext.hasChanges {
@@ -97,5 +98,17 @@ class ProjectRepository: IProjectRepository, ObservableObject {
             return true
         }
         return false
+    }
+    
+    private func getById(_ id: UUID)-> ProjectMO? {
+        let request = ProjectMO.fetchRequest()
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.id), id as NSUUID)
+        request.fetchLimit = 1
+        if let project = try? storageProvider.persistentContainer.viewContext.fetch(request).first {
+            return project
+        } else {
+            print("Unable to find Project Entity by provided id - \(id)")
+            return nil
+        }
     }
 }

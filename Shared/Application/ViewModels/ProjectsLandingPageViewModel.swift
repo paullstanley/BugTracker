@@ -9,17 +9,29 @@ import Foundation
 
 class ProjectsLandingPageViewModel: ObservableObject {
     private let dataSource: ProjectRepository
-    private let projects: [ProjectDM]
-    
-    @Published var selection: String? = ""
+    @Published private(set) var projects: [ProjectDM]
+    @Published var selection: UUID = UUID()
     @Published var showingCreateProject: Bool = false
+    @Published var order: [KeyPathComparator<ProjectDM>] = [
+        .init(\ProjectDM.stringId, order: SortOrder.forward)
+    ]
     
-    var selectedProject: ProjectDM {
-        projects.first(where: { $0.id == selection }) ??  ProjectDM(name: "")
-    }
-    
-    init() {
-        dataSource = ProjectRepository(_storageProvider: CoreDataStack())
+    init(_dataSource: ProjectRepository) {
+        dataSource = _dataSource
         projects = dataSource.getAll()
     }
+    
+    private var sortedProjects: [ProjectDM] {
+        return projects.sorted(using: order)
+    }
+    
+    func getProjects() {
+        projects =  dataSource.getAll()
+    }
+    
+     var selectedProject: ProjectDM  {
+         return sortedProjects.first(where: { $0.id == selection }) ??  ProjectDM(id: UUID(), name: "")
+    }
+    
+    
 }

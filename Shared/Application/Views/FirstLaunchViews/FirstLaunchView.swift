@@ -16,7 +16,6 @@ struct FirstProjectView: View {
             VStack {
                 if nextView == true {
                     FirstProjectNamingAssistant()
-                    
                 } else if skip == true {
                     LandingPageView()
                 } else {
@@ -34,7 +33,7 @@ struct FirstProjectView: View {
                                     .fontWeight(.ultraLight) +
                                 Text("new project.")
                                     .fontWeight(.light)
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(Color.yellow)
                             }
                             .fixedSize()
                             .font(.system(.body, design: .rounded))
@@ -56,9 +55,9 @@ struct FirstProjectView: View {
                                     }
                                 } label: {
                                     Image(systemName: "folder.badge.plus")
-                                        .font(.title)
+                                        .font(.system(size: 36))
                                         .padding()
-                                        .background(Color.orange)
+                                        .background(Color.orange.gradient)
                                         .cornerRadius(10)
                                         .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
                                 }
@@ -74,7 +73,10 @@ struct FirstProjectView: View {
                                         skip = true
                                     }
                                 } label: {
-                                    Text("Skip >")
+                                    Text("Skip")
+                                        .bold()
+                                        .underline()
+                                    + Text(" >")
                                 }
                                 .buttonStyle(.plain)
                             }

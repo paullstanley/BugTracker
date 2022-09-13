@@ -10,7 +10,8 @@ import Foundation
 class ProjectTableViewModel: ObservableObject {
     private let dataSource: ProjectRepository
     
-    @Published var selection: String?
+    
+    @Published var selection: UUID?
     
     @Published var order: [KeyPathComparator<ProjectDM>] = [
         .init(\ProjectDM.name, order: SortOrder.forward)
@@ -27,9 +28,9 @@ class ProjectTableViewModel: ObservableObject {
                 return chosen
             }
         } else {
-            return ProjectDM(name:"")
+            return ProjectDM(id: UUID(), name:"")
         }
-        return ProjectDM(name:"")
+        return ProjectDM(id: UUID(), name:"")
     }
     
     init() {

@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct FirstProjectDetailsAssistant: View {
-    @State var details: String = ""
-    @State var deadline: String = ""
+    @ObservedObject var vm: CreateProjectViewModel
     @State var nextView = false
     @State var previousView = false
     @State var selectedMenu: MenuItem?
@@ -40,7 +39,7 @@ struct FirstProjectDetailsAssistant: View {
                                 .fixedSize()
                                 .bold()
                             
-                            TextField("", text: $details)
+                            TextField("", text: $vm.project.info.withDefault(""))
                                 .labelsHidden()
                                 .background(.thickMaterial)
                                 .frame(width:150)
@@ -52,13 +51,14 @@ struct FirstProjectDetailsAssistant: View {
                                 .fixedSize()
                                 .bold()
                             
-                            TextField("", text: $deadline)
+                            TextField("", text: $vm.project.deadline.withDefault(""))
                                 .labelsHidden()
                                 .background(.thickMaterial)
                                 .frame(width:150)
                                 .border(Color.accentColor, width: 2)
                                 .cornerRadius(2)
                             Button {
+                                vm.execute()
                                 nextView = true
                             } label: {
                                 Image(systemName: "arrow.forward.square")
@@ -109,8 +109,3 @@ struct FirstProjectDetailsAssistant: View {
     }
 }
 
-struct FirstProjectDetailsAssistant_Previews: PreviewProvider {
-    static var previews: some View {
-        FirstProjectDetailsAssistant()
-    }
-}

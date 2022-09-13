@@ -9,12 +9,13 @@ import Foundation
 
 class DeleteProjectViewModel: ObservableObject {
     private let dataSource: ProjectRepository
+    @Published var isDeleted: Bool = false
     
     init() {
         dataSource = ProjectRepository(_storageProvider: CoreDataStack())
     }
     
-    func execute(_ project: ProjectDM)-> Bool {
-        dataSource.delete(project)
+    func execute(_ project: ProjectDM) {
+        isDeleted = dataSource.delete(project)
     }
 }

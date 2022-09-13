@@ -8,14 +8,21 @@
 import CoreData
 
 struct ProjectDM {
-    var id: String = ""
-    var name: String
-    var creationDate: String = String(describing: Date())
+    var id: UUID
+    var name: String = ""
+    var creationDate: String = ""
     var info: String?
     var stage: String?
     var deadline: String?
     var issues: [IssueDM]?
     var team: [UserDM]?
+}
+
+
+extension ProjectDM {
+    var stringId: String {
+        String(describing: id)
+    }
 }
 
 extension ProjectDM {
@@ -28,18 +35,12 @@ extension ProjectDM {
     func toManagedModel(in context: NSManagedObjectContext)-> ProjectMO {
         let dateFormatter = DateFormatter()
         let project = ProjectMO.findOrInsert(using: name, in: context)
+        project.id = id
         project.name = name
         project.creationDate = dateFormatter.date(from: creationDate) ?? Date()
         project.info = info ?? ""
         project.stage = stage ?? ""
         project.deadline = deadline ?? ""
-//        for issue in issues ?? [] {
-//            project.addToIssues(issue.toManagedModel(in: context))
-//        }
-//        for member in team ?? [] {
-//            project.addToTeam(member.toManagedModel(in: context))
-//        }
-        
         return project
     }
 }
@@ -47,3 +48,4 @@ extension ProjectDM {
 extension ProjectDM: Identifiable { }
 
 extension ProjectDM: Codable { }
+
