@@ -111,12 +111,11 @@
 		FAE4D9B228D044A0003F0004 /* iOSWelcomePageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */; };
 		FAFCBA5428D2BE4300128B79 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFCBA5328D2BE4300128B79 /* UserDefaults+Extensions.swift */; };
 		FAFCBA5528D2BE4300128B79 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFCBA5328D2BE4300128B79 /* UserDefaults+Extensions.swift */; };
-		FAFCBB3E28D2D45300128B79 /* StorageProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB3D28D2D45300128B79 /* StorageProvider.framework */; };
-		FAFCBB3F28D2D45300128B79 /* StorageProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB3D28D2D45300128B79 /* StorageProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FAFCBB4328D2D4B900128B79 /* StorageProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */; };
 		FAFCBB4428D2D4B900128B79 /* StorageProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FAFCBB4628D2D54400128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA28861028D0D99400A24F7B /* CloudKit.framework */; };
 		FAFCBB4828D2D55200128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4728D2D55200128B79 /* CloudKit.framework */; };
+		FAFCBB4928D2F0B600128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4728D2D55200128B79 /* CloudKit.framework */; };
+		FAFCBB4A28D2F0C400128B79 /* StorageProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,7 +142,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FAFCBB3F28D2D45300128B79 /* StorageProvider.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -174,7 +172,6 @@
 		FA1E4B8F28C8143D009D195A /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1E4B9328C8143D009D195A /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		FA1E4B9528C8143D009D195A /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
-		FA28861028D0D99400A24F7B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		FA28861228D1025100A24F7B /* IssueTrackingSystem (iOS)Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (iOS)Release.entitlements"; sourceTree = "<group>"; };
 		FA28861328D1025D00A24F7B /* IssueTrackingSystem (macOS)Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (macOS)Release.entitlements"; sourceTree = "<group>"; };
 		FA2C2F3628C848CA0006495E /* IssueMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IssueMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -226,7 +223,6 @@
 		FAB89AD828CACCE200EE242B /* IssueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueRepository.swift; sourceTree = "<group>"; };
 		FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSWelcomePageVIew.swift; sourceTree = "<group>"; };
 		FAFCBA5328D2BE4300128B79 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
-		FAFCBB3D28D2D45300128B79 /* StorageProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StorageProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StorageProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFCBB4728D2D55200128B79 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -236,8 +232,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFCBB4928D2F0B600128B79 /* CloudKit.framework in Frameworks */,
 				FAFCBB4328D2D4B900128B79 /* StorageProvider.framework in Frameworks */,
-				FAFCBB4628D2D54400128B79 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAFCBB3E28D2D45300128B79 /* StorageProvider.framework in Frameworks */,
+				FAFCBB4A28D2F0C400128B79 /* StorageProvider.framework in Frameworks */,
 				FAFCBB4828D2D55200128B79 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,8 +352,6 @@
 			children = (
 				FAFCBB4728D2D55200128B79 /* CloudKit.framework */,
 				FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */,
-				FAFCBB3D28D2D45300128B79 /* StorageProvider.framework */,
-				FA28861028D0D99400A24F7B /* CloudKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
