@@ -35,6 +35,6 @@ class ProjectTableViewModel: ObservableObject {
     }
     
     init() {
-        dataSource = ProjectRepository(_storageProvider: StorageProvider())
+        dataSource = ProjectRepository(storageProvider: StorageProvider())
     }
 }

@@ -32,7 +32,7 @@ struct iOSWelcomePageVIew: View {
                 
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
                     ForEach(0..<symbols.count) { i in
-                        NavigationLink(destination: CreateProjectView(_storageProvider: StorageProvider()), label: {
+                        NavigationLink(destination: CreateProjectView(storageProvider: StorageProvider()), label: {
                             VStack {
                                 Image(systemName: symbols[i])
                                     .resizable()

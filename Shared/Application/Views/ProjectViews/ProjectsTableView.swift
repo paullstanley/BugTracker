@@ -18,7 +18,7 @@ struct ProjectsTableView: View {
     }
     
     var body: some View {
-        VStack {
+        DynamicStack {
             Table(sortedProjects, selection: $selection, sortOrder: $vm.order) {
                 TableColumn("Creation date", value: \.creationDate)
                 TableColumn("Name", value: \.name)

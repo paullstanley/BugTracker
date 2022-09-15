@@ -9,13 +9,13 @@ import Foundation
 import StorageProvider
 
 class EditProjectViewModel: ObservableObject {
-    private let dataSource: ProjectRepository
+    private let repository: ProjectRepository
     
     init() {
-        dataSource = ProjectRepository(_storageProvider:  StorageProvider())
+        repository = ProjectRepository(storageProvider: StorageProvider())
     }
     
     func execute(_ project: ProjectDM)-> ProjectDM {
-        dataSource.edit(project)
+        repository.edit(project)
     }
 }

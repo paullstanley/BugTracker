@@ -27,9 +27,9 @@ struct FirstProjectNamingAssistant: View {
                 if nextView == true {
                     FirstProjectDetailsAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider, vm: vm)
                 } else {
-                    HStack {
+                    DynamicStack {
                         Spacer()
-                        VStack {
+                        DynamicStack {
                             #if os(iOS)
                             Text("Let's name your project")
                             .padding(.horizontal)

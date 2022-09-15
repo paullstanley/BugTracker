@@ -116,6 +116,10 @@
 		FAFCBB4828D2D55200128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4728D2D55200128B79 /* CloudKit.framework */; };
 		FAFCBB4928D2F0B600128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4728D2D55200128B79 /* CloudKit.framework */; };
 		FAFCBB4A28D2F0C400128B79 /* StorageProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */; };
+		FAFCBB4C28D3789300128B79 /* DynamicStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFCBB4B28D3789300128B79 /* DynamicStack.swift */; };
+		FAFCBB5228D3831300128B79 /* UserInterfaceSizeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFCBB5128D3831300128B79 /* UserInterfaceSizeClass.swift */; };
+		FAFCBB5328D3831300128B79 /* UserInterfaceSizeClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFCBB5128D3831300128B79 /* UserInterfaceSizeClass.swift */; };
+		FAFCBB5428D3834F00128B79 /* DynamicStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFCBB4B28D3789300128B79 /* DynamicStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +229,8 @@
 		FAFCBA5328D2BE4300128B79 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StorageProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFCBB4728D2D55200128B79 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		FAFCBB4B28D3789300128B79 /* DynamicStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicStack.swift; sourceTree = "<group>"; };
+		FAFCBB5128D3831300128B79 /* UserInterfaceSizeClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInterfaceSizeClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,6 +412,8 @@
 			isa = PBXGroup;
 			children = (
 				FA2C2F9728C9921F0006495E /* Extensions */,
+				FAFCBB4B28D3789300128B79 /* DynamicStack.swift */,
+				FAFCBB5128D3831300128B79 /* UserInterfaceSizeClass.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -726,12 +734,14 @@
 				FAABDCB928CD310F0014DCFB /* ProjectTableViewModel.swift in Sources */,
 				FAABDCC228CD31290014DCFB /* HeaderToolbar.swift in Sources */,
 				FAABDCB628CD31050014DCFB /* Binding+Extensions.swift in Sources */,
+				FAFCBB5228D3831300128B79 /* UserInterfaceSizeClass.swift in Sources */,
 				FAABDCA928CD30D30014DCFB /* GetIssueById.swift in Sources */,
 				FAABDCBA28CD31110014DCFB /* DeleteProjectViewModel.swift in Sources */,
 				FAABDCB828CD310C0014DCFB /* CreateProjectViewModel.swift in Sources */,
 				FAABDCCB28CD31440014DCFB /* EditProjectView.swift in Sources */,
 				FAABDCD328CD315D0014DCFB /* ProjectMO+CoreDataProperties.swift in Sources */,
 				FAABDCA628CD30C10014DCFB /* MenuItem.swift in Sources */,
+				FAFCBB4C28D3789300128B79 /* DynamicStack.swift in Sources */,
 				FAABDCCC28CD31470014DCFB /* ProjectsLandingPageView.swift in Sources */,
 				FAE4D9B128D03B13003F0004 /* iOSWelcomePageVIew.swift in Sources */,
 				FAABDCD228CD315A0014DCFB /* IssueMO+CoreDataProperties.swift in Sources */,
@@ -776,6 +786,7 @@
 				FA2C2F5D28C8C2BF0006495E /* MockDBData.swift in Sources */,
 				FA2C2F8428C98DD70006495E /* GetAllIssues.swift in Sources */,
 				FA2C2F8F28C98FEA0006495E /* IProjectRepository.swift in Sources */,
+				FAFCBB5328D3831300128B79 /* UserInterfaceSizeClass.swift in Sources */,
 				FA2C2F6728C934380006495E /* IssueItemView.swift in Sources */,
 				FA74DCCA28CCC14700731EAF /* ProfileSettingsView.swift in Sources */,
 				FA2C2F9928C9923E0006495E /* NSManagedObjectContext+Extensions.swift in Sources */,
@@ -794,6 +805,7 @@
 				FA2C2F8628C98DEE0006495E /* GetAllIssuesForProject.swift in Sources */,
 				FAFCBA5528D2BE4300128B79 /* UserDefaults+Extensions.swift in Sources */,
 				FA74DCBE28CCB91A00731EAF /* ProjectTableViewModel.swift in Sources */,
+				FAFCBB5428D3834F00128B79 /* DynamicStack.swift in Sources */,
 				FA2C2F6328C932250006495E /* IssuesListView.swift in Sources */,
 				FA2C2F8C28C98E0E0006495E /* DeleteIssue.swift in Sources */,
 				FA2C2F4F28C8B9EF0006495E /* ProjectsTableView.swift in Sources */,

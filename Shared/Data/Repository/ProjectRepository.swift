@@ -12,9 +12,9 @@ import CoreData
 class ProjectRepository: IProjectRepository, ObservableObject {
     var storageProvider: StorageProvider
     
-    init(_storageProvider: StorageProvider) {
+    init(storageProvider: StorageProvider) {
          //let mockData = MockCoreData()
-        storageProvider = _storageProvider
+        self.storageProvider = storageProvider
         
        // mockData.populateDB(context: storageProvider.persistentContainer.newBackgroundContext())
         
@@ -82,18 +82,19 @@ class ProjectRepository: IProjectRepository, ObservableObject {
     }
     
     func delete(_ _project: ProjectDM) -> Bool {
-        let request = ProjectMO.fetchRequest()
-        request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.id), _project.id as NSUUID)
-        request.fetchLimit = 1
+        print("PROJECT HERE \(_project)")
         if let project = getById(_project.id) {
             storageProvider.persistentContainer.viewContext.delete(project)
+            print("Deleted successfully")
             do {
                 if storageProvider.persistentContainer.viewContext.hasChanges {
                     try storageProvider.persistentContainer.viewContext.save()
+                    print("Saved successfully")
                 }
                 
             } catch {
                 storageProvider.persistentContainer.viewContext.rollback()
+                print("Was unable to save")
             }
             
             return true

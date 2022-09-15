@@ -20,7 +20,7 @@ struct FirstProjectDetailsAssistant: View {
     var body: some View {
         ZStack {
             Color.accentColor.ignoresSafeArea()
-            VStack {
+            DynamicStack {
                 if nextView == true {
                     LandingPageView(vm: landingPageVM, _storageProvider: storageProvider)
                         .background()

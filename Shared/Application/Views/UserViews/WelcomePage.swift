@@ -9,11 +9,13 @@ import SwiftUI
 import StorageProvider
 
 struct WelcomePage: View {
+    let storageProvider: StorageProvider
+    
     @State var selection = ""
     @State var isShowing = false
-    private var symbols = ["doc.fill.badge.plus", "doc", "chart.xyaxis.line", "scale.3d", "house"]
-    private var labels = ["New Project ", "Open Project", "     Feed      ", "Project List", "     Home      "]
-    private var colors: [AnyGradient] = [Color.accentColor.gradient, Color.yellow.gradient, Color.teal.gradient, Color.mint.gradient, Color.brown.gradient]
+    var symbols = ["doc.fill.badge.plus", "doc", "chart.xyaxis.line", "scale.3d", "house"]
+    var labels = ["New Project ", "Open Project", "     Feed      ", "Project List", "     Home      "]
+    var colors: [AnyGradient] = [Color.accentColor.gradient, Color.yellow.gradient, Color.teal.gradient, Color.mint.gradient, Color.brown.gradient]
     
     var body: some View {
 #if os(iOS)
@@ -28,7 +30,7 @@ struct WelcomePage: View {
             
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
                 ForEach(0..<symbols.count) { i in
-                    NavigationLink(destination: CreateProjectView(_storageProvider: StorageProvider()), label: {
+                    NavigationLink(destination: CreateProjectView(storageProvider: storageProvider), label: {
                         VStack {
                             Image(systemName: symbols[i])
                                 .resizable()
@@ -56,6 +58,6 @@ struct WelcomePage: View {
 
 struct WelcomePage_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomePage()
+        WelcomePage(storageProvider: StorageProvider())
     }
 }

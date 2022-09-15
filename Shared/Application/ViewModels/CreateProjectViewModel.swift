@@ -10,17 +10,17 @@ import StorageProvider
 
 class CreateProjectViewModel: ObservableObject {
     let storageProvider: StorageProvider
-    private let dataSource: ProjectRepository
+    private let repository: ProjectRepository
     
     @Published var project: ProjectDM = ProjectDM(id: UUID(), name: "", creationDate: String(describing: Date()))
     
     init(_storageProvider: StorageProvider) {
         storageProvider = _storageProvider
-        dataSource = ProjectRepository(_storageProvider: storageProvider)
+        repository = ProjectRepository(storageProvider: storageProvider)
     }
     
     func execute() {
-        guard let newProject = dataSource.create(project) else { return }
+        guard let newProject = repository.create(project) else { return }
         project = newProject
     }
 }

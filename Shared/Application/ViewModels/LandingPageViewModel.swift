@@ -9,13 +9,13 @@ import Foundation
 import StorageProvider
 
 class LandingPageViewModel: ObservableObject {
-    private let dataSource: ProjectRepository
+   let repository: ProjectRepository
     
     @Published var selection: String = ""
     @Published var selectedMenu: MenuItem?
     @Published var isShowing: Bool = false
     
-    init(_storageProvider: StorageProvider) {
-        dataSource = ProjectRepository(_storageProvider:  _storageProvider)
+    init(storageProvider: StorageProvider) {
+        repository = ProjectRepository(storageProvider: storageProvider)
     }
 }

@@ -15,16 +15,16 @@ struct ProjectsLandingPageView: View {
     init(_storageProvider: StorageProvider) {
         
         storageProvider = _storageProvider
-        vm = ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: storageProvider))
+        vm = ProjectsLandingPageViewModel(repository: ProjectRepository(storageProvider: storageProvider))
     }
     
     var body: some View {
         VStack {
             #if os(iOS)
-            VStack {
+            DynamicStack {
                 ProjectItemView(vm: vm)
                 HStack {
-                    DeleteProjectView(parentVM: vm)
+                    DeleteProjectView(project: vm.selectedProject, storageProvider: storageProvider)
                     Button {
                         vm.showingCreateProject.toggle()
                     } label: {
@@ -45,7 +45,7 @@ struct ProjectsLandingPageView: View {
                 VStack {
                     ProjectItemView(vm: vm)
                     HStack {
-                        DeleteProjectView(vm: DeleteProjectViewModel(_storageProvider: storageProvider), parentVM: vm)
+                        DeleteProjectView(project: vm.selectedProject, storageProvider: storageProvider)
                         Button {
                             vm.showingCreateProject.toggle()
                         } label: {
@@ -67,7 +67,7 @@ struct ProjectsLandingPageView: View {
             .scaledToFit()
             .padding()
             .sheet(isPresented: $vm.showingCreateProject, content: {
-                CreateProjectView(_storageProvider: storageProvider)
+                CreateProjectView(storageProvider: storageProvider)
                     .onDisappear(perform: {
                         vm.getProjects()
                     })

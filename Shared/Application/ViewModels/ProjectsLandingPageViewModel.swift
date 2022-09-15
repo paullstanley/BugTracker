@@ -8,7 +8,7 @@
 import Foundation
 
 class ProjectsLandingPageViewModel: ObservableObject {
-    let dataSource: ProjectRepository
+    let repository: ProjectRepository
     @Published private(set) var projects: [ProjectDM]
     @Published var selection: UUID = UUID()
     @Published var showingCreateProject: Bool = false
@@ -16,9 +16,9 @@ class ProjectsLandingPageViewModel: ObservableObject {
         .init(\ProjectDM.stringId, order: SortOrder.forward)
     ]
     
-    init(_dataSource: ProjectRepository) {
-        dataSource = _dataSource
-        projects = dataSource.getAll()
+    init(repository: ProjectRepository) {
+        self.repository = repository
+        projects = repository.getAll()
     }
     
     private var sortedProjects: [ProjectDM] {
@@ -26,7 +26,7 @@ class ProjectsLandingPageViewModel: ObservableObject {
     }
     
     func getProjects() {
-        projects =  dataSource.getAll()
+        projects =  repository.getAll()
     }
     
      var selectedProject: ProjectDM  {

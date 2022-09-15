@@ -10,22 +10,19 @@ import StorageProvider
 
 struct LandingPageView: View {
     let storageProvider: StorageProvider
-    let repo: ProjectRepository
     @ObservedObject var vm: LandingPageViewModel
     @State var someBool: Bool = false
     
     init(vm: LandingPageViewModel, _storageProvider: StorageProvider) {
-        self.vm = LandingPageViewModel(_storageProvider: _storageProvider)
+        self.vm = LandingPageViewModel(storageProvider: _storageProvider)
         storageProvider = _storageProvider
-        
-        repo = ProjectRepository(_storageProvider: storageProvider)
     }
     
     var body: some View {
         TabView {
             NavigationSplitView {
                 List(MenuItems.tempSidebar, selection: $vm.selectedMenu) { item in
-                    HStack {
+                    DynamicStack {
                         Label(item.name, systemImage: item.image)
                             .fixedSize()
                     }
@@ -33,7 +30,7 @@ struct LandingPageView: View {
                 }
             } detail: {
                 if vm.selectedMenu?.name == "Create Ticket" {
-                    CreateProjectView(_storageProvider: storageProvider)
+                    CreateProjectView(storageProvider: storageProvider)
                     
                 } else if vm.selectedMenu?.name == "Projects" {
                     ProjectsLandingPageView(_storageProvider: storageProvider)
@@ -42,7 +39,7 @@ struct LandingPageView: View {
                             vm.selectedMenu?.name == "" ||
                             vm.selectedMenu?.name == nil
                 {
-                    WelcomePage()
+                    WelcomePage(storageProvider: storageProvider)
                 } 
             }
             .tabItem {
@@ -71,7 +68,7 @@ struct LandingPageView: View {
 
 struct LandingPageView_Previews: PreviewProvider {
     static var previews: some View {
-        LandingPageView(vm: LandingPageViewModel(_storageProvider: StorageProvider()), _storageProvider: StorageProvider())
+        LandingPageView(vm: LandingPageViewModel(storageProvider: StorageProvider()), _storageProvider: StorageProvider())
     }
 }
 

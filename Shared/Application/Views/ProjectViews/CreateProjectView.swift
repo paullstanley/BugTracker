@@ -14,13 +14,13 @@ struct CreateProjectView: View {
     
     //@Binding var isShowing: Bool
     
-    init(_storageProvider: StorageProvider) {
-        storageProvider = _storageProvider
-        vm = CreateProjectViewModel(_storageProvider: _storageProvider)
+    init(storageProvider: StorageProvider) {
+        self.storageProvider = storageProvider
+        vm = CreateProjectViewModel(_storageProvider: storageProvider)
     }
     
     var body: some View {
-            VStack {
+        DynamicStack {
                 GroupBox {
                     Form {
                         Text("Project name")

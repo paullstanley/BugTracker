@@ -10,7 +10,7 @@ import StorageProvider
 
 struct FirstProjectView: View {
     let vm: LandingPageViewModel
-    let _storageProvider: StorageProvider
+    let storageProvider: StorageProvider
     @State var moving = false
     @State var nextView = false
     @State var skip = false
@@ -18,9 +18,9 @@ struct FirstProjectView: View {
     var body: some View {
         VStack {
             if nextView == true {
-                FirstProjectNamingAssistant(landingPageVM: vm, storageProvider: _storageProvider)
+                FirstProjectNamingAssistant(landingPageVM: vm, storageProvider: storageProvider)
             } else if skip == true {
-                LandingPageView(vm: vm, _storageProvider: _storageProvider)
+                LandingPageView(vm: vm, _storageProvider: storageProvider)
             } else {
                 ZStack {
                     Color.accentColor

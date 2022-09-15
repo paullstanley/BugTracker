@@ -28,7 +28,7 @@ struct CreateIssueView: View {
                     TextField("", text: $info)
                     HStack {
                         Button("Save") {
-                            vm.dataSource.updateIssue(for: project, _issue: IssueDM(title: title, type: type, info: info))
+                            vm.repository.updateIssue(for: project, _issue: IssueDM(title: title, type: type, info: info))
                             issueCreationShowing.toggle()
                         }
                         Button("Cancel") {

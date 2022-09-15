@@ -10,14 +10,14 @@ import StorageProvider
 import CoreData
 
 class DeleteProjectViewModel: ObservableObject {
-    private let dataSource: ProjectRepository
+    private let repository: ProjectRepository
     @Published var isDeleted: Bool = false
     
-    init(_storageProvider: StorageProvider) {
-        dataSource = ProjectRepository(_storageProvider: _storageProvider)
+    init(storageProvider: StorageProvider) {
+        repository = ProjectRepository(storageProvider: storageProvider)
     }
     
     func execute(_ project: ProjectDM) {
-        isDeleted = dataSource.delete(project)
+        isDeleted = repository.delete(project)
     }
 }
