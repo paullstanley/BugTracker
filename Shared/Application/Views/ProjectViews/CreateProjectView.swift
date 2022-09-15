@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import StorageProvider
 
 struct CreateProjectView: View {
-    @ObservedObject var vm = CreateProjectViewModel()
-    @Binding var isShowing: Bool
+    let storageProvider: StorageProvider
+    @ObservedObject var vm: CreateProjectViewModel
+    
+    //@Binding var isShowing: Bool
+    
+    init(_storageProvider: StorageProvider) {
+        storageProvider = _storageProvider
+        vm = CreateProjectViewModel(_storageProvider: _storageProvider)
+    }
     
     var body: some View {
             VStack {
@@ -26,13 +34,13 @@ struct CreateProjectView: View {
                         HStack {
                             Button {
                                 vm.execute()
-                                isShowing.toggle()
+                                //isShowing.toggle()
                             } label: {
                                 Label("Create", systemImage: "plus")
                             }
                             .cornerRadius(5)
                             Button {
-                                isShowing.toggle()
+                               // isShowing.toggle()
                             } label: {
                                 Text("Cancel")
                             }

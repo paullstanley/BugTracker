@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import StorageProvider
 
 class IssueRepository: ObservableObject {
-    var storageProvider: CoreDataStack
+    var storageProvider: StorageProvider
     
-    init(_storageProvider: CoreDataStack) {
+    init(_storageProvider: StorageProvider) {
         storageProvider = _storageProvider
     }
     

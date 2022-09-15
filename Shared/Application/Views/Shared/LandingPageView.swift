@@ -6,11 +6,20 @@
 //
 
 import SwiftUI
+import StorageProvider
 
 struct LandingPageView: View {
-    @EnvironmentObject var repo: ProjectRepository
-    @ObservedObject var vm = LandingPageViewModel()
+    let storageProvider: StorageProvider
+    let repo: ProjectRepository
+    @ObservedObject var vm: LandingPageViewModel
     @State var someBool: Bool = false
+    
+    init(vm: LandingPageViewModel, _storageProvider: StorageProvider) {
+        self.vm = LandingPageViewModel(_storageProvider: _storageProvider)
+        storageProvider = _storageProvider
+        
+        repo = ProjectRepository(_storageProvider: storageProvider)
+    }
     
     var body: some View {
         TabView {
@@ -24,10 +33,10 @@ struct LandingPageView: View {
                 }
             } detail: {
                 if vm.selectedMenu?.name == "Create Ticket" {
-                    CreateProjectView(isShowing: $someBool)
+                    CreateProjectView(_storageProvider: storageProvider)
                     
                 } else if vm.selectedMenu?.name == "Projects" {
-                    ProjectsLandingPageView()
+                    ProjectsLandingPageView(_storageProvider: storageProvider)
                 }
                 else if vm.selectedMenu?.name == "Home" ||
                             vm.selectedMenu?.name == "" ||
@@ -62,7 +71,7 @@ struct LandingPageView: View {
 
 struct LandingPageView_Previews: PreviewProvider {
     static var previews: some View {
-        LandingPageView()
+        LandingPageView(vm: LandingPageViewModel(_storageProvider: StorageProvider()), _storageProvider: StorageProvider())
     }
 }
 

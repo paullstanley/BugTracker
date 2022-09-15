@@ -6,14 +6,17 @@
 //
 
 import Foundation
+import StorageProvider
 
 class CreateProjectViewModel: ObservableObject {
+    let storageProvider: StorageProvider
     private let dataSource: ProjectRepository
     
     @Published var project: ProjectDM = ProjectDM(id: UUID(), name: "", creationDate: String(describing: Date()))
     
-    init() {
-        dataSource = ProjectRepository(_storageProvider: CoreDataStack())
+    init(_storageProvider: StorageProvider) {
+        storageProvider = _storageProvider
+        dataSource = ProjectRepository(_storageProvider: storageProvider)
     }
     
     func execute() {

@@ -21,11 +21,34 @@ extension ProjectMO {
     @NSManaged public var id: UUID
     @NSManaged public var name: String
     @NSManaged public var creationDate: Date
+    @NSManaged public var lastModified: Date?
     @NSManaged public var info: String?
     @NSManaged public var stage: String
     @NSManaged public var deadline: String
     @NSManaged public var issues: Set<IssueMO>?
-    @NSManaged public var team: Set<UserMO>?
+    @NSManaged public var version: Int
+}
+
+extension ProjectMO {
+    @NSManaged var fetchedIssues: [IssueMO]
+}
+
+extension ProjectMO {
+    override public func awakeFromInsert() {
+        setPrimitiveValue(Date(), forKey: "creationDate")
+    }
+}
+
+extension ProjectMO {
+    override public func willSave() {
+        if let lastModified = lastModified {
+            if lastModified.timeIntervalSince(Date()) > 10.0 {
+                self.lastModified = Date()
+            }
+        } else {
+            self.lastModified = Date()
+        }
+    }
 }
 
 extension ProjectMO {
@@ -47,20 +70,16 @@ extension ProjectMO {
 
 extension ProjectMO {
     func toDomainModel()-> ProjectDM {
-        return ProjectDM(id: id, name: name, creationDate: creationDate.formatted(), info: info, stage: stage, deadline: deadline, issues: sortedIssues.map { $0.toDomainModel() }, team: [])
+        return ProjectDM(id: id, name: name, creationDate: creationDate.formatted(), info: info, lastModified: lastModified?.formatted(), stage: stage, deadline: deadline, issues: sortedIssues.map { $0.toDomainModel() })
         
     }
 }
 
+
+
 extension ProjectMO {
     public var sortedIssues: Array<IssueMO> {
         return Array(issues ?? []).sorted { lhs, rhs in
-            return rhs.id > lhs.id
-        }
-    }
-    
-    public var sortedTeam: Array<UserMO> {
-        return Array(team ?? []).sorted { lhs, rhs in
             return rhs.id > lhs.id
         }
     }
@@ -80,20 +99,3 @@ extension ProjectMO {
     @objc(removeIssues:)
     @NSManaged public func removeFromIssues(_ values: Set<IssueMO>)
 }
-
-// MARK: Generated accessors for team
-extension ProjectMO {
-
-    @objc(addTeamObject:)
-    @NSManaged public func addToTeam(_ value: UserMO)
-
-    @objc(removeTeamObject:)
-    @NSManaged public func removeFromTeam(_ value: UserMO)
-
-    @objc(addTeam:)
-    @NSManaged public func addToTeam(_ values: Set<UserMO>)
-
-    @objc(removeTeam:)
-    @NSManaged public func removeFromTeam(_ values: Set<UserMO>)
-}
-

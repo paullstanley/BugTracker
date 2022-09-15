@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import StorageProvider
 import CoreData
 
 class ProjectRepository: IProjectRepository, ObservableObject {
-    var storageProvider: CoreDataStack
+    var storageProvider: StorageProvider
     
-    init(_storageProvider: CoreDataStack) {
+    init(_storageProvider: StorageProvider) {
          //let mockData = MockCoreData()
         storageProvider = _storageProvider
         
@@ -109,6 +110,54 @@ class ProjectRepository: IProjectRepository, ObservableObject {
         } else {
             print("Unable to find Project Entity by provided id - \(id)")
             return nil
+        }
+    }
+}
+
+extension ProjectRepository {
+    
+    func updateIssue(for _project: ProjectDM, _issue: IssueDM) {
+        let issuesProject = getById(_project.id)!
+        let context = storageProvider.persistentContainer.viewContext
+            context.perform {
+            if issuesProject.fetchedIssues.isEmpty {
+                let issue = IssueMO(context: context)
+                issue.projectIdentifier = issuesProject.id
+                issue.title = _issue.title
+                issue.info = _issue.info
+                issue.type = _issue.type ?? ""
+            } else if let issue = issuesProject.issues?.first {
+                issue.title = _issue.title
+                issue.info = _issue.info
+                issue.type = _issue.type ?? ""
+            }
+            
+            do {
+                try context.save()
+                context.refresh(issuesProject, mergeChanges: true)
+            } catch {
+                print("Something went wrong: \(error)")
+                context.rollback()
+            }
+        }
+    }
+    
+    func createIssue(_ issue: IssueDM)-> IssueDM? {
+        let request = IssueMO.fetchRequest()
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.title), issue.title)
+        
+        if let issue = try? storageProvider.persistentContainer.viewContext.fetch(request).first {
+            return issue.toDomainModel()
+        } else {
+            let issue = issue.toManagedModel(in: storageProvider.persistentContainer.viewContext)
+            do {
+                if storageProvider.persistentContainer.viewContext.hasChanges {
+                    try storageProvider.persistentContainer.viewContext.save()
+                }
+            } catch {
+                storageProvider.persistentContainer.viewContext.rollback()
+            }
+            return issue.toDomainModel()
         }
     }
 }

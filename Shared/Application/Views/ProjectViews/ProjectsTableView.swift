@@ -20,10 +20,10 @@ struct ProjectsTableView: View {
     var body: some View {
         VStack {
             Table(sortedProjects, selection: $selection, sortOrder: $vm.order) {
+                TableColumn("Creation date", value: \.creationDate)
                 TableColumn("Name", value: \.name)
-                TableColumn("Creation date", value: \.stringId)
-                //TableColumn("Stage", value: \.stage!)
-                //TableColumn("Issues Count", value: \.issueCount)
+                TableColumn("Stage", value: \.stage!)
+                TableColumn("Issues Count", value: \.issueCount)
             }
         }
         .scaleEffect()

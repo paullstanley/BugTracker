@@ -6,16 +6,26 @@
 //
 
 import SwiftUI
+import StorageProvider
 
 struct FirstProjectNamingAssistant: View {
-    @ObservedObject var vm = CreateProjectViewModel()
+    let landingPageVM: LandingPageViewModel
+    let storageProvider: StorageProvider
+    
+    @ObservedObject var vm: CreateProjectViewModel
     @State var nextView = false
+    
+    init(landingPageVM: LandingPageViewModel, storageProvider: StorageProvider) {
+        self.storageProvider = storageProvider
+        self.landingPageVM = landingPageVM
+        vm = CreateProjectViewModel(_storageProvider: storageProvider)
+    }
     
     var body: some View {
             ZStack {
                 Color.accentColor.ignoresSafeArea()
                 if nextView == true {
-                    FirstProjectDetailsAssistant(vm: vm)
+                    FirstProjectDetailsAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider, vm: vm)
                 } else {
                     HStack {
                         Spacer()
@@ -96,8 +106,8 @@ struct FirstProjectNamingAssistant: View {
     }
 }
 
-struct FirstProjectNamingAssistant_Previews: PreviewProvider {
-    static var previews: some View {
-        FirstProjectNamingAssistant()
-    }
-}
+//struct FirstProjectNamingAssistant_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FirstProjectNamingAssistant()
+//    }
+//}

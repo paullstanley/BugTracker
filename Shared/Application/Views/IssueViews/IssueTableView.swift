@@ -41,15 +41,15 @@ struct IssueTableView: View {
             .padding()
             .buttonStyle(.borderedProminent)
             .popover(isPresented: $isCreateIssueShowing, content: {
-                CreateIssueView(issueCreationShowing: $isCreateIssueShowing, project: vm.selectedProject)
+                CreateIssueView(issueCreationShowing: $isCreateIssueShowing, project: vm.selectedProject, vm: vm)
             })
         }
         
     }
 }
 
-struct IssueTableView_Preview: PreviewProvider {
-    static var previews: some View {
-        IssueTableView(vm: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())), isCreateIssueShowing: false)
-    }
-}
+//struct IssueTableView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        IssueTableView(vm: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())), isCreateIssueShowing: false)
+//    }
+//}

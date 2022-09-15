@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeleteProjectView: View {
-    @ObservedObject var vm = DeleteProjectViewModel()
+    @ObservedObject var vm: DeleteProjectViewModel
     let parentVM: ProjectsLandingPageViewModel
     
     var body: some View {
@@ -24,8 +24,8 @@ struct DeleteProjectView: View {
     }
 }
 
-struct DeleteProjectView_Preview: PreviewProvider {
-    static var previews: some View {
-        DeleteProjectView(parentVM: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())))
-    }
-}
+//struct DeleteProjectView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        DeleteProjectView(parentVM: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())))
+//    }
+//}

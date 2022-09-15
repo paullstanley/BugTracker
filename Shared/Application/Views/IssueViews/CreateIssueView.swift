@@ -10,7 +10,7 @@ import SwiftUI
 struct CreateIssueView: View {
     @Binding var issueCreationShowing: Bool
     @State var project: ProjectDM
-    var repo = IssueRepository(_storageProvider: CoreDataStack())
+    var vm: ProjectsLandingPageViewModel
     
     @State  var title: String = ""
     @State  var type: String = ""
@@ -28,7 +28,7 @@ struct CreateIssueView: View {
                     TextField("", text: $info)
                     HStack {
                         Button("Save") {
-                            repo.createIssue(IssueDM(title: title, type: type, creationDate: Date(), info: info, lastModified: String(describing:Date()), project: project))
+                            vm.dataSource.updateIssue(for: project, _issue: IssueDM(title: title, type: type, info: info))
                             issueCreationShowing.toggle()
                         }
                         Button("Cancel") {

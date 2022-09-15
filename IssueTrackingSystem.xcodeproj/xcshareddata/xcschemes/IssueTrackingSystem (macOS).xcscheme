@@ -7,16 +7,30 @@
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
-            buildForTesting = "YES"
+            buildForTesting = "NO"
             buildForRunning = "YES"
             buildForProfiling = "YES"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FA1E4B7B28C8143D009D195A"
                BuildableName = "IssueTrackingSystem.app"
                BlueprintName = "IssueTrackingSystem (macOS)"
+               ReferencedContainer = "container:IssueTrackingSystem.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FA1E4B8E28C8143D009D195A"
+               BuildableName = "Tests macOS.xctest"
+               BlueprintName = "Tests macOS"
                ReferencedContainer = "container:IssueTrackingSystem.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,16 +42,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA1E4B8E28C8143D009D195A"
-               BuildableName = "Tests macOS.xctest"
-               BlueprintName = "Tests macOS"
-               ReferencedContainer = "container:IssueTrackingSystem.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -92,7 +96,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

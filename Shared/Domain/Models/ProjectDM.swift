@@ -12,10 +12,10 @@ struct ProjectDM {
     var name: String = ""
     var creationDate: String = ""
     var info: String?
+    var lastModified: String?
     var stage: String?
     var deadline: String?
     var issues: [IssueDM]?
-    var team: [UserDM]?
 }
 
 
@@ -38,9 +38,12 @@ extension ProjectDM {
         project.id = id
         project.name = name
         project.creationDate = dateFormatter.date(from: creationDate) ?? Date()
+        project.lastModified = dateFormatter.date(from: lastModified ?? self.creationDate)
         project.info = info ?? ""
         project.stage = stage ?? ""
         project.deadline = deadline ?? ""
+        project.version = 1
+        
         return project
     }
 }

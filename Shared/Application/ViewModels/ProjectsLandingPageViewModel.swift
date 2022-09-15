@@ -8,7 +8,7 @@
 import Foundation
 
 class ProjectsLandingPageViewModel: ObservableObject {
-    private let dataSource: ProjectRepository
+    let dataSource: ProjectRepository
     @Published private(set) var projects: [ProjectDM]
     @Published var selection: UUID = UUID()
     @Published var showingCreateProject: Bool = false

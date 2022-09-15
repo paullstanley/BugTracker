@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StorageProvider
 
 class LandingPageViewModel: ObservableObject {
     private let dataSource: ProjectRepository
@@ -14,7 +15,7 @@ class LandingPageViewModel: ObservableObject {
     @Published var selectedMenu: MenuItem?
     @Published var isShowing: Bool = false
     
-    init() {
-        dataSource = ProjectRepository(_storageProvider: CoreDataStack())
+    init(_storageProvider: StorageProvider) {
+        dataSource = ProjectRepository(_storageProvider:  _storageProvider)
     }
 }

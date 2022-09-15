@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StorageProvider
 
 class ProjectTableViewModel: ObservableObject {
     private let dataSource: ProjectRepository
@@ -34,6 +35,6 @@ class ProjectTableViewModel: ObservableObject {
     }
     
     init() {
-        dataSource = ProjectRepository(_storageProvider: CoreDataStack())
+        dataSource = ProjectRepository(_storageProvider: StorageProvider())
     }
 }

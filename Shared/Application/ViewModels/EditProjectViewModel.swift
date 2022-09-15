@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import StorageProvider
 
 class EditProjectViewModel: ObservableObject {
     private let dataSource: ProjectRepository
     
     init() {
-        dataSource = ProjectRepository(_storageProvider: CoreDataStack())
+        dataSource = ProjectRepository(_storageProvider:  StorageProvider())
     }
     
     func execute(_ project: ProjectDM)-> ProjectDM {

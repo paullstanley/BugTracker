@@ -6,9 +6,17 @@
 //
 
 import SwiftUI
+import StorageProvider
 
 struct ProjectsLandingPageView: View {
-    @StateObject var vm = ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack()))
+    let storageProvider: StorageProvider
+    @State var vm: ProjectsLandingPageViewModel
+    
+    init(_storageProvider: StorageProvider) {
+        
+        storageProvider = _storageProvider
+        vm = ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: storageProvider))
+    }
     
     var body: some View {
         VStack {
@@ -37,7 +45,7 @@ struct ProjectsLandingPageView: View {
                 VStack {
                     ProjectItemView(vm: vm)
                     HStack {
-                        DeleteProjectView(parentVM: vm)
+                        DeleteProjectView(vm: DeleteProjectViewModel(_storageProvider: storageProvider), parentVM: vm)
                         Button {
                             vm.showingCreateProject.toggle()
                         } label: {
@@ -59,7 +67,7 @@ struct ProjectsLandingPageView: View {
             .scaledToFit()
             .padding()
             .sheet(isPresented: $vm.showingCreateProject, content: {
-                CreateProjectView(isShowing: $vm.showingCreateProject)
+                CreateProjectView(_storageProvider: storageProvider)
                     .onDisappear(perform: {
                         vm.getProjects()
                     })
@@ -74,7 +82,7 @@ struct ProjectsLandingPageView: View {
 
 struct ProjectsLandingPageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectsLandingPageView()
+        ProjectsLandingPageView(_storageProvider: StorageProvider())
     }
 }
 

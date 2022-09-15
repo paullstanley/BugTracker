@@ -9,22 +9,7 @@ import CoreData
 
 class MockCoreData {
     func populateDB(context: NSManagedObjectContext) {
-        
-        //MARK: Mock Projects
         context.perform {
-            //MARK: User Mock Data
-            let user1 = UserMO.findOrInsert(using: "Paull", in: context)
-            
-            user1.addToProjects(ProjectMO.findOrInsert(using: "magpie", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "raven", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "masthead", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "betho", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "reppit", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "IMS", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "memorize", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "IssueTrackingSystem", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "memoAmplifier", in: context))
-            user1.addToProjects(ProjectMO.findOrInsert(using: "deadlight", in: context))
             
             //MARK: Project Mock Data
             let project0 = ProjectMO.findOrInsert(using: "deadlight", in: context)

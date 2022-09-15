@@ -6,11 +6,12 @@
 //
 
 import CoreData
+import StorageProvider
 
 class IssueListViewModel: NSObject, ObservableObject {
     @Published var issues = [IssueMO]()
     
-    private let db = CoreDataStack()
+    private let db = StorageProvider()
     //let mockDBData = MockCoreData()
     
     private let fetchedResultsController: NSFetchedResultsController<IssueMO>

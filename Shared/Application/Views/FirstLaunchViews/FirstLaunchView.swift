@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import StorageProvider
 
 struct FirstProjectView: View {
+    let vm: LandingPageViewModel
+    let _storageProvider: StorageProvider
     @State var moving = false
     @State var nextView = false
     @State var skip = false
@@ -15,9 +18,9 @@ struct FirstProjectView: View {
     var body: some View {
         VStack {
             if nextView == true {
-                FirstProjectNamingAssistant()
+                FirstProjectNamingAssistant(landingPageVM: vm, storageProvider: _storageProvider)
             } else if skip == true {
-                LandingPageView()
+                LandingPageView(vm: vm, _storageProvider: _storageProvider)
             } else {
                 ZStack {
                     Color.accentColor
@@ -115,8 +118,8 @@ struct FirstProjectView: View {
     }
 }
 
-struct FirstProjectView_Preview: PreviewProvider {
-    static var previews: some View {
-        FirstProjectView()
-    }
-}
+//struct FirstProjectView_Preview: PreviewProvider {
+//    static var previews: some View {
+//        FirstProjectView()
+//    }
+//}

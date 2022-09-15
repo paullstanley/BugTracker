@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import StorageProvider
+import CoreData
 
 class DeleteProjectViewModel: ObservableObject {
     private let dataSource: ProjectRepository
     @Published var isDeleted: Bool = false
     
-    init() {
-        dataSource = ProjectRepository(_storageProvider: CoreDataStack())
+    init(_storageProvider: StorageProvider) {
+        dataSource = ProjectRepository(_storageProvider: _storageProvider)
     }
     
     func execute(_ project: ProjectDM) {

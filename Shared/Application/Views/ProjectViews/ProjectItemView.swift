@@ -69,10 +69,10 @@ struct ProjectItemView: View {
     }
 }
 
-struct ProjectItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectItemView(vm: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())))
-    }
-}
-
-
+//struct ProjectItemView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProjectItemView(vm: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())))
+//    }
+//}
+//
+//

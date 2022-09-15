@@ -16,17 +16,37 @@ extension IssueMO {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<IssueMO> {
         return NSFetchRequest<IssueMO>(entityName: "IssueEntity")
     }
+    @NSManaged public var projectIdentifier: UUID?
     @NSManaged public var title: String
     @NSManaged public var type: String
     @NSManaged public var creationDate: Date
     @NSManaged public var info: String?
-    @NSManaged public var lastModified: String?
+    @NSManaged public var lastModified: Date?
     @NSManaged public var project: ProjectMO?
+    @NSManaged public var version: Int
+}
+
+extension IssueMO {
+    override public func awakeFromInsert() {
+        setPrimitiveValue(Date(), forKey: "creationDate")
+    }
+}
+
+extension IssueMO {
+    override public func willSave() {
+        if let lastModified = lastModified {
+            if lastModified.timeIntervalSince(Date()) > 10.0 {
+                self.lastModified = Date()
+            }
+        } else {
+            self.lastModified = Date()
+        }
+    }
 }
 
 extension IssueMO {
     func toDomainModel()-> IssueDM {
-        return IssueDM(id: String(describing: id), title: title, type: type, creationDate: creationDate, info: info, lastModified: lastModified)
+        return IssueDM(id: String(describing: id), title: title, type: type, creationDate: creationDate.formatted(), info: info, lastModified: lastModified?.formatted())
     }
 }
 

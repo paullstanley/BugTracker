@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import StorageProvider
 
 struct FirstProjectDetailsAssistant: View {
+    let landingPageVM: LandingPageViewModel
+    let storageProvider: StorageProvider
+    
     @ObservedObject var vm: CreateProjectViewModel
     @State var nextView = false
     @State var previousView = false
@@ -18,10 +22,10 @@ struct FirstProjectDetailsAssistant: View {
             Color.accentColor.ignoresSafeArea()
             VStack {
                 if nextView == true {
-                    LandingPageView()
+                    LandingPageView(vm: landingPageVM, _storageProvider: storageProvider)
                         .background()
                 } else if previousView == true {
-                    FirstProjectNamingAssistant()
+                    FirstProjectNamingAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider)
                 } else {
                     Group {
                         Text("Let's add a few more details")
@@ -119,9 +123,9 @@ struct FirstProjectDetailsAssistant: View {
             .scaleEffect()
     }
 }
-
-struct FirstProjectDetailsAssistant_Preview: PreviewProvider {
-    static var previews: some View {
-        FirstProjectDetailsAssistant(vm: CreateProjectViewModel(), nextView: false, previousView: false, selectedMenu: nil)
-    }
-}
+//
+//struct FirstProjectDetailsAssistant_Preview: PreviewProvider {
+//    static var previews: some View {
+//        FirstProjectDetailsAssistant(vm: CreateProjectViewModel(), nextView: false, previousView: false, selectedMenu: nil)
+//    }
+//}

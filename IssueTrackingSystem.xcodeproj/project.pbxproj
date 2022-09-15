@@ -11,18 +11,13 @@
 		FA1E4B8A28C8143D009D195A /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B8928C8143D009D195A /* Tests_iOSLaunchTests.swift */; };
 		FA1E4B9428C8143D009D195A /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B9328C8143D009D195A /* Tests_macOS.swift */; };
 		FA1E4B9628C8143D009D195A /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B9528C8143D009D195A /* Tests_macOSLaunchTests.swift */; };
-		FA1E4B9728C8143D009D195A /* IssueTrackingSystem.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B6C28C8143B009D195A /* IssueTrackingSystem.xcdatamodeld */; };
-		FA1E4B9828C8143D009D195A /* IssueTrackingSystem.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B6C28C8143B009D195A /* IssueTrackingSystem.xcdatamodeld */; };
 		FA1E4B9A28C8143D009D195A /* IssueTrackingSystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */; };
 		FA1E4B9C28C8143D009D195A /* LandingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B6F28C8143B009D195A /* LandingPageView.swift */; };
 		FA1E4B9F28C8143D009D195A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1E4B7128C8143D009D195A /* Assets.xcassets */; };
 		FA1E4BA028C8143D009D195A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1E4B7128C8143D009D195A /* Assets.xcassets */; };
-		FA2C2F3C28C848CA0006495E /* UserMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F3428C848CA0006495E /* UserMO+CoreDataProperties.swift */; };
 		FA2C2F4028C848CA0006495E /* IssueMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F3628C848CA0006495E /* IssueMO+CoreDataProperties.swift */; };
 		FA2C2F4428C848CA0006495E /* ProjectMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F3828C848CA0006495E /* ProjectMO+CoreDataProperties.swift */; };
 		FA2C2F4F28C8B9EF0006495E /* ProjectsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F4D28C8B9E70006495E /* ProjectsTableView.swift */; };
-		FA2C2F5028C8B9FE0006495E /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4BB528C81DDA009D195A /* CoreDataStack.swift */; };
-		FA2C2F5128C8BA020006495E /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F4928C8B6EB0006495E /* PersistentContainer.swift */; };
 		FA2C2F5528C8BD230006495E /* GetAllProjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F5328C8BD230006495E /* GetAllProjects.swift */; };
 		FA2C2F5A28C8BE1C0006495E /* ProjectDM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F5828C8BE1C0006495E /* ProjectDM.swift */; };
 		FA2C2F5D28C8C2BF0006495E /* MockDBData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F5B28C8C2BF0006495E /* MockDBData.swift */; };
@@ -31,21 +26,15 @@
 		FA2C2F6528C9340D0006495E /* IssueListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F6428C9340D0006495E /* IssueListViewModel.swift */; };
 		FA2C2F6728C934380006495E /* IssueItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F6628C934380006495E /* IssueItemView.swift */; };
 		FA2C2F6B28C96BA70006495E /* IssueDM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F6A28C96BA70006495E /* IssueDM.swift */; };
-		FA2C2F7128C96D040006495E /* UserDM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7028C96D040006495E /* UserDM.swift */; };
 		FA2C2F7628C98BE50006495E /* GetProjectById.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7528C98BE50006495E /* GetProjectById.swift */; };
 		FA2C2F7828C98CA60006495E /* DeleteProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7728C98CA60006495E /* DeleteProject.swift */; };
 		FA2C2F7A28C98D110006495E /* EditProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7928C98D110006495E /* EditProject.swift */; };
-		FA2C2F7C28C98D970006495E /* GetAllUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7B28C98D970006495E /* GetAllUsers.swift */; };
-		FA2C2F7E28C98DA80006495E /* GetUserById.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7D28C98DA80006495E /* GetUserById.swift */; };
-		FA2C2F8028C98DB70006495E /* EditUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7F28C98DB70006495E /* EditUser.swift */; };
-		FA2C2F8228C98DC20006495E /* DeleteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8128C98DC20006495E /* DeleteUser.swift */; };
 		FA2C2F8428C98DD70006495E /* GetAllIssues.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8328C98DD70006495E /* GetAllIssues.swift */; };
 		FA2C2F8628C98DEE0006495E /* GetAllIssuesForProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8528C98DEE0006495E /* GetAllIssuesForProject.swift */; };
 		FA2C2F8828C98DFE0006495E /* GetIssueById.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8728C98DFE0006495E /* GetIssueById.swift */; };
 		FA2C2F8A28C98E060006495E /* EditIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8928C98E060006495E /* EditIssue.swift */; };
 		FA2C2F8C28C98E0E0006495E /* DeleteIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8B28C98E0E0006495E /* DeleteIssue.swift */; };
 		FA2C2F8F28C98FEA0006495E /* IProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8E28C98FEA0006495E /* IProjectRepository.swift */; };
-		FA2C2F9128C98FF50006495E /* IUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F9028C98FF50006495E /* IUserRepository.swift */; };
 		FA2C2F9328C990030006495E /* IIssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F9228C990030006495E /* IIssueRepository.swift */; };
 		FA2C2F9628C991DA0006495E /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F9528C991DA0006495E /* ProjectRepository.swift */; };
 		FA2C2F9928C9923E0006495E /* NSManagedObjectContext+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F9828C9923E0006495E /* NSManagedObjectContext+Extensions.swift */; };
@@ -69,21 +58,15 @@
 		FA9E341728CB97920094A7BB /* Binding+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E341628CB97920094A7BB /* Binding+Extensions.swift */; };
 		FA9E341A28CBA91D0094A7BB /* WelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E341928CBA91D0094A7BB /* WelcomePage.swift */; };
 		FAABDCA028CD30AB0014DCFB /* IProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8E28C98FEA0006495E /* IProjectRepository.swift */; };
-		FAABDCA128CD30B00014DCFB /* IUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F9028C98FF50006495E /* IUserRepository.swift */; };
 		FAABDCA228CD30B30014DCFB /* IIssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F9228C990030006495E /* IIssueRepository.swift */; };
 		FAABDCA328CD30B60014DCFB /* ProjectDM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F5828C8BE1C0006495E /* ProjectDM.swift */; };
 		FAABDCA428CD30B90014DCFB /* IssueDM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F6A28C96BA70006495E /* IssueDM.swift */; };
-		FAABDCA528CD30BD0014DCFB /* UserDM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7028C96D040006495E /* UserDM.swift */; };
 		FAABDCA628CD30C10014DCFB /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB89AD428CAACAA00EE242B /* MenuItem.swift */; };
 		FAABDCA728CD30CA0014DCFB /* GetAllIssues.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8328C98DD70006495E /* GetAllIssues.swift */; };
 		FAABDCA828CD30D10014DCFB /* GetAllIssuesForProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8528C98DEE0006495E /* GetAllIssuesForProject.swift */; };
 		FAABDCA928CD30D30014DCFB /* GetIssueById.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8728C98DFE0006495E /* GetIssueById.swift */; };
 		FAABDCAA28CD30D60014DCFB /* EditIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8928C98E060006495E /* EditIssue.swift */; };
 		FAABDCAB28CD30D80014DCFB /* DeleteIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8B28C98E0E0006495E /* DeleteIssue.swift */; };
-		FAABDCAC28CD30DE0014DCFB /* GetAllUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7B28C98D970006495E /* GetAllUsers.swift */; };
-		FAABDCAD28CD30E00014DCFB /* GetUserById.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7D28C98DA80006495E /* GetUserById.swift */; };
-		FAABDCAE28CD30E20014DCFB /* EditUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7F28C98DB70006495E /* EditUser.swift */; };
-		FAABDCAF28CD30E50014DCFB /* DeleteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F8128C98DC20006495E /* DeleteUser.swift */; };
 		FAABDCB028CD30EA0014DCFB /* GetAllProjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F5328C8BD230006495E /* GetAllProjects.swift */; };
 		FAABDCB128CD30ED0014DCFB /* GetProjectById.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7528C98BE50006495E /* GetProjectById.swift */; };
 		FAABDCB228CD30EF0014DCFB /* DeleteProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F7728C98CA60006495E /* DeleteProject.swift */; };
@@ -116,11 +99,8 @@
 		FAABDCCE28CD314C0014DCFB /* FirstLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA74DCCB28CCD8EC00731EAF /* FirstLaunchView.swift */; };
 		FAABDCCF28CD31500014DCFB /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F9528C991DA0006495E /* ProjectRepository.swift */; };
 		FAABDCD028CD31520014DCFB /* IssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB89AD828CACCE200EE242B /* IssueRepository.swift */; };
-		FAABDCD128CD31580014DCFB /* UserMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F3428C848CA0006495E /* UserMO+CoreDataProperties.swift */; };
 		FAABDCD228CD315A0014DCFB /* IssueMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F3628C848CA0006495E /* IssueMO+CoreDataProperties.swift */; };
 		FAABDCD328CD315D0014DCFB /* ProjectMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F3828C848CA0006495E /* ProjectMO+CoreDataProperties.swift */; };
-		FAABDCD428CD31620014DCFB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4BB528C81DDA009D195A /* CoreDataStack.swift */; };
-		FAABDCD528CD31650014DCFB /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F4928C8B6EB0006495E /* PersistentContainer.swift */; };
 		FAABDCD628CD31670014DCFB /* MockDBData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2C2F5B28C8C2BF0006495E /* MockDBData.swift */; };
 		FAABDCD928CD678E0014DCFB /* FirstProjectNamingAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAABDCD828CD678E0014DCFB /* FirstProjectNamingAssistant.swift */; };
 		FAABDCDA28CD678E0014DCFB /* FirstProjectNamingAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAABDCD828CD678E0014DCFB /* FirstProjectNamingAssistant.swift */; };
@@ -129,6 +109,14 @@
 		FAB89AD928CACCE200EE242B /* IssueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB89AD828CACCE200EE242B /* IssueRepository.swift */; };
 		FAE4D9B128D03B13003F0004 /* iOSWelcomePageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */; };
 		FAE4D9B228D044A0003F0004 /* iOSWelcomePageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */; };
+		FAFCBA5428D2BE4300128B79 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFCBA5328D2BE4300128B79 /* UserDefaults+Extensions.swift */; };
+		FAFCBA5528D2BE4300128B79 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFCBA5328D2BE4300128B79 /* UserDefaults+Extensions.swift */; };
+		FAFCBB3E28D2D45300128B79 /* StorageProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB3D28D2D45300128B79 /* StorageProvider.framework */; };
+		FAFCBB3F28D2D45300128B79 /* StorageProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB3D28D2D45300128B79 /* StorageProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FAFCBB4328D2D4B900128B79 /* StorageProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */; };
+		FAFCBB4428D2D4B900128B79 /* StorageProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FAFCBB4628D2D54400128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA28861028D0D99400A24F7B /* CloudKit.framework */; };
+		FAFCBB4828D2D55200128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4728D2D55200128B79 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,8 +136,32 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FAFCBB0328D2C7BC00128B79 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FAFCBB3F28D2D45300128B79 /* StorageProvider.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAFCBB4528D2D4BA00128B79 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FAFCBB4428D2D4B900128B79 /* StorageProvider.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		FA1E4B6D28C8143B009D195A /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTrackingSystemApp.swift; sourceTree = "<group>"; };
 		FA1E4B6F28C8143B009D195A /* LandingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageView.swift; sourceTree = "<group>"; };
 		FA1E4B7128C8143D009D195A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -162,11 +174,11 @@
 		FA1E4B8F28C8143D009D195A /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1E4B9328C8143D009D195A /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		FA1E4B9528C8143D009D195A /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
-		FA1E4BB528C81DDA009D195A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		FA2C2F3428C848CA0006495E /* UserMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FA28861028D0D99400A24F7B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.0.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		FA28861228D1025100A24F7B /* IssueTrackingSystem (iOS)Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (iOS)Release.entitlements"; sourceTree = "<group>"; };
+		FA28861328D1025D00A24F7B /* IssueTrackingSystem (macOS)Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (macOS)Release.entitlements"; sourceTree = "<group>"; };
 		FA2C2F3628C848CA0006495E /* IssueMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IssueMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FA2C2F3828C848CA0006495E /* ProjectMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		FA2C2F4928C8B6EB0006495E /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
 		FA2C2F4D28C8B9E70006495E /* ProjectsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsTableView.swift; sourceTree = "<group>"; };
 		FA2C2F5328C8BD230006495E /* GetAllProjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllProjects.swift; sourceTree = "<group>"; };
 		FA2C2F5828C8BE1C0006495E /* ProjectDM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDM.swift; sourceTree = "<group>"; };
@@ -176,24 +188,20 @@
 		FA2C2F6428C9340D0006495E /* IssueListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueListViewModel.swift; sourceTree = "<group>"; };
 		FA2C2F6628C934380006495E /* IssueItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueItemView.swift; sourceTree = "<group>"; };
 		FA2C2F6A28C96BA70006495E /* IssueDM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDM.swift; sourceTree = "<group>"; };
-		FA2C2F7028C96D040006495E /* UserDM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDM.swift; sourceTree = "<group>"; };
 		FA2C2F7528C98BE50006495E /* GetProjectById.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProjectById.swift; sourceTree = "<group>"; };
 		FA2C2F7728C98CA60006495E /* DeleteProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProject.swift; sourceTree = "<group>"; };
 		FA2C2F7928C98D110006495E /* EditProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProject.swift; sourceTree = "<group>"; };
-		FA2C2F7B28C98D970006495E /* GetAllUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllUsers.swift; sourceTree = "<group>"; };
-		FA2C2F7D28C98DA80006495E /* GetUserById.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserById.swift; sourceTree = "<group>"; };
-		FA2C2F7F28C98DB70006495E /* EditUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUser.swift; sourceTree = "<group>"; };
-		FA2C2F8128C98DC20006495E /* DeleteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUser.swift; sourceTree = "<group>"; };
 		FA2C2F8328C98DD70006495E /* GetAllIssues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllIssues.swift; sourceTree = "<group>"; };
 		FA2C2F8528C98DEE0006495E /* GetAllIssuesForProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllIssuesForProject.swift; sourceTree = "<group>"; };
 		FA2C2F8728C98DFE0006495E /* GetIssueById.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIssueById.swift; sourceTree = "<group>"; };
 		FA2C2F8928C98E060006495E /* EditIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIssue.swift; sourceTree = "<group>"; };
 		FA2C2F8B28C98E0E0006495E /* DeleteIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIssue.swift; sourceTree = "<group>"; };
 		FA2C2F8E28C98FEA0006495E /* IProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IProjectRepository.swift; sourceTree = "<group>"; };
-		FA2C2F9028C98FF50006495E /* IUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUserRepository.swift; sourceTree = "<group>"; };
 		FA2C2F9228C990030006495E /* IIssueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IIssueRepository.swift; sourceTree = "<group>"; };
 		FA2C2F9528C991DA0006495E /* ProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepository.swift; sourceTree = "<group>"; };
 		FA2C2F9828C9923E0006495E /* NSManagedObjectContext+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Extensions.swift"; sourceTree = "<group>"; };
+		FA686D8028D0BFA4001972A0 /* IssueTrackingSystem (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (iOS).entitlements"; sourceTree = "<group>"; };
+		FA686D8128D0C042001972A0 /* IssueTrackingSystem--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "IssueTrackingSystem--iOS--Info.plist"; sourceTree = "<group>"; };
 		FA74DCBB28CCB67500731EAF /* CreateProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewModel.swift; sourceTree = "<group>"; };
 		FA74DCBD28CCB91A00731EAF /* ProjectTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewModel.swift; sourceTree = "<group>"; };
 		FA74DCBF28CCBB3600731EAF /* DeleteProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProjectViewModel.swift; sourceTree = "<group>"; };
@@ -217,6 +225,10 @@
 		FAB89AD628CAC9F100EE242B /* CreateIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIssueView.swift; sourceTree = "<group>"; };
 		FAB89AD828CACCE200EE242B /* IssueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueRepository.swift; sourceTree = "<group>"; };
 		FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSWelcomePageVIew.swift; sourceTree = "<group>"; };
+		FAFCBA5328D2BE4300128B79 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		FAFCBB3D28D2D45300128B79 /* StorageProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StorageProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StorageProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAFCBB4728D2D55200128B79 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +236,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFCBB4328D2D4B900128B79 /* StorageProvider.framework in Frameworks */,
+				FAFCBB4628D2D54400128B79 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +245,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFCBB3E28D2D45300128B79 /* StorageProvider.framework in Frameworks */,
+				FAFCBB4828D2D55200128B79 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,12 +270,17 @@
 		FA1E4B6628C8143B009D195A = {
 			isa = PBXGroup;
 			children = (
+				FA28861328D1025D00A24F7B /* IssueTrackingSystem (macOS)Release.entitlements */,
+				FA28861228D1025100A24F7B /* IssueTrackingSystem (iOS)Release.entitlements */,
+				FA686D8128D0C042001972A0 /* IssueTrackingSystem--iOS--Info.plist */,
+				FA686D8028D0BFA4001972A0 /* IssueTrackingSystem (iOS).entitlements */,
 				FAE4D9AF28D03AB2003F0004 /* iOS */,
 				FA1E4B6B28C8143B009D195A /* Shared */,
 				FA1E4B7D28C8143D009D195A /* macOS */,
 				FA1E4B8628C8143D009D195A /* Tests iOS */,
 				FA1E4B9228C8143D009D195A /* Tests macOS */,
 				FA1E4B7728C8143D009D195A /* Products */,
+				FA28860F28D0D99300A24F7B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -325,18 +346,25 @@
 			isa = PBXGroup;
 			children = (
 				FA2C2F3228C848A80006495E /* Entities */,
-				FA1E4B6C28C8143B009D195A /* IssueTrackingSystem.xcdatamodeld */,
-				FA1E4BB528C81DDA009D195A /* CoreDataStack.swift */,
-				FA2C2F4928C8B6EB0006495E /* PersistentContainer.swift */,
 				FA2C2F5B28C8C2BF0006495E /* MockDBData.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		FA28860F28D0D99300A24F7B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAFCBB4728D2D55200128B79 /* CloudKit.framework */,
+				FAFCBB4228D2D4B900128B79 /* StorageProvider.framework */,
+				FAFCBB3D28D2D45300128B79 /* StorageProvider.framework */,
+				FA28861028D0D99400A24F7B /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FA2C2F3228C848A80006495E /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				FA2C2F3428C848CA0006495E /* UserMO+CoreDataProperties.swift */,
 				FA2C2F3628C848CA0006495E /* IssueMO+CoreDataProperties.swift */,
 				FA2C2F3828C848CA0006495E /* ProjectMO+CoreDataProperties.swift */,
 			);
@@ -392,7 +420,6 @@
 			isa = PBXGroup;
 			children = (
 				FA2C2F7428C98B660006495E /* Issues */,
-				FA2C2F7328C98B600006495E /* Users */,
 				FA2C2F7228C98B540006495E /* Projects */,
 			);
 			path = UseCases;
@@ -412,7 +439,6 @@
 			children = (
 				FA2C2F5828C8BE1C0006495E /* ProjectDM.swift */,
 				FA2C2F6A28C96BA70006495E /* IssueDM.swift */,
-				FA2C2F7028C96D040006495E /* UserDM.swift */,
 				FAB89AD428CAACAA00EE242B /* MenuItem.swift */,
 			);
 			path = Models;
@@ -453,17 +479,6 @@
 			path = Projects;
 			sourceTree = "<group>";
 		};
-		FA2C2F7328C98B600006495E /* Users */ = {
-			isa = PBXGroup;
-			children = (
-				FA2C2F7B28C98D970006495E /* GetAllUsers.swift */,
-				FA2C2F7D28C98DA80006495E /* GetUserById.swift */,
-				FA2C2F7F28C98DB70006495E /* EditUser.swift */,
-				FA2C2F8128C98DC20006495E /* DeleteUser.swift */,
-			);
-			path = Users;
-			sourceTree = "<group>";
-		};
 		FA2C2F7428C98B660006495E /* Issues */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,7 +495,6 @@
 			isa = PBXGroup;
 			children = (
 				FA2C2F8E28C98FEA0006495E /* IProjectRepository.swift */,
-				FA2C2F9028C98FF50006495E /* IUserRepository.swift */,
 				FA2C2F9228C990030006495E /* IIssueRepository.swift */,
 			);
 			path = Repository;
@@ -500,6 +514,7 @@
 			children = (
 				FA2C2F9828C9923E0006495E /* NSManagedObjectContext+Extensions.swift */,
 				FA9E341628CB97920094A7BB /* Binding+Extensions.swift */,
+				FAFCBA5328D2BE4300128B79 /* UserDefaults+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -551,6 +566,7 @@
 				FA1E4B7228C8143D009D195A /* Sources */,
 				FA1E4B7328C8143D009D195A /* Frameworks */,
 				FA1E4B7428C8143D009D195A /* Resources */,
+				FAFCBB4528D2D4BA00128B79 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -568,6 +584,7 @@
 				FA1E4B7828C8143D009D195A /* Sources */,
 				FA1E4B7928C8143D009D195A /* Frameworks */,
 				FA1E4B7A28C8143D009D195A /* Resources */,
+				FAFCBB0328D2C7BC00128B79 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -622,7 +639,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					FA1E4B7528C8143D009D195A = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -700,15 +717,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAABDCA328CD30B60014DCFB /* ProjectDM.swift in Sources */,
-				FAABDCA128CD30B00014DCFB /* IUserRepository.swift in Sources */,
-				FAABDCA528CD30BD0014DCFB /* UserDM.swift in Sources */,
-				FAABDCD428CD31620014DCFB /* CoreDataStack.swift in Sources */,
 				FAABDCC828CD313C0014DCFB /* ProjectsTableView.swift in Sources */,
 				FAABDCC628CD31350014DCFB /* IssueTableView.swift in Sources */,
-				FA1E4B9728C8143D009D195A /* IssueTrackingSystem.xcdatamodeld in Sources */,
 				FAABDCA028CD30AB0014DCFB /* IProjectRepository.swift in Sources */,
 				FAABDCB428CD30F60014DCFB /* IssueTrackingSystemApp.swift in Sources */,
-				FAABDCAC28CD30DE0014DCFB /* GetAllUsers.swift in Sources */,
 				FAABDCB028CD30EA0014DCFB /* GetAllProjects.swift in Sources */,
 				FAABDCBB28CD31140014DCFB /* EditProjectViewModel.swift in Sources */,
 				FAABDCB728CD31090014DCFB /* IssueListViewModel.swift in Sources */,
@@ -729,7 +741,7 @@
 				FAABDCCC28CD31470014DCFB /* ProjectsLandingPageView.swift in Sources */,
 				FAE4D9B128D03B13003F0004 /* iOSWelcomePageVIew.swift in Sources */,
 				FAABDCD228CD315A0014DCFB /* IssueMO+CoreDataProperties.swift in Sources */,
-				FAABDCAF28CD30E50014DCFB /* DeleteUser.swift in Sources */,
+				FAFCBA5428D2BE4300128B79 /* UserDefaults+Extensions.swift in Sources */,
 				FAABDCC428CD31300014DCFB /* IssueItemView.swift in Sources */,
 				FAABDCB528CD31020014DCFB /* NSManagedObjectContext+Extensions.swift in Sources */,
 				FAABDCD028CD31520014DCFB /* IssueRepository.swift in Sources */,
@@ -739,20 +751,16 @@
 				FAABDCBE28CD311E0014DCFB /* WelcomePage.swift in Sources */,
 				FAABDCD628CD31670014DCFB /* MockDBData.swift in Sources */,
 				FAABDCB228CD30EF0014DCFB /* DeleteProject.swift in Sources */,
-				FAABDCAD28CD30E00014DCFB /* GetUserById.swift in Sources */,
 				FAABDCBF28CD31210014DCFB /* ProfileSettingsView.swift in Sources */,
 				FAABDCA228CD30B30014DCFB /* IIssueRepository.swift in Sources */,
 				FAABDCD928CD678E0014DCFB /* FirstProjectNamingAssistant.swift in Sources */,
 				FAABDCB128CD30ED0014DCFB /* GetProjectById.swift in Sources */,
 				FA9DF65328CD8DFB0051DD04 /* FirstProjectDetailsAssistant.swift in Sources */,
 				FAABDCB328CD30F10014DCFB /* EditProject.swift in Sources */,
-				FAABDCD128CD31580014DCFB /* UserMO+CoreDataProperties.swift in Sources */,
 				FAABDCCF28CD31500014DCFB /* ProjectRepository.swift in Sources */,
 				FAABDCA828CD30D10014DCFB /* GetAllIssuesForProject.swift in Sources */,
 				FAABDCAB28CD30D80014DCFB /* DeleteIssue.swift in Sources */,
-				FAABDCD528CD31650014DCFB /* PersistentContainer.swift in Sources */,
 				FAABDCC528CD31320014DCFB /* CreateIssueView.swift in Sources */,
-				FAABDCAE28CD30E20014DCFB /* EditUser.swift in Sources */,
 				FAABDCC728CD313A0014DCFB /* ProjectItemView.swift in Sources */,
 				FAABDCC128CD31270014DCFB /* MenuItems.swift in Sources */,
 				FAABDCBD28CD31180014DCFB /* LandingPageViewModel.swift in Sources */,
@@ -766,10 +774,8 @@
 			files = (
 				FA2C2F5528C8BD230006495E /* GetAllProjects.swift in Sources */,
 				FA2C2F5A28C8BE1C0006495E /* ProjectDM.swift in Sources */,
-				FA2C2F3C28C848CA0006495E /* UserMO+CoreDataProperties.swift in Sources */,
 				FAB89AD728CAC9F100EE242B /* CreateIssueView.swift in Sources */,
 				FA2C2F6528C9340D0006495E /* IssueListViewModel.swift in Sources */,
-				FA1E4B9828C8143D009D195A /* IssueTrackingSystem.xcdatamodeld in Sources */,
 				FA9E341528CB96FC0094A7BB /* MenuItems.swift in Sources */,
 				FA84514E28CA8F8900FDCDCB /* CreateProjectView.swift in Sources */,
 				FA1E4B9A28C8143D009D195A /* IssueTrackingSystemApp.swift in Sources */,
@@ -779,7 +785,6 @@
 				FA2C2F6728C934380006495E /* IssueItemView.swift in Sources */,
 				FA74DCCA28CCC14700731EAF /* ProfileSettingsView.swift in Sources */,
 				FA2C2F9928C9923E0006495E /* NSManagedObjectContext+Extensions.swift in Sources */,
-				FA2C2F9128C98FF50006495E /* IUserRepository.swift in Sources */,
 				FA9E340C28CAEB4F0094A7BB /* ProjectsLandingPageView.swift in Sources */,
 				FA2C2F8828C98DFE0006495E /* GetIssueById.swift in Sources */,
 				FA2C2F4428C848CA0006495E /* ProjectMO+CoreDataProperties.swift in Sources */,
@@ -787,21 +792,19 @@
 				FA9E341A28CBA91D0094A7BB /* WelcomePage.swift in Sources */,
 				FA74DCCC28CCD8EC00731EAF /* FirstLaunchView.swift in Sources */,
 				FA84515228CA91E000FDCDCB /* EditProjectView.swift in Sources */,
-				FA2C2F7128C96D040006495E /* UserDM.swift in Sources */,
 				FA2C2F4028C848CA0006495E /* IssueMO+CoreDataProperties.swift in Sources */,
 				FA2C2F9328C990030006495E /* IIssueRepository.swift in Sources */,
 				FA2C2F9628C991DA0006495E /* ProjectRepository.swift in Sources */,
 				FA9E341728CB97920094A7BB /* Binding+Extensions.swift in Sources */,
 				FAE4D9B228D044A0003F0004 /* iOSWelcomePageVIew.swift in Sources */,
 				FA2C2F8628C98DEE0006495E /* GetAllIssuesForProject.swift in Sources */,
+				FAFCBA5528D2BE4300128B79 /* UserDefaults+Extensions.swift in Sources */,
 				FA74DCBE28CCB91A00731EAF /* ProjectTableViewModel.swift in Sources */,
-				FA2C2F8028C98DB70006495E /* EditUser.swift in Sources */,
 				FA2C2F6328C932250006495E /* IssuesListView.swift in Sources */,
 				FA2C2F8C28C98E0E0006495E /* DeleteIssue.swift in Sources */,
 				FA2C2F4F28C8B9EF0006495E /* ProjectsTableView.swift in Sources */,
 				FA74DCC828CCC0DD00731EAF /* LandingPageViewModel.swift in Sources */,
 				FA74DCC228CCBC3300731EAF /* EditProjectViewModel.swift in Sources */,
-				FA2C2F7C28C98D970006495E /* GetAllUsers.swift in Sources */,
 				FA2C2F6128C9304E0006495E /* ProjectItemView.swift in Sources */,
 				FAB89AD528CAACAA00EE242B /* MenuItem.swift in Sources */,
 				FA2C2F7828C98CA60006495E /* DeleteProject.swift in Sources */,
@@ -811,17 +814,13 @@
 				FA9DF65428CD8DFB0051DD04 /* FirstProjectDetailsAssistant.swift in Sources */,
 				FAB89AD928CACCE200EE242B /* IssueRepository.swift in Sources */,
 				FA2C2F8A28C98E060006495E /* EditIssue.swift in Sources */,
-				FA2C2F7E28C98DA80006495E /* GetUserById.swift in Sources */,
 				FA9E341028CAF3C80094A7BB /* IssueTableView.swift in Sources */,
-				FA2C2F5028C8B9FE0006495E /* CoreDataStack.swift in Sources */,
 				FA74DCBC28CCB67500731EAF /* CreateProjectViewModel.swift in Sources */,
 				FA84515028CA90E200FDCDCB /* DeleteProjectView.swift in Sources */,
 				FA2C2F6B28C96BA70006495E /* IssueDM.swift in Sources */,
 				FA74DCC628CCC07A00731EAF /* ProjectsLandingPageViewModel.swift in Sources */,
-				FA2C2F8228C98DC20006495E /* DeleteUser.swift in Sources */,
 				FA2C2F7628C98BE50006495E /* GetProjectById.swift in Sources */,
 				FA74DCC428CCBD4A00731EAF /* HeaderToolbar.swift in Sources */,
-				FA2C2F5128C8BA020006495E /* PersistentContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,9 +891,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -950,9 +951,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -973,11 +976,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "IssueTrackingSystem (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F6YKB36Y9U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "IssueTrackingSystem--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -989,7 +994,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem.new;
 				PRODUCT_NAME = IssueTrackingSystem;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1003,11 +1008,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "IssueTrackingSystem (iOS)Release.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F6YKB36Y9U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "IssueTrackingSystem--iOS--Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1019,7 +1026,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem.new;
 				PRODUCT_NAME = IssueTrackingSystem;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1035,11 +1042,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F6YKB36Y9U;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -1049,7 +1059,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem.new;
 				PRODUCT_NAME = IssueTrackingSystem;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1062,12 +1072,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "IssueTrackingSystem (macOS)Release.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F6YKB36Y9U;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -1077,7 +1090,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem.new;
 				PRODUCT_NAME = IssueTrackingSystem;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1095,7 +1108,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.paullo.Tests-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.paullo.IssueTrackingSystem.new.Tests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1115,7 +1128,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.paullo.Tests-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.paullo.IssueTrackingSystem.new.Tests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1132,11 +1145,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F6YKB36Y9U;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.paullo.Tests-macOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.paullo.IssueTrackingSystem.new.Tests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1151,11 +1165,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F6YKB36Y9U;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.paullo.Tests-macOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.paullo.IssueTrackingSystem.new.Tests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1174,7 +1189,7 @@
 				FA1E4BA228C8143D009D195A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		FA1E4BA328C8143D009D195A /* Build configuration list for PBXNativeTarget "IssueTrackingSystem (iOS)" */ = {
 			isa = XCConfigurationList;
@@ -1183,7 +1198,7 @@
 				FA1E4BA528C8143D009D195A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		FA1E4BA628C8143D009D195A /* Build configuration list for PBXNativeTarget "IssueTrackingSystem (macOS)" */ = {
 			isa = XCConfigurationList;
@@ -1192,7 +1207,7 @@
 				FA1E4BA828C8143D009D195A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		FA1E4BA928C8143D009D195A /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
 			isa = XCConfigurationList;
@@ -1201,7 +1216,7 @@
 				FA1E4BAB28C8143D009D195A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		FA1E4BAC28C8143D009D195A /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
 			isa = XCConfigurationList;
@@ -1210,22 +1225,9 @@
 				FA1E4BAE28C8143D009D195A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		FA1E4B6C28C8143B009D195A /* IssueTrackingSystem.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				FA1E4B6D28C8143B009D195A /* Shared.xcdatamodel */,
-			);
-			currentVersion = FA1E4B6D28C8143B009D195A /* Shared.xcdatamodel */;
-			path = IssueTrackingSystem.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = FA1E4B6728C8143B009D195A /* Project object */;
 }
