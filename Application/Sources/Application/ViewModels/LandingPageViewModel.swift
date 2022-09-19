@@ -10,7 +10,7 @@ import CoreDataPlugin
 import Domain
 
 public class LandingPageViewModel: ObservableObject {
-   let repository: ProjectRepository
+   private let repository: ProjectRepository
     
     @Published var selection: String = ""
     @Published var selectedMenu: MenuItem?

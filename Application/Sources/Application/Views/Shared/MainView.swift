@@ -9,8 +9,8 @@ import SwiftUI
 import CoreDataPlugin
 
 public struct MainView: View {
-    let storageProvider = StorageProvider()
-    var isFirstLaunch = false
+    let storageProvider: StorageProvider = StorageProvider()
+    var isFirstLaunch: Bool = false
     
     public init() { }
     

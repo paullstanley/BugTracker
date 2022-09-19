@@ -35,13 +35,13 @@ struct IssueTableView: View {
             }
             .padding()
             Button {
-                vm.isCreateIssueShowing.toggle()
+                vm.showingCreateIssue.toggle()
             } label: {
                 Label("New Issue", systemImage: "plus")
             }
             .padding()
             .buttonStyle(.borderedProminent)
-            .popover(isPresented: $vm.isCreateIssueShowing, content: {
+            .popover(isPresented: $vm.showingCreateIssue, content: {
                 CreateIssueView(storageProvider: storageProvider, landingPageVM: vm)
             })
         }

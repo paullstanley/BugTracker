@@ -10,15 +10,16 @@ import CoreDataPlugin
 import Domain
 
 class ProjectsLandingPageViewModel: ObservableObject {
-    let repository: ProjectRepository
-    @Published var isCreateIssueShowing: Bool = false
-    @Published var isShowing: Bool = false
+    private let repository: ProjectRepository
+    private var selection: UUID = UUID()
+    
     @Published private(set) var projects: [ProjectDM]
-    @Published var selection: UUID = UUID()
-    @Published var showingCreateProject: Bool = false
     @Published var order: [KeyPathComparator<ProjectDM>] = [
         .init(\ProjectDM.stringId, order: SortOrder.forward)
     ]
+    
+    @Published var showingCreateIssue: Bool = false
+    @Published var showingCreateProject: Bool = false
     
     init(repository: ProjectRepository) {
         self.repository = repository
@@ -27,6 +28,11 @@ class ProjectsLandingPageViewModel: ObservableObject {
     
     private var sortedProjects: [ProjectDM] {
         return projects.sorted(using: order)
+    }
+    
+    func updateSelecttion(_ selection: UUID?) {
+        guard let newSelection: UUID = selection else { return }
+        self.selection = newSelection
     }
     
     func getProjects() {

@@ -29,19 +29,19 @@ class PersistentHistoryTracker {
 
     func leasRecentUpdate()-> Date? {
         return StorageActor.allCases.reduce(nil) { currentLeastRecent, actor in
-            guard let updateDate = UserDefaults.shared.object(forKey: "PersistentHistoryTracker.lastUpdate") as? Date else { return currentLeastRecent }
+            guard let updateDate: Date = UserDefaults.shared.object(forKey: "PersistentHistoryTracker.lastUpdate") as? Date else { return currentLeastRecent }
             
-            if let oldDate = currentLeastRecent {
+            if let oldDate: Date = currentLeastRecent {
                 return min(oldDate, updateDate)
             }
             return updateDate
         }
     }
     @objc public func processChanges() {
-        let lastDate = self.lastUpdated() ?? .distantPast
-        let request = NSPersistentHistoryChangeRequest.fetchHistory(after: lastDate)
+        let lastDate: Date = self.lastUpdated() ?? .distantPast
+        let request: NSPersistentHistoryChangeRequest = NSPersistentHistoryChangeRequest.fetchHistory(after: lastDate)
         
-        let context = persistentContainer.viewContext
+        let context: NSManagedObjectContext = persistentContainer.viewContext
         
         context.perform { [unowned self] in
             do {
@@ -52,14 +52,14 @@ class PersistentHistoryTracker {
                 }
                 
                 for transaction in history {
-                    let notification =  transaction.objectIDNotification()
+                    let notification: Notification =  transaction.objectIDNotification()
                     context.mergeChanges(fromContextDidSave: notification)
                     
                     self.persistLastUpdated(transaction.timestamp)
                 }
                 
                 if let lastTimestamp = leasRecentUpdate() {
-                    let deleteRequest = NSPersistentHistoryChangeRequest.deleteHistory(before: lastTimestamp)
+                    let deleteRequest: NSPersistentHistoryChangeRequest = NSPersistentHistoryChangeRequest.deleteHistory(before: lastTimestamp)
                     try context.execute(deleteRequest)
                 }
             } catch {

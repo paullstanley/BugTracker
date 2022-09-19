@@ -31,7 +31,7 @@ struct ProjectsTableView: View {
         }
         .scaleEffect()
         .onChange(of: selection, perform: { _ in
-            vm.selection = selection ?? UUID()
+            vm.updateSelecttion(selection)
         })
     }
 }

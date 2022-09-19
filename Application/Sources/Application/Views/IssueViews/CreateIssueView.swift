@@ -37,10 +37,10 @@ struct CreateIssueView: View {
                         Button("Save") {
                             createIssueVM.issue = IssueDM(id: landingPageVM.selectedProject.stringId, title: title, type: type, creationDate: Date().formatted(), info: info, lastModified: Date().formatted(), project: landingPageVM.selectedProject, projectIdentifier: landingPageVM.selectedProject.stringId)
                             createIssueVM.execute()
-                            landingPageVM.isCreateIssueShowing.toggle()
+                            landingPageVM.showingCreateIssue.toggle()
                         }
                         Button("Cancel") {
-                            landingPageVM.isCreateIssueShowing.toggle()
+                            landingPageVM.showingCreateIssue.toggle()
                         }
                         .buttonStyle(.borderedProminent)
                     }
@@ -66,7 +66,7 @@ class CreateIssueViewModel: ObservableObject {
     }
     
     func execute() {
-        guard let newIssue = AddIssue(issueRepository: repository).execute(issue) else { return }
+        guard let newIssue: IssueDM = AddIssue(issueRepository: repository).execute(issue) else { return }
         issue = newIssue
     }
 }

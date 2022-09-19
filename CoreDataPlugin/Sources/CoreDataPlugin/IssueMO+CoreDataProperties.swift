@@ -32,7 +32,7 @@ extension IssueMO {
 
 extension IssueMO {
     override public func willSave() {
-        if let lastModified = lastModified {
+        if let lastModified: Date = lastModified {
             if lastModified.timeIntervalSince(Date()) > 10.0 {
                 self.lastModified = Date()
             }
@@ -44,14 +44,14 @@ extension IssueMO {
 
 extension IssueMO {
     public static func findOrInsert(using projectId: UUID, in context: NSManagedObjectContext)-> IssueMO {
-        let request = NSFetchRequest<IssueMO>(entityName: "IssueEntity")
+        let request: NSFetchRequest = NSFetchRequest<IssueMO>(entityName: "IssueEntity")
         
         request.predicate = NSPredicate(format: "%K == %@", (\IssueMO.projectIdentifier)._kvcKeyPathString!, projectId as NSUUID)
         
-        if let issue = try? context.fetch(request).first {
+        if let issue: IssueMO = try? context.fetch(request).first {
             return issue
         } else {
-            let issue = IssueMO(context: context)
+            let issue: IssueMO = IssueMO(context: context)
             issue.projectIdentifier = projectId
             return issue
         }

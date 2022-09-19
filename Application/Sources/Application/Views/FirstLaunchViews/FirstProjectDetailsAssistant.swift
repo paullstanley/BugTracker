@@ -14,8 +14,8 @@ struct FirstProjectDetailsAssistant: View {
     let storageProvider: StorageProvider
     
     @ObservedObject var vm: CreateProjectViewModel
-    @State var nextView = false
-    @State var previousView = false
+    @State var nextView: Bool = false
+    @State var previousView: Bool = false
     @State var selectedMenu: MenuItem?
     
     var body: some View {
@@ -124,9 +124,3 @@ struct FirstProjectDetailsAssistant: View {
             .scaleEffect()
     }
 }
-//
-//struct FirstProjectDetailsAssistant_Preview: PreviewProvider {
-//    static var previews: some View {
-//        FirstProjectDetailsAssistant(vm: CreateProjectViewModel(), nextView: false, previousView: false, selectedMenu: nil)
-//    }
-//}

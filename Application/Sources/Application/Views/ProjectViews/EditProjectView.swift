@@ -10,14 +10,14 @@ import Domain
 
 struct EditProjectView: View {
     let project: ProjectDM
-    let vm = EditProjectViewModel()
+    let vm: EditProjectViewModel = EditProjectViewModel()
     
     @StateObject var parentVM: ProjectsLandingPageViewModel
     
-    @State var name = ""
-    @State var info = ""
-    @State var deadline = ""
-    @State var stage = ""
+    @State var name: String = ""
+    @State var info: String = ""
+    @State var deadline: String = ""
+    @State var stage: String = ""
     
     var body: some View {
         VStack {

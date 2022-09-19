@@ -9,9 +9,9 @@ import CoreData
 import CoreDataPlugin
 
 class IssueListViewModel: NSObject, ObservableObject {
-    @Published var issues = [IssueMO]()
+    @Published private(set) var issues: [IssueMO] = [IssueMO]()
     
-    private let db = StorageProvider()
+    private let storageProvider: StorageProvider = StorageProvider()
     private let fetchedResultsController: NSFetchedResultsController<IssueMO>
     
     override init() {
@@ -19,7 +19,7 @@ class IssueListViewModel: NSObject, ObservableObject {
         request.sortDescriptors = [NSSortDescriptor(keyPath: \IssueMO.id,
                                                    ascending: false)]
         self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
-                                                                   managedObjectContext: db.persistentContainer!.viewContext,
+                                                                   managedObjectContext: storageProvider.persistentContainer!.viewContext,
                                                                    sectionNameKeyPath: nil,
                                                                    cacheName: nil)
         super.init()

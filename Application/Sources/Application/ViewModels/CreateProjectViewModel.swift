@@ -20,7 +20,7 @@ class CreateProjectViewModel: ObservableObject {
     }
     
     func execute() {
-        let newProject =  AddProject(projectRepository: repository).execute(project)
-        project = newProject!
+        guard let newProject: ProjectDM =  AddProject(projectRepository: repository).execute(project) else { return }
+        project = newProject
     }
 }
