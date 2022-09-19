@@ -1,10 +1,10 @@
 //
-//  IDeleteIssue.swift
+//  IDeleteIssueUseCase.swift
 //  
 //
 //  Created by Paull Stanley on 9/18/22.
 //
 
-protocol IDeleteIssue {
+protocol IDeleteIssueUseCase {
     func execute()-> Bool
 }

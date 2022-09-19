@@ -1,5 +1,5 @@
 //
-//  ViewProjectById.swift
+//  EditIssueUseCase.swift
 //  IssueTrackingSystem (macOS)
 //
 //  Created by Paull Stanley on 9/7/22.
@@ -7,8 +7,8 @@
 
 import Domain
 
-struct ViewProjectById: IViewProjectById {
-    func execute()-> ProjectDM? {
+struct EditIssueUseCase: IEditIssueUseCase {
+    func execute() -> IssueDM? {
         return nil
     }
 }

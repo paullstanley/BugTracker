@@ -1,5 +1,5 @@
 //
-//  CreateProjectUseCase.swift
+//  AddProjectUseCase.swift
 //  IssueTrackingSystem
 //
 //  Created by Paull Stanley on 9/18/22.
@@ -7,7 +7,7 @@
 
 import Domain
 
-public struct AddProject: IAddProject {
+public class AddProjectUseCase: IAddProjectUseCase {
     public let projectRepository: IProjectRepository
     
     public init(projectRepository: IProjectRepository) {

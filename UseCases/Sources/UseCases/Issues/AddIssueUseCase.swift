@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  AddIssueUseCase.swift
 //  
 //
 //  Created by Paull Stanley on 9/19/22.
@@ -7,7 +7,7 @@
 
 import Domain
 
-public struct AddIssue: IAddIssue {
+public struct AddIssueUseCase: IAddIssueUseCase {
     public let issueRepository: IIssueRepository
     
     public init(issueRepository: IIssueRepository) {

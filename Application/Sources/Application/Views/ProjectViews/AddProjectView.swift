@@ -1,5 +1,5 @@
 //
-//  CreateProjectView.swift
+//  AddProjectView.swift
 //  IssueTrackingSystem (macOS)
 //
 //  Created by Paull Stanley on 9/8/22.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreDataPlugin
 
-struct CreateProjectView: View {
+struct AddProjectView: View {
     @State var landingPageVM: ProjectsLandingPageViewModel
     @ObservedObject var vm: CreateProjectViewModel
     

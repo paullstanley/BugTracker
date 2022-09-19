@@ -66,7 +66,7 @@ class CreateIssueViewModel: ObservableObject {
     }
     
     func execute() {
-        guard let newIssue: IssueDM = AddIssue(issueRepository: repository).execute(issue) else { return }
+        guard let newIssue: IssueDM = AddIssueUseCase(issueRepository: repository).execute(issue) else { return }
         issue = newIssue
     }
 }

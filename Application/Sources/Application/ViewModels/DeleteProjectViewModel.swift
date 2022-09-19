@@ -19,6 +19,6 @@ class DeleteProjectViewModel: ObservableObject {
     }
     
     func execute(_ project: ProjectDM) {
-        isDeleted = DeleteProject(projectRepository: repository).execute(project)
+        isDeleted = DeleteProjectUseCase(projectRepository: repository).execute(project)
     }
 }

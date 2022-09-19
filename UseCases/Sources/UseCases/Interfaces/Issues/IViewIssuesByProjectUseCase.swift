@@ -1,5 +1,5 @@
 //
-//  IViewIssuesByProject.swift
+//  IViewIssuesByProjectUseCase.swift
 //  
 //
 //  Created by Paull Stanley on 9/18/22.
@@ -7,6 +7,6 @@
 
 import Domain
 
-protocol IViewIssuesByProject {
+protocol IViewIssuesByProjectUseCase {
     func execute()-> [IssueDM]
 }

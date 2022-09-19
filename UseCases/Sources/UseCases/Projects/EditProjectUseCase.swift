@@ -1,5 +1,5 @@
 //
-//  EditProject.swift
+//  EditProjectUseCase.swift
 //  IssueTrackingSystem (macOS)
 //
 //  Created by Paull Stanley on 9/7/22.
@@ -7,7 +7,7 @@
 
 import Domain
 
-struct EditProject: IEditProject {
+struct EditProjectUseCase: IEditProjectUseCase {
     func execute()-> ProjectDM? {
         return nil
     }

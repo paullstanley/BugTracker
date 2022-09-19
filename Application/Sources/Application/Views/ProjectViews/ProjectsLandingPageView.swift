@@ -65,7 +65,7 @@ struct ProjectsLandingPageView: View {
             .scaledToFit()
             .padding()
             .sheet(isPresented: $vm.showingCreateProject, content: {
-                CreateProjectView(storageProvider: storageProvider, landingPageVM: vm)
+                AddProjectView(storageProvider: storageProvider, landingPageVM: vm)
                     .onDisappear(perform: {
                         vm.getProjects()
                     })
