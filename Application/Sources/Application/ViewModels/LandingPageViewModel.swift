@@ -9,14 +9,14 @@ import Foundation
 import CoreDataPlugin
 import Domain
 
-class LandingPageViewModel: ObservableObject {
+public class LandingPageViewModel: ObservableObject {
    let repository: ProjectRepository
     
     @Published var selection: String = ""
     @Published var selectedMenu: MenuItem?
     @Published var isShowing: Bool = false
     
-    init(storageProvider: StorageProvider) {
+    public init(storageProvider: StorageProvider) {
         repository = ProjectRepository(storageProvider: storageProvider)
     }
 }

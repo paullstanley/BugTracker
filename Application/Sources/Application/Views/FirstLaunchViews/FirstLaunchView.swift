@@ -8,14 +8,22 @@
 import SwiftUI
 import CoreDataPlugin
 
-struct FirstProjectView: View {
+public struct FirstProjectView: View {
     let vm: LandingPageViewModel
     let storageProvider: StorageProvider
     @State var moving = false
     @State var nextView = false
     @State var skip = false
     
-    var body: some View {
+    public init(vm: LandingPageViewModel, storageProvider: StorageProvider, moving: Bool = false, nextView: Bool = false, skip: Bool = false) {
+        self.vm = vm
+        self.storageProvider = storageProvider
+        self.moving = moving
+        self.nextView = nextView
+        self.skip = skip
+    }
+    
+    public var body: some View {
         VStack {
             if nextView == true {
                 FirstProjectNamingAssistant(landingPageVM: vm, storageProvider: storageProvider)

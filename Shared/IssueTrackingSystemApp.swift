@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import Application
 import CoreDataPlugin
+
 
 @main
 struct IssueTrackingSystemApp: App {
-    let storageProvider = CoreDataPlugin.StorageProvider()
+    let storageProvider = StorageProvider()
     @Environment(\.scenePhase) private var scenePhase
     var isFirstLaunch = false
     

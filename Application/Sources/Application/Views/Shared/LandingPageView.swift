@@ -8,17 +8,17 @@
 import SwiftUI
 import CoreDataPlugin
 
-struct LandingPageView: View {
+public struct LandingPageView: View {
     let storageProvider: StorageProvider
     @ObservedObject var vm: LandingPageViewModel
     @State var someBool: Bool = false
     
-    init(vm: LandingPageViewModel, _storageProvider: StorageProvider) {
+    public init(vm: LandingPageViewModel, _storageProvider: StorageProvider) {
         self.vm = LandingPageViewModel(storageProvider: _storageProvider)
         storageProvider = _storageProvider
     }
     
-    var body: some View {
+    public var body: some View {
         TabView {
             NavigationSplitView {
                 List(MenuItems.tempSidebar, selection: $vm.selectedMenu) { item in
