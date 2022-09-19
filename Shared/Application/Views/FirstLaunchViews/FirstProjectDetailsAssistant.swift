@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
+import Domain
 
 struct FirstProjectDetailsAssistant: View {
     let landingPageVM: LandingPageViewModel
@@ -45,7 +46,7 @@ struct FirstProjectDetailsAssistant: View {
                             .fixedSize()
                             .bold()
                         
-                        TextField("", text: $vm.project.info.withDefault(""))
+                        TextField("", text: $vm.project.info)
                             .labelsHidden()
                             .background(.thickMaterial)
                             .frame(width:150)
@@ -57,7 +58,7 @@ struct FirstProjectDetailsAssistant: View {
                             .fixedSize()
                             .bold()
                         
-                        TextField("", text: $vm.project.deadline.withDefault(""))
+                        TextField("", text: $vm.project.deadline)
                             .labelsHidden()
                             .background(.thickMaterial)
                             .frame(width:150)

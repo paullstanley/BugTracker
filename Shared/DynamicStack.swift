@@ -6,6 +6,7 @@
 
 
 import SwiftUI
+import Domain
 
 struct DynamicStack<Content: View>: View {
     @Environment(\.horizontalSizeClass) private var sizeClass

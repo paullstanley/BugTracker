@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
+import Domain
 
 struct FirstProjectNamingAssistant: View {
     let landingPageVM: LandingPageViewModel
@@ -18,7 +19,7 @@ struct FirstProjectNamingAssistant: View {
     init(landingPageVM: LandingPageViewModel, storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
         self.landingPageVM = landingPageVM
-        vm = CreateProjectViewModel(_storageProvider: storageProvider)
+        vm = CreateProjectViewModel(storageProvider: storageProvider)
     }
     
     var body: some View {

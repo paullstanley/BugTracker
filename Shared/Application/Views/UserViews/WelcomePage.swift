@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
 
 struct WelcomePage: View {
     let storageProvider: StorageProvider
@@ -30,7 +30,8 @@ struct WelcomePage: View {
             
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
                 ForEach(0..<symbols.count) { i in
-                    NavigationLink(destination: CreateProjectView(storageProvider: storageProvider), label: {
+                    NavigationLink(destination: //CreateProjectView(storageProvider: storageProvider)
+                                   Text("hello"), label: {
                         VStack {
                             Image(systemName: symbols[i])
                                 .resizable()

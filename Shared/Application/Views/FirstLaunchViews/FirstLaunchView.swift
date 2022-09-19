@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
 
 struct FirstProjectView: View {
     let vm: LandingPageViewModel

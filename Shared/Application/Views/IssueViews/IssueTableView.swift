@@ -30,7 +30,7 @@ struct IssueTableView: View {
             .scaleEffect()
             Table(vm.selectedProject.issues ?? []) {
                 TableColumn("Title", value: \.title)
-                TableColumn("Type", value: \.type!)
+                TableColumn("Type", value: \.type)
             }
             .padding()
             Button {

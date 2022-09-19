@@ -6,17 +6,16 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
+import Domain
 
 struct CreateProjectView: View {
-    let storageProvider: StorageProvider
+    @State var landingPageVM: ProjectsLandingPageViewModel
     @ObservedObject var vm: CreateProjectViewModel
     
-    //@Binding var isShowing: Bool
-    
-    init(storageProvider: StorageProvider) {
-        self.storageProvider = storageProvider
-        vm = CreateProjectViewModel(_storageProvider: storageProvider)
+    init(storageProvider: StorageProvider, landingPageVM: ProjectsLandingPageViewModel) {
+        vm = CreateProjectViewModel(storageProvider: storageProvider)
+        self.landingPageVM = landingPageVM
     }
     
     var body: some View {
@@ -26,21 +25,21 @@ struct CreateProjectView: View {
                         Text("Project name")
                         TextField("", text: $vm.project.name)
                         Text("Project stage")
-                        TextField("", text: $vm.project.stage.withDefault(""))
+                        TextField("", text: $vm.project.stage)
                         Text("Project deadline")
-                        TextField("", text: $vm.project.deadline.withDefault(""))
+                        TextField("", text: $vm.project.deadline)
                         Text("Project info")
-                        TextField("", text: $vm.project.info.withDefault(""))
+                        TextField("", text: $vm.project.info)
                         HStack {
                             Button {
                                 vm.execute()
-                                //isShowing.toggle()
+                                landingPageVM.showingCreateProject.toggle()
                             } label: {
                                 Label("Create", systemImage: "plus")
                             }
                             .cornerRadius(5)
                             Button {
-                               // isShowing.toggle()
+                                landingPageVM.showingCreateProject.toggle()
                             } label: {
                                 Text("Cancel")
                             }

@@ -6,7 +6,7 @@
 //
 
 import CoreData
-import StorageProvider
+import CoreDataPlugin
 
 class IssueListViewModel: NSObject, ObservableObject {
     @Published var issues = [IssueMO]()
@@ -21,7 +21,7 @@ class IssueListViewModel: NSObject, ObservableObject {
         request.sortDescriptors = [NSSortDescriptor(keyPath: \IssueMO.id,
                                                    ascending: false)]
         self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
-                                                                   managedObjectContext: db.persistentContainer.viewContext,
+                                                                   managedObjectContext: db.persistentContainer!.viewContext,
                                                                    sectionNameKeyPath: nil,
                                                                    cacheName: nil)
         super.init()

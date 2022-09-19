@@ -6,27 +6,18 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
+import Domain
 
 struct DeleteProjectView: View {
-    let project: ProjectDM
-    let storageProvider: StorageProvider
-    
-    @ObservedObject var vm: DeleteProjectViewModel
-   // let parentVM: ProjectsLandingPageViewModel
-    
-    init(project: ProjectDM, storageProvider: StorageProvider) {
-        self.project = project
-        self.storageProvider = storageProvider
-        vm = DeleteProjectViewModel(storageProvider: storageProvider)
-    }
+    @ObservedObject var landingPageVM: ProjectsLandingPageViewModel
+   // var project: ProjectDM
+    @State var vm: DeleteProjectViewModel
     
     var body: some View {
         Button {
-            DispatchQueue.main.async {
-                vm.execute(project)
-               // parentVM.getProjects()
-            }
+            vm.execute(landingPageVM.selectedProject)
+            landingPageVM.getProjects()
         } label: {
             Label("Delete", systemImage: "trash.circle")
         }

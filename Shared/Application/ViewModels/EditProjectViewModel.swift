@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import StorageProvider
+import CoreDataPlugin
+import Domain
 
 class EditProjectViewModel: ObservableObject {
     private let repository: ProjectRepository

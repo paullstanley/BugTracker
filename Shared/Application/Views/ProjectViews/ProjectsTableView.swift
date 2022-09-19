@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import Domain
 
 struct ProjectsTableView: View {
     @ObservedObject var vm: ProjectsLandingPageViewModel
@@ -20,15 +21,18 @@ struct ProjectsTableView: View {
     var body: some View {
         DynamicStack {
             Table(sortedProjects, selection: $selection, sortOrder: $vm.order) {
-                TableColumn("Creation date", value: \.creationDate)
+                TableColumn("Id", value: \.stringId)
                 TableColumn("Name", value: \.name)
-                TableColumn("Stage", value: \.stage!)
-                TableColumn("Issues Count", value: \.issueCount)
+                TableColumn("Creation date", value: \.creationDate)
+                TableColumn("Info", value: \.info)
+                TableColumn("Last Modified", value: \.lastModified)
+                TableColumn("Stage", value: \.stage)
+                TableColumn("Deadline", value: \.deadline)
             }
         }
         .scaleEffect()
         .onChange(of: selection, perform: { _ in
-            vm.selection = selection ?? UUID()
+            vm.selection = selection!
         })
     }
 }

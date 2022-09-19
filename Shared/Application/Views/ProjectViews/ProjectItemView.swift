@@ -53,12 +53,12 @@ struct ProjectItemView: View {
                     HStack {
                         Text("Stage:")
                             .bold()
-                        Text("\(vm.selectedProject.stage ?? "")")
+                        Text("\(vm.selectedProject.stage)")
                     }
                     HStack {
                         Text("Information:")
                             .bold()
-                        Text("\(vm.selectedProject.info ?? "")")
+                        Text("\(vm.selectedProject.info)")
                     }
                 }
                 .padding(.leading, 10)

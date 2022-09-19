@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import CoreDataPlugin
+import Domain
 
 class ProjectsLandingPageViewModel: ObservableObject {
     let repository: ProjectRepository
+    @Published var isShowing: Bool = false
     @Published private(set) var projects: [ProjectDM]
     @Published var selection: UUID = UUID()
     @Published var showingCreateProject: Bool = false
@@ -30,7 +33,7 @@ class ProjectsLandingPageViewModel: ObservableObject {
     }
     
      var selectedProject: ProjectDM  {
-         return sortedProjects.first(where: { $0.id == selection }) ??  ProjectDM(id: UUID(), name: "")
+         return sortedProjects.first(where: { $0.id == selection }) ??  sortedProjects.first ?? ProjectDM(id: UUID())
     }
     
     

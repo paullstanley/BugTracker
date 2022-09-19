@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Domain
 
 struct EditProjectView: View {
     let project: ProjectDM
@@ -34,7 +35,7 @@ struct EditProjectView: View {
                         Spacer()
                         Button("Save") {
                             let newProject = ProjectDM(id: project.id, name: name, info: info, stage: stage, deadline: deadline)
-                            vm.execute(newProject)
+                            _ = vm.execute(newProject)
                                 parentVM.getProjects()
                         }
                         .cornerRadius(5)

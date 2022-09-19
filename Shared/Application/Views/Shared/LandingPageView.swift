@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
 
 struct LandingPageView: View {
     let storageProvider: StorageProvider
@@ -30,10 +30,10 @@ struct LandingPageView: View {
                 }
             } detail: {
                 if vm.selectedMenu?.name == "Create Ticket" {
-                    CreateProjectView(storageProvider: storageProvider)
+                   // CreateProjectView(storageProvider: storageProvider)
                     
                 } else if vm.selectedMenu?.name == "Projects" {
-                    ProjectsLandingPageView(_storageProvider: storageProvider)
+                    ProjectsLandingPageView(storageProvider: storageProvider)
                 }
                 else if vm.selectedMenu?.name == "Home" ||
                             vm.selectedMenu?.name == "" ||

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Domain
 
 struct MenuItems {
     static let landingPageSideBar = [
@@ -19,9 +19,9 @@ struct MenuItems {
     ]
     
     static let LandingPageTab = [
-        MenuItem(id: UUID(), name: "Home", image:  "house"),
-        MenuItem(id: UUID(), name: "Feed", image: "chart.xyaxis.line"),
-        MenuItem(id: UUID(), name: "Projects", image: "scale.3d")
+        MenuItem(name: "Home", image:  "house"),
+        MenuItem(name: "Feed", image: "chart.xyaxis.line"),
+        MenuItem(name: "Projects", image: "scale.3d")
     ]
     
     static let tempSidebar = [

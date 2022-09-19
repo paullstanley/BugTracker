@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Domain
 
 struct CreateIssueView: View {
     @Binding var issueCreationShowing: Bool
@@ -28,7 +29,7 @@ struct CreateIssueView: View {
                     TextField("", text: $info)
                     HStack {
                         Button("Save") {
-                            vm.repository.updateIssue(for: project, _issue: IssueDM(title: title, type: type, info: info))
+                            
                             issueCreationShowing.toggle()
                         }
                         Button("Cancel") {

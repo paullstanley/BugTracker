@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreDataPlugin
 
 struct IssueItemView: View {
     @ObservedObject var issue: IssueMO

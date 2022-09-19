@@ -6,23 +6,20 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
 
 @main
 struct IssueTrackingSystemApp: App {
+    let storageProvider = CoreDataPlugin.StorageProvider()
     @Environment(\.scenePhase) private var scenePhase
-    var isFirstLaunch = true
-    @StateObject var landingPageVM = LandingPageViewModel(storageProvider: StorageProvider())
+    var isFirstLaunch = false
+    
     var body: some Scene {
-        
         WindowGroup {
             if isFirstLaunch {
-                FirstProjectView(vm: landingPageVM, storageProvider: landingPageVM.repository.storageProvider)
-                    .environment(\.managedObjectContext, landingPageVM.repository.storageProvider.persistentContainer.viewContext)
-                    
+                FirstProjectView(vm: LandingPageViewModel(storageProvider: storageProvider), storageProvider: storageProvider)
             } else {
-                LandingPageView(vm: landingPageVM, _storageProvider: landingPageVM.repository.storageProvider)
-                    .environment(\.managedObjectContext, landingPageVM.repository.storageProvider.persistentContainer.viewContext)
+                LandingPageView(vm: LandingPageViewModel(storageProvider: storageProvider), _storageProvider: storageProvider)
             }
         }
         .onChange(of: scenePhase) { phase in
@@ -33,10 +30,11 @@ struct IssueTrackingSystemApp: App {
                 print("inactive")
             case .background:
                 print("background")
-                landingPageVM.repository.storageProvider.saveContext()
+                // landingPageVM.repository.storageProvider.saveContext()
             @unknown default:
                 print("unknown scene")
             }
         }
     }
 }
+

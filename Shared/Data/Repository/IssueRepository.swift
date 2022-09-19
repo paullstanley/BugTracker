@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import StorageProvider
+import CoreDataPlugin
+import Domain
 
 class IssueRepository: ObservableObject {
     var storageProvider: StorageProvider
@@ -20,8 +21,8 @@ class IssueRepository: ObservableObject {
         request.returnsObjectsAsFaults = false
         
         do {
-            let issueModelObjects = try storageProvider.persistentContainer.viewContext.fetch(request)
-            return issueModelObjects.map { $0.toDomainModel() }
+            let issueModelObjects = try storageProvider.persistentContainer!.viewContext.fetch(request)
+            return issueModelObjects.map { IssueDM(title: $0.title) }
         } catch {
             print("There was an issue fetching the issues")
         }
@@ -33,8 +34,9 @@ class IssueRepository: ObservableObject {
         let predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.name), projectName as String)
         request.fetchLimit = 1
         request.predicate = predicate
-        if let selectedProject = try? storageProvider.persistentContainer.viewContext.fetch(request) {
-            return selectedProject.first?.sortedIssues.map { $0.toDomainModel() } ?? []
+        if let selectedProject = try? storageProvider.persistentContainer!.viewContext.fetch(request).first {
+            
+            return selectedProject.fetchedIssues.map { IssueDM(title: $0.title) }
         }
         return []
     }
@@ -43,18 +45,18 @@ class IssueRepository: ObservableObject {
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.title), issue.title)
         
-        if let issue = try? storageProvider.persistentContainer.viewContext.fetch(request).first {
-            return issue.toDomainModel()
+        if let issue = try? storageProvider.persistentContainer!.viewContext.fetch(request).first {
+            return IssueDM(title: issue.title)
         } else {
-            let issue = issue.toManagedModel(in: storageProvider.persistentContainer.viewContext)
+            let issue = IssueMO.findOrInsert(using: issue.title, in: storageProvider.persistentContainer!.viewContext)
             do {
-                if storageProvider.persistentContainer.viewContext.hasChanges {
-                    try storageProvider.persistentContainer.viewContext.save()
+                if storageProvider.persistentContainer!.viewContext.hasChanges {
+                    try storageProvider.persistentContainer!.viewContext.save()
                 }
             } catch {
-                storageProvider.persistentContainer.viewContext.rollback()
+                storageProvider.persistentContainer!.viewContext.rollback()
             }
-            return issue.toDomainModel()
+            return IssueDM(title: issue.title)
         }
     }
  }

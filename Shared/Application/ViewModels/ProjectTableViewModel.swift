@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import StorageProvider
+import CoreDataPlugin
+import Domain
 
 class ProjectTableViewModel: ObservableObject {
     private let dataSource: ProjectRepository

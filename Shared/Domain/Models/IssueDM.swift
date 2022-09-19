@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import CoreDataPlugin
 
 struct IssueDM {
     var id: String = ""
@@ -36,7 +37,4 @@ extension IssueDM {
 }
 
 extension IssueDM: Identifiable { }
-
-extension IssueDM: Codable { }
-
 

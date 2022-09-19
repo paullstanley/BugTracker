@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 protocol IGetAllIssues {
     func execute()-> [IssueDM]

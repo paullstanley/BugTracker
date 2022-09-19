@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import StorageProvider
+import CoreDataPlugin
+import Domain
 
 class LandingPageViewModel: ObservableObject {
    let repository: ProjectRepository

@@ -6,16 +6,15 @@
 //
 
 import SwiftUI
-import StorageProvider
+import CoreDataPlugin
 
 struct ProjectsLandingPageView: View {
     let storageProvider: StorageProvider
-    @State var vm: ProjectsLandingPageViewModel
+    @ObservedObject var vm:  ProjectsLandingPageViewModel
     
-    init(_storageProvider: StorageProvider) {
-        
-        storageProvider = _storageProvider
-        vm = ProjectsLandingPageViewModel(repository: ProjectRepository(storageProvider: storageProvider))
+    init(storageProvider: StorageProvider) {
+        self.storageProvider = storageProvider
+        vm = ProjectsLandingPageViewModel(repository: ProjectRepository(storageProvider: self.storageProvider))
     }
     
     var body: some View {
@@ -24,7 +23,7 @@ struct ProjectsLandingPageView: View {
             DynamicStack {
                 ProjectItemView(vm: vm)
                 HStack {
-                    DeleteProjectView(project: vm.selectedProject, storageProvider: storageProvider)
+                    DeleteProjectView(landingPageVM: vm, vm: DeleteProjectViewModel(storageProvider: storageProvider))
                     Button {
                         vm.showingCreateProject.toggle()
                     } label: {
@@ -45,13 +44,12 @@ struct ProjectsLandingPageView: View {
                 VStack {
                     ProjectItemView(vm: vm)
                     HStack {
-                        DeleteProjectView(project: vm.selectedProject, storageProvider: storageProvider)
+                        DeleteProjectView(landingPageVM: vm, vm: DeleteProjectViewModel(storageProvider: storageProvider))
                         Button {
                             vm.showingCreateProject.toggle()
                         } label: {
                             Label("Create", systemImage: "plus")
                         }
-                        
                         .padding()
                     }
                 }
@@ -67,7 +65,7 @@ struct ProjectsLandingPageView: View {
             .scaledToFit()
             .padding()
             .sheet(isPresented: $vm.showingCreateProject, content: {
-                CreateProjectView(storageProvider: storageProvider)
+                CreateProjectView(storageProvider: storageProvider, landingPageVM: vm)
                     .onDisappear(perform: {
                         vm.getProjects()
                     })
@@ -82,7 +80,7 @@ struct ProjectsLandingPageView: View {
 
 struct ProjectsLandingPageView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectsLandingPageView(_storageProvider: StorageProvider())
+        ProjectsLandingPageView(storageProvider: StorageProvider())
     }
 }
 

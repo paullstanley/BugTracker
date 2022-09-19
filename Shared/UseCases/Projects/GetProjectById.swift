@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 protocol IGetProjectById {
     func execute()-> ProjectDM?

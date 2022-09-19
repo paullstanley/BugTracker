@@ -6,8 +6,10 @@
 //
 
 import Foundation
-import StorageProvider
+import CoreDataPlugin
 import CoreData
+import Domain
+import UseCases
 
 class DeleteProjectViewModel: ObservableObject {
     private let repository: ProjectRepository
@@ -18,6 +20,7 @@ class DeleteProjectViewModel: ObservableObject {
     }
     
     func execute(_ project: ProjectDM) {
+        DeleteProject(projectRepository: repository).execute(project)
         isDeleted = repository.delete(project)
     }
 }

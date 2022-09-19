@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreDataPlugin
 struct IssuesListView: View {
     @State var issues: [IssueMO]
     
