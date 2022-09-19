@@ -7,11 +7,10 @@
 //
 import CoreData
 
-@objc(ProjectMO)
 public class ProjectMO: NSManagedObject { }
 
 extension ProjectMO {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<ProjectMO> {
+    public class func fetchRequest() -> NSFetchRequest<ProjectMO> {
         return NSFetchRequest<ProjectMO>(entityName: "ProjectEntity")
     }
     @NSManaged public var identifier: UUID

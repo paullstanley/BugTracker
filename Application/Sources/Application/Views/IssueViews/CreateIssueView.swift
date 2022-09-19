@@ -36,6 +36,7 @@ struct CreateIssueView: View {
                     HStack {
                         Button("Save") {
                             createIssueVM.issue = IssueDM(id: landingPageVM.selectedProject.stringId, title: title, type: type, creationDate: Date().formatted(), info: info, lastModified: Date().formatted(), project: landingPageVM.selectedProject, projectIdentifier: landingPageVM.selectedProject.stringId)
+                            
                             createIssueVM.execute()
                             landingPageVM.showingCreateIssue.toggle()
                         }
@@ -50,7 +51,6 @@ struct CreateIssueView: View {
                 .padding(5)
                 .cornerRadius(5)
             }
-                    
         }
         .frame(width:300)
     }
@@ -59,7 +59,7 @@ struct CreateIssueView: View {
 class CreateIssueViewModel: ObservableObject {
     private let repository: IssueRepository
     
-    @Published var issue: IssueDM = IssueDM(id: UUID().uuidString, title: "", type: "", creationDate: "", info: "", lastModified: "", projectIdentifier: "")
+    @Published var issue: IssueDM = IssueDM(id: UUID().uuidString)
     
     init(storageProvider: StorageProvider) {
         repository = IssueRepository(storageProvider: storageProvider)

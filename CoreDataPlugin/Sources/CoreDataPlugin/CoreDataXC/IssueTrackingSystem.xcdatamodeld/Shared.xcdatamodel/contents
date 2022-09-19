@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21277" systemVersion="22A5342f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="IssueEntity" representedClassName="CoreDataPlugin.IssueMO" syncable="YES">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="info" optional="YES" attributeType="String"/>
         <attribute name="lastModified" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="projectIdentifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -21,7 +22,7 @@
         <attribute name="version" attributeType="Integer 64" defaultValueString="1" usesScalarValueType="YES"/>
         <relationship name="issues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="IssueEntity" inverseName="project" inverseEntity="IssueEntity"/>
         <fetchedProperty name="fetchedIssues" optional="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="IssueEntity" predicateString="projectIdentifier == $FETCH_SOURCE.id"/>
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="IssueEntity" predicateString="projectIdentifier == $FETCH_SOURCE.identifier"/>
         </fetchedProperty>
     </entity>
     <configuration name="Local">

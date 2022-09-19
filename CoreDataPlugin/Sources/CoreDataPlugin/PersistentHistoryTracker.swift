@@ -6,7 +6,6 @@
 //
 
 import CoreData
-import Foundation
 
 class PersistentHistoryTracker {
     private let persistentContainer: NSPersistentContainer

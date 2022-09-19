@@ -17,11 +17,33 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func getAll()-> [ProjectDM] {
+        var projects: [ProjectDM] = []
         let request = ProjectMO.fetchRequest()
         request.returnsObjectsAsFaults = false
         do {
             let projectModelObjects = try storageProvider.persistentContainer!.viewContext.fetch(request)
-            return projectModelObjects.map { ProjectDM(id: $0.identifier, name: $0.name, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", stage: $0.stage, deadline: $0.deadline) }
+            
+            projects = projectModelObjects.map {
+                ProjectDM(
+                    id: $0.identifier,
+                    name: $0.name,
+                    creationDate: $0.creationDate.formatted(),
+                    info: $0.info ?? "",
+                    lastModified: $0.lastModified?.formatted() ?? "",
+                    stage: $0.stage, deadline: $0.deadline,
+                    issues: $0.fetchedIssues.map {
+                        IssueDM(
+                            id: $0.projectIdentifier.uuidString,
+                            title: $0.title,
+                            type: $0.type,
+                            creationDate: $0.creationDate.formatted(),
+                            info: $0.info ?? "",
+                            lastModified: $0.lastModified?.formatted() ?? "",
+                            projectIdentifier: $0.projectIdentifier.uuidString
+                        )})
+                
+            }
+            return projects
         } catch {
             print("There was an issue fetching the projects")
         }
@@ -40,9 +62,6 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func create(_ _project: ProjectDM) -> ProjectDM? {
-        if let project = getById(_project.id) {
-            return ProjectDM(id: project.identifier)
-        } else {
             let project = ProjectMO.findOrInsert(using: _project.name, in: storageProvider.persistentContainer!.viewContext)
             project.identifier = UUID()
             project.name = _project.name
@@ -57,8 +76,15 @@ public class ProjectRepository: IProjectRepository {
             } catch {
                 storageProvider.persistentContainer!.viewContext.rollback()
             }
-            return ProjectDM(id: project.identifier, name: project.name, creationDate: project.creationDate.formatted(), info: project.info ?? "", lastModified: project.lastModified?.formatted() ?? "", stage: project.stage, deadline: project.deadline)
-        }
+            return ProjectDM(
+                id: project.identifier,
+                name: project.name,
+                creationDate: project.creationDate.formatted(),
+                info: project.info ?? "",
+                lastModified: project.lastModified?.formatted() ?? "",
+                stage: project.stage,
+                deadline: project.deadline
+            )
     }
     
     public func edit(_ _project: ProjectDM) -> ProjectDM {

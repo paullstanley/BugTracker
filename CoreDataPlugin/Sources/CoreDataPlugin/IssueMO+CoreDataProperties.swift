@@ -7,20 +7,20 @@
 //
 import CoreData
 
-@objc(IssueMO)
 public class IssueMO: NSManagedObject { }
 
 extension IssueMO {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<IssueMO> {
+    public class func fetchRequest() -> NSFetchRequest<IssueMO> {
         return NSFetchRequest<IssueMO>(entityName: "IssueEntity")
     }
+    @NSManaged public var identifier: UUID
     @NSManaged public var projectIdentifier: UUID
     @NSManaged public var title: String
     @NSManaged public var type: String
     @NSManaged public var creationDate: Date
     @NSManaged public var info: String?
     @NSManaged public var lastModified: Date?
-    @NSManaged public var project: ProjectMO?
+    @NSManaged public var project: ProjectMO
     @NSManaged public var version: Int
 }
 
@@ -43,16 +43,17 @@ extension IssueMO {
 }
 
 extension IssueMO {
-    public static func findOrInsert(using projectId: UUID, in context: NSManagedObjectContext)-> IssueMO {
+    public static func findOrInsert(using identifier: UUID, for project: ProjectMO, in context: NSManagedObjectContext)-> IssueMO {
         let request: NSFetchRequest = NSFetchRequest<IssueMO>(entityName: "IssueEntity")
         
-        request.predicate = NSPredicate(format: "%K == %@", (\IssueMO.projectIdentifier)._kvcKeyPathString!, projectId as NSUUID)
+        request.predicate = NSPredicate(format: "%K == %@", (\IssueMO.identifier)._kvcKeyPathString!, identifier as NSUUID)
         
         if let issue: IssueMO = try? context.fetch(request).first {
             return issue
         } else {
             let issue: IssueMO = IssueMO(context: context)
-            issue.projectIdentifier = projectId
+            issue.identifier = UUID()
+            issue.project = project
             return issue
         }
     }

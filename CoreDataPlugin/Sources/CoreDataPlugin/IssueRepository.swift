@@ -17,11 +17,17 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func getAll()-> [IssueDM] {
+        var issues: [IssueDM] = []
         let request = IssueMO.fetchRequest()
         request.returnsObjectsAsFaults = false
         do {
             let issueModelObjects = try storageProvider.persistentContainer!.viewContext.fetch(request)
-            return issueModelObjects.map { IssueDM(id: $0.projectIdentifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", project: ProjectDM(id: $0.projectIdentifier), projectIdentifier: $0.projectIdentifier.uuidString) }
+            for modelObject in issueModelObjects {
+                let projectMO = modelObject.project
+                let projectDM: ProjectDM = ProjectDM(id: projectMO.identifier, name: projectMO.name, creationDate: projectMO.creationDate.formatted(), info: projectMO.info ?? "", lastModified: projectMO.lastModified?.formatted() ?? "", stage: projectMO.stage, deadline: projectMO.deadline)
+                issues.append(IssueDM(id: modelObject.projectIdentifier.uuidString, title: modelObject.title, type: modelObject.type, creationDate: modelObject.creationDate.formatted(), info: modelObject.info ?? "", lastModified: modelObject.lastModified?.formatted() ?? "", project: projectDM, projectIdentifier: modelObject.projectIdentifier.uuidString))
+            }
+            return issues
         } catch {
             print("There was an issue fetching the issues")
         }
@@ -40,15 +46,14 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func create(_ _issue: IssueDM) -> IssueDM? {
-        if let issue = getById(UUID(uuidString: _issue.projectIdentifier)!) {
-            return IssueDM(id: issue.projectIdentifier.uuidString, title: issue.title, type: issue.type, creationDate: issue.creationDate.formatted(), info: issue.info ?? "", lastModified: issue.lastModified?.formatted() ?? "", project: ProjectDM(id: issue.projectIdentifier), projectIdentifier: issue.projectIdentifier.uuidString)
-        } else {
-            let issue = IssueMO.findOrInsert(using:UUID(uuidString: _issue.projectIdentifier)!, in: storageProvider.persistentContainer!.viewContext)
-            issue.projectIdentifier = UUID(uuidString: _issue.projectIdentifier)!
+        let projectMO = ProjectMO.findOrInsert(using: _issue.project!.name, in: storageProvider.persistentContainer!.viewContext)
+        let issue = IssueMO.findOrInsert(using: _issue.project!.id, for: projectMO, in: storageProvider.persistentContainer!.viewContext)
+            issue.projectIdentifier = projectMO.identifier
             issue.title = _issue.title
             issue.creationDate = Date()
             issue.info = _issue.info
             issue.type = _issue.type
+            issue.project = projectMO
             do {
                 if storageProvider.persistentContainer!.viewContext.hasChanges {
                     try storageProvider.persistentContainer!.viewContext.save()
@@ -57,7 +62,7 @@ public class IssueRepository: IIssueRepository {
                 storageProvider.persistentContainer!.viewContext.rollback()
             }
             return IssueDM(id: issue.projectIdentifier.uuidString, title: issue.title, type: issue.type, creationDate: issue.creationDate.formatted(), info: issue.info ?? "", lastModified: issue.lastModified?.formatted() ?? "", project: ProjectDM(id: issue.projectIdentifier), projectIdentifier: issue.projectIdentifier.uuidString)
-        }
+       // }
     }
     
     public func edit(_ _issue: IssueDM) -> IssueDM {

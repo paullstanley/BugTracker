@@ -11,7 +11,7 @@ import Domain
 
 class ProjectsLandingPageViewModel: ObservableObject {
     private let repository: ProjectRepository
-    private var selection: UUID = UUID()
+    @Published var selection: UUID = UUID()
     
     @Published private(set) var projects: [ProjectDM]
     @Published var order: [KeyPathComparator<ProjectDM>] = [

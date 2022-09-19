@@ -14,7 +14,7 @@ struct IssueTableView: View {
     
     var body: some View {
         VStack {
-            HStack {
+            DynamicStack {
                 Spacer()
                     Text(vm.selectedProject.name)
                         .foregroundColor(.orange)
