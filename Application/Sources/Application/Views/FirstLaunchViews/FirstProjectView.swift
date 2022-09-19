@@ -1,5 +1,5 @@
 //
-//  FirstLaunchView.swift
+//  FirstProjectView.swift
 //  IssueTrackingSystem (macOS)
 //
 //  Created by Paull Stanley on 9/10/22.
@@ -11,6 +11,7 @@ import CoreDataPlugin
 public struct FirstProjectView: View {
     let vm: LandingPageViewModel
     let storageProvider: StorageProvider
+    
     @State var moving = false
     @State var nextView = false
     @State var skip = false
@@ -125,9 +126,3 @@ public struct FirstProjectView: View {
         .navigationTitle("")
     }
 }
-
-//struct FirstProjectView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        FirstProjectView()
-//    }
-//}

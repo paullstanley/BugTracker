@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreDataPlugin
-import Domain
 
 struct CreateProjectView: View {
     @State var landingPageVM: ProjectsLandingPageViewModel

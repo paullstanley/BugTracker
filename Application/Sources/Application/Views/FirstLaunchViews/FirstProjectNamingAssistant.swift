@@ -107,8 +107,3 @@ struct FirstProjectNamingAssistant: View {
     }
 }
 
-//struct FirstProjectNamingAssistant_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FirstProjectNamingAssistant()
-//    }
-//}

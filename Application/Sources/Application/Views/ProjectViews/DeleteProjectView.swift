@@ -6,12 +6,9 @@
 //
 
 import SwiftUI
-import CoreDataPlugin
-import Domain
 
 struct DeleteProjectView: View {
     @ObservedObject var landingPageVM: ProjectsLandingPageViewModel
-   // var project: ProjectDM
     @State var vm: DeleteProjectViewModel
     
     var body: some View {
@@ -24,9 +21,3 @@ struct DeleteProjectView: View {
         .cornerRadius(5)
     }
 }
-
-//struct DeleteProjectView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        DeleteProjectView(parentVM: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())))
-//    }
-//}

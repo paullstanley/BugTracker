@@ -74,7 +74,6 @@ struct ProjectsLandingPageView: View {
             ProjectsTableView(vm: vm)
                 .padding()
         }
-        //.scaledToFit()
     }
 }
 

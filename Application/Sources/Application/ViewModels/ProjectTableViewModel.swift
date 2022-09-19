@@ -12,9 +12,7 @@ import Domain
 class ProjectTableViewModel: ObservableObject {
     private let dataSource: ProjectRepository
     
-    
     @Published var selection: UUID?
-    
     @Published var order: [KeyPathComparator<ProjectDM>] = [
         .init(\ProjectDM.name, order: SortOrder.forward)
     ]

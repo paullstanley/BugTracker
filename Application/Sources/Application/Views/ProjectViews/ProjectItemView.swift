@@ -68,11 +68,3 @@ struct ProjectItemView: View {
         .scaleEffect()
     }
 }
-
-//struct ProjectItemView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProjectItemView(vm: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())))
-//    }
-//}
-//
-//

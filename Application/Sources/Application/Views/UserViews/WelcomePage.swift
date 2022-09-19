@@ -6,13 +6,8 @@
 //
 
 import SwiftUI
-import CoreDataPlugin
 
 struct WelcomePage: View {
-    let storageProvider: StorageProvider
-    
-    @State var selection = ""
-    @State var isShowing = false
     var symbols = ["doc.fill.badge.plus", "doc", "chart.xyaxis.line", "scale.3d", "house"]
     var labels = ["New Project ", "Open Project", "     Feed      ", "Project List", "     Home      "]
     var colors: [AnyGradient] = [Color.accentColor.gradient, Color.yellow.gradient, Color.teal.gradient, Color.mint.gradient, Color.brown.gradient]
@@ -20,7 +15,7 @@ struct WelcomePage: View {
     var body: some View {
 #if os(iOS)
         iOSWelcomePageVIew()
-        #else
+#else
         VStack {
             Text(String(describing: Date().formatted()))
                 .fontWeight(.ultraLight)
@@ -35,7 +30,7 @@ struct WelcomePage: View {
                         VStack {
                             Image(systemName: symbols[i])
                                 .resizable()
-                                
+                            
                             Text(labels[i])
                                 .fixedSize()
                         }
@@ -51,14 +46,13 @@ struct WelcomePage: View {
             }
             .padding(.horizontal)
         }
-         .scaleEffect()
-        #endif
-       
+        .scaleEffect()
+#endif
     }
 }
 
 struct WelcomePage_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomePage(storageProvider: StorageProvider())
+        WelcomePage()
     }
 }

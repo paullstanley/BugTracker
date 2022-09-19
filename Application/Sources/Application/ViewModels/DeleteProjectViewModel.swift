@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreDataPlugin
-import CoreData
 import Domain
 import UseCases
 

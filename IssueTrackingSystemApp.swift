@@ -7,22 +7,14 @@
 
 import SwiftUI
 import Application
-import CoreDataPlugin
-
 
 @main
 struct IssueTrackingSystemApp: App {
-    let storageProvider = StorageProvider()
     @Environment(\.scenePhase) private var scenePhase
-    var isFirstLaunch = false
     
     var body: some Scene {
         WindowGroup {
-            if isFirstLaunch {
-                FirstProjectView(vm: LandingPageViewModel(storageProvider: storageProvider), storageProvider: storageProvider)
-            } else {
-                LandingPageView(vm: LandingPageViewModel(storageProvider: storageProvider), _storageProvider: storageProvider)
-            }
+            MainView()
         }
         .onChange(of: scenePhase) { phase in
             switch phase {
@@ -32,7 +24,6 @@ struct IssueTrackingSystemApp: App {
                 print("inactive")
             case .background:
                 print("background")
-                // landingPageVM.repository.storageProvider.saveContext()
             @unknown default:
                 print("unknown scene")
             }

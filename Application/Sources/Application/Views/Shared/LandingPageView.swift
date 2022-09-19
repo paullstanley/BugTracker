@@ -39,7 +39,7 @@ public struct LandingPageView: View {
                             vm.selectedMenu?.name == "" ||
                             vm.selectedMenu?.name == nil
                 {
-                    WelcomePage(storageProvider: storageProvider)
+                    WelcomePage()
                 } 
             }
             .tabItem {

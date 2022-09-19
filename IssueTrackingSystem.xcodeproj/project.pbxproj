@@ -105,6 +105,7 @@
 		FA1E4B6628C8143B009D195A = {
 			isa = PBXGroup;
 			children = (
+				FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */,
 				FAAC0D2F28D830140028E419 /* Application */,
 				FAAC0D2E28D82E450028E419 /* Domain */,
 				FAAC0D2D28D82E3D0028E419 /* UseCases */,
@@ -127,7 +128,6 @@
 		FA1E4B6B28C8143B009D195A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */,
 				FA1E4B7128C8143D009D195A /* Assets.xcassets */,
 			);
 			path = Shared;
