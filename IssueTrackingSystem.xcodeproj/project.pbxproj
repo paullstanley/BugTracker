@@ -90,8 +90,6 @@
 
 /* Begin PBXFileReference section */
 		FA0039DE28D81A2400913385 /* DynamicStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicStack.swift; sourceTree = "<group>"; };
-		FA0039E228D81EA500913385 /* UseCases */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UseCases; path = ../UseCases; sourceTree = "<group>"; };
-		FA0039E328D81EAA00913385 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Domain; path = ../Domain; sourceTree = "<group>"; };
 		FA0039E628D8209400913385 /* macOS.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTrackingSystemApp.swift; sourceTree = "<group>"; };
 		FA1E4B6F28C8143B009D195A /* LandingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPageView.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 		FA84514D28CA8F8900FDCDCB /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
 		FA84514F28CA90E200FDCDCB /* DeleteProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProjectView.swift; sourceTree = "<group>"; };
 		FA84515128CA91E000FDCDCB /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
-		FA8C335928D7EFD600167858 /* CoreDataPlugin */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CoreDataPlugin; path = ../CoreDataPlugin; sourceTree = "<group>"; };
 		FA9DF65228CD8DFB0051DD04 /* FirstProjectDetailsAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProjectDetailsAssistant.swift; sourceTree = "<group>"; };
 		FA9E340B28CAEB4F0094A7BB /* ProjectsLandingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsLandingPageView.swift; sourceTree = "<group>"; };
 		FA9E340F28CAF3C80094A7BB /* IssueTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTableView.swift; sourceTree = "<group>"; };
@@ -132,6 +129,9 @@
 		FAA74AA928D7F37C00EF5F3E /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA74AAA28D7F37C00EF5F3E /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAABDCD828CD678E0014DCFB /* FirstProjectNamingAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstProjectNamingAssistant.swift; sourceTree = "<group>"; };
+		FAAC0D2C28D82D6C0028E419 /* CoreDataPlugin */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreDataPlugin; sourceTree = "<group>"; };
+		FAAC0D2D28D82E3D0028E419 /* UseCases */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UseCases; sourceTree = "<group>"; };
+		FAAC0D2E28D82E450028E419 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
 		FAB89AD628CAC9F100EE242B /* CreateIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIssueView.swift; sourceTree = "<group>"; };
 		FAE4D9B028D03B13003F0004 /* iOSWelcomePageVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSWelcomePageVIew.swift; sourceTree = "<group>"; };
 		FAFCBB4728D2D55200128B79 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -185,9 +185,9 @@
 		FA1E4B6628C8143B009D195A = {
 			isa = PBXGroup;
 			children = (
-				FA0039E328D81EAA00913385 /* Domain */,
-				FA0039E228D81EA500913385 /* UseCases */,
-				FA8C335928D7EFD600167858 /* CoreDataPlugin */,
+				FAAC0D2E28D82E450028E419 /* Domain */,
+				FAAC0D2D28D82E3D0028E419 /* UseCases */,
+				FAAC0D2C28D82D6C0028E419 /* CoreDataPlugin */,
 				FA28861328D1025D00A24F7B /* IssueTrackingSystem (macOS)Release.entitlements */,
 				FA686D8028D0BFA4001972A0 /* IssueTrackingSystem (iOS).entitlements */,
 				FA28861228D1025100A24F7B /* IssueTrackingSystem (iOS)Release.entitlements */,
