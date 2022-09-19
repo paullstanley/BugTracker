@@ -1,5 +1,5 @@
 //
-//  GetAllProjects.swift
+//  ViewAllProjects.swift
 //  IssueTrackingSystem
 //
 //  Created by Paull Stanley on 9/7/22.
@@ -7,7 +7,7 @@
 
 import Domain
 
-struct GetAllProjects: IGetAllProjects {
+struct ViewAllProjects: IViewAllProjects {
     let projectRepository: IProjectRepository
     
     func execute()-> [ProjectDM] {

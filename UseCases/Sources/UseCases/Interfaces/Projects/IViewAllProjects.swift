@@ -1,5 +1,5 @@
 //
-//  IGetAllProjects.swift
+//  IViewAllProjects.swift
 //  
 //
 //  Created by Paull Stanley on 9/18/22.
@@ -7,6 +7,6 @@
 
 import Domain
 
-protocol IGetAllProjects {
+protocol IViewAllProjects {
     func execute()-> [ProjectDM]
 }

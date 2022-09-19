@@ -1,5 +1,5 @@
 //
-//  GetProjectById.swift
+//  ViewIssueById.swift
 //  IssueTrackingSystem (macOS)
 //
 //  Created by Paull Stanley on 9/7/22.
@@ -7,8 +7,8 @@
 
 import Domain
 
-struct GetProjectById: IGetProjectById {
-    func execute()-> ProjectDM? {
+struct ViewIssueById: IViewIssueById {
+    func execute() -> IssueDM? {
         return nil
     }
 }
