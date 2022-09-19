@@ -5,8 +5,6 @@
 //  Created by Paull Stanley on 9/7/22.
 //
 
-import Foundation
-
 public struct IssueDM {
     
     public init(id: String = "", title: String = "", type: String = "", creationDate: String = "", info: String = "", lastModified: String = "", project: ProjectDM? = nil, projectIdentifier: String = "") {

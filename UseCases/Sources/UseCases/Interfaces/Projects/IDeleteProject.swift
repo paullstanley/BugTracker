@@ -1,13 +1,12 @@
 //
-//  File.swift
+//  IDeleteProject.swift
 //  
 //
 //  Created by Paull Stanley on 9/18/22.
 //
 
-import Foundation
 import Domain
 
-public protocol DeleteProjectProtocol {
+public protocol IDeleteProject {
     func execute(_ project: ProjectDM)-> Bool
 }

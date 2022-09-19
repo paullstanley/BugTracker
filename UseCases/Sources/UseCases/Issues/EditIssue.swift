@@ -5,10 +5,9 @@
 //  Created by Paull Stanley on 9/7/22.
 //
 
-import Foundation
 import Domain
 
-struct EditIssue: EditIssueProtocol {
+struct EditIssue: IEditIssue {
     func execute() -> IssueDM? {
         return nil
     }

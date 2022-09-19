@@ -1,13 +1,12 @@
 //
-//  File.swift
+//  IGetIssueById.swift
 //  
 //
 //  Created by Paull Stanley on 9/18/22.
 //
 
-import Foundation
 import Domain
 
-protocol EditIssueProtocol {
+protocol IGetIssueById {
     func execute()-> IssueDM?
 }

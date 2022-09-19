@@ -1,12 +1,10 @@
 //
-//  File.swift
+//  IDeleteIssue.swift
 //  
 //
 //  Created by Paull Stanley on 9/18/22.
 //
 
-import Foundation
-
-protocol DeleteIssueProtocol {
+protocol IDeleteIssue {
     func execute()-> Bool
 }

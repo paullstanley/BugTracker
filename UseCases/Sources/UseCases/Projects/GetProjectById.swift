@@ -5,10 +5,9 @@
 //  Created by Paull Stanley on 9/7/22.
 //
 
-import Foundation
 import Domain
 
-struct GetProjectById: GetProjectByIdProtocol {
+struct GetProjectById: IGetProjectById {
     func execute()-> ProjectDM? {
         return nil
     }

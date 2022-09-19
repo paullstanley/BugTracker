@@ -5,11 +5,9 @@
 //  Created by Paull Stanley on 9/18/22.
 //
 
-import Foundation
 import Domain
 
-
-public struct AddProject: AddProjectProtocol {
+public struct AddProject: IAddProject {
     public let projectRepository: IProjectRepository
     
     public init(projectRepository: IProjectRepository) {

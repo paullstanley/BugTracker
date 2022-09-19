@@ -5,10 +5,9 @@
 //  Created by Paull Stanley on 9/7/22.
 //
 
-import Foundation
 import Domain
 
-struct GetAllProjects: GetAllProjectsProtocol {
+struct GetAllProjects: IGetAllProjects {
     let projectRepository: IProjectRepository
     
     func execute()-> [ProjectDM] {
