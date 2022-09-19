@@ -1,9 +1,7 @@
-//
 //  WelcomePage.swift
 //  IssueTrackingSystem (macOS)
 //
 //  Created by Paull Stanley on 9/9/22.
-//
 
 import SwiftUI
 
@@ -24,7 +22,7 @@ struct WelcomePage: View {
                 .fontWeight(.heavy)
             
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))]) {
-                ForEach(0..<symbols.count) { i in
+                ForEach(0..<symbols.count, id: \.self) { i in
                     NavigationLink(destination: //CreateProjectView(storageProvider: storageProvider)
                                    Text("hello"), label: {
                         VStack {

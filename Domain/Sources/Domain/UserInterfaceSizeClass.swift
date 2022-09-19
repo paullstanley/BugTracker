@@ -23,12 +23,12 @@ struct VerticalSizeClassEnvironmentKey: EnvironmentKey {
 
 extension EnvironmentValues {
     public var horizontalSizeClass: UserInterfaceSizeClass {
-        get { return self[HorizontalSizeClassEnvironmentKey] }
-        set { self[HorizontalSizeClassEnvironmentKey] = newValue }
+        get { return self[HorizontalSizeClassEnvironmentKey.self] }
+        set { self[HorizontalSizeClassEnvironmentKey.self] = newValue }
     }
     var verticalSizeClass: UserInterfaceSizeClass {
-        get { return self[VerticalSizeClassEnvironmentKey] }
-        set { self[VerticalSizeClassEnvironmentKey] = newValue }
+        get { return self[VerticalSizeClassEnvironmentKey.self] }
+        set { self[VerticalSizeClassEnvironmentKey.self] = newValue }
     }
 }
 #endif

@@ -21,7 +21,7 @@ struct iOSWelcomePageVIew: View {
                     .fontWeight(.heavy)
                 
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                    ForEach(0..<symbols.count) { i in
+                    ForEach(0..<symbols.count, id: \.self) { i in
                         NavigationLink(destination: //CreateProjectView(storageProvider: StorageProvider()),
                                        Text("hello")  ,label: {
                             VStack {
