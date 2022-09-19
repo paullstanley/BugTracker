@@ -8,9 +8,9 @@
 import Foundation
 import Domain
 
-protocol IIssueRepository {
+public protocol IIssueRepository {
     func getAll()-> [IssueDM]
-    func getById()-> IssueDM?
+    func getByName(_ title: String)-> IssueDM?
     
     func create(_ issue: IssueDM)-> IssueDM?
     func edit(_ issue: IssueDM)-> IssueDM

@@ -11,6 +11,7 @@ import Domain
 
 class ProjectsLandingPageViewModel: ObservableObject {
     let repository: ProjectRepository
+    @Published var isCreateIssueShowing: Bool = false
     @Published var isShowing: Bool = false
     @Published private(set) var projects: [ProjectDM]
     @Published var selection: UUID = UUID()

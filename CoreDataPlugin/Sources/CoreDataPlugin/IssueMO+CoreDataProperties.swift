@@ -14,7 +14,7 @@ extension IssueMO {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<IssueMO> {
         return NSFetchRequest<IssueMO>(entityName: "IssueEntity")
     }
-    @NSManaged public var projectIdentifier: UUID?
+    @NSManaged public var projectIdentifier: UUID
     @NSManaged public var title: String
     @NSManaged public var type: String
     @NSManaged public var creationDate: Date
@@ -43,16 +43,16 @@ extension IssueMO {
 }
 
 extension IssueMO {
-    public static func findOrInsert(using title: String, in context: NSManagedObjectContext)-> IssueMO {
+    public static func findOrInsert(using projectId: UUID, in context: NSManagedObjectContext)-> IssueMO {
         let request = NSFetchRequest<IssueMO>(entityName: "IssueEntity")
         
-        request.predicate = NSPredicate(format: "%K == %@", (\IssueMO.title)._kvcKeyPathString!, title as String)
+        request.predicate = NSPredicate(format: "%K == %@", (\IssueMO.projectIdentifier)._kvcKeyPathString!, projectId as NSUUID)
         
         if let issue = try? context.fetch(request).first {
             return issue
         } else {
             let issue = IssueMO(context: context)
-            issue.title = title
+            issue.projectIdentifier = projectId
             return issue
         }
     }

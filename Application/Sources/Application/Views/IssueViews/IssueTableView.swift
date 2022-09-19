@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import CoreDataPlugin
 
 struct IssueTableView: View {
+    let storageProvider: StorageProvider
     @ObservedObject var vm: ProjectsLandingPageViewModel
-    @State var isCreateIssueShowing = false
     
     var body: some View {
         VStack {
@@ -34,22 +35,16 @@ struct IssueTableView: View {
             }
             .padding()
             Button {
-                isCreateIssueShowing.toggle()
+                vm.isCreateIssueShowing.toggle()
             } label: {
                 Label("New Issue", systemImage: "plus")
             }
             .padding()
             .buttonStyle(.borderedProminent)
-            .popover(isPresented: $isCreateIssueShowing, content: {
-                CreateIssueView(issueCreationShowing: $isCreateIssueShowing, project: vm.selectedProject, vm: vm)
+            .popover(isPresented: $vm.isCreateIssueShowing, content: {
+                CreateIssueView(storageProvider: storageProvider, landingPageVM: vm)
             })
         }
         
     }
 }
-
-//struct IssueTableView_Preview: PreviewProvider {
-//    static var previews: some View {
-//        IssueTableView(vm: ProjectsLandingPageViewModel(_dataSource: ProjectRepository(_storageProvider: CoreDataStack())), isCreateIssueShowing: false)
-//    }
-//}

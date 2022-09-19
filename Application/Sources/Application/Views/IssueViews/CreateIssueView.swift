@@ -7,18 +7,24 @@
 
 import SwiftUI
 import Domain
+import CoreDataPlugin
+import UseCases
 
 struct CreateIssueView: View {
-    @Binding var issueCreationShowing: Bool
-    @State var project: ProjectDM
-    var vm: ProjectsLandingPageViewModel
+    @ObservedObject var createIssueVM: CreateIssueViewModel
+    @State var landingPageVM: ProjectsLandingPageViewModel
+    
+    init(storageProvider: StorageProvider, landingPageVM: ProjectsLandingPageViewModel) {
+        self.createIssueVM = CreateIssueViewModel(storageProvider: storageProvider)
+        self.landingPageVM = landingPageVM
+    }
     
     @State  var title: String = ""
     @State  var type: String = ""
     @State  var info: String = ""
     
     var body: some View {
-        VStack {
+        DynamicStack {
             GroupBox {
                 Form {
                     Text("Title")
@@ -29,19 +35,38 @@ struct CreateIssueView: View {
                     TextField("", text: $info)
                     HStack {
                         Button("Save") {
-                            
-                            issueCreationShowing.toggle()
+                            createIssueVM.issue = IssueDM(id: landingPageVM.selectedProject.stringId, title: title, type: type, creationDate: Date().formatted(), info: info, lastModified: Date().formatted(), project: landingPageVM.selectedProject, projectIdentifier: landingPageVM.selectedProject.stringId)
+                            createIssueVM.execute()
+                            landingPageVM.isCreateIssueShowing.toggle()
                         }
                         Button("Cancel") {
-                            issueCreationShowing.toggle()
+                            landingPageVM.isCreateIssueShowing.toggle()
                         }
+                        .buttonStyle(.borderedProminent)
                     }
-                    .padding(10)
+                    .padding()
+                    .cornerRadius(5)
                 }
-                .padding()
+                .padding(5)
+                .cornerRadius(5)
             }
-            .padding(10)
+                    
         }
         .frame(width:300)
+    }
+}
+
+class CreateIssueViewModel: ObservableObject {
+    private let repository: IssueRepository
+    
+    @Published var issue: IssueDM = IssueDM(id: UUID().uuidString, title: "", type: "", creationDate: "", info: "", lastModified: "", projectIdentifier: "")
+    
+    init(storageProvider: StorageProvider) {
+        repository = IssueRepository(storageProvider: storageProvider)
+    }
+    
+    func execute() {
+        guard let newIssue = AddIssue(issueRepository: repository).execute(issue) else { return }
+        issue = newIssue
     }
 }
