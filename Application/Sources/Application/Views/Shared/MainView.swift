@@ -16,9 +16,9 @@ public struct MainView: View {
     
     public var body: some View {
         if isFirstLaunch {
-            FirstProjectView(vm: LandingPageViewModel(storageProvider: storageProvider), storageProvider: storageProvider)
+            FirstProjectView(landingPageVM: LandingPageViewModel(storageProvider: storageProvider), storageProvider: storageProvider)
         } else {
-            LandingPageView(vm: LandingPageViewModel(storageProvider: storageProvider), storageProvider: storageProvider)
+            LandingPageView(landingPageVM: LandingPageViewModel(storageProvider: storageProvider), storageProvider: storageProvider)
         }
     }
 }

@@ -19,8 +19,6 @@ class DeleteIssueViewModel: ObservableObject {
     }
     
     func execute(_ issue: IssueDM) {
-        print("??????????????????????")
-        print(issue)
         isDeleted = DeleteIssueUseCase(issueRepository: repository).execute(issue)
     }
 }

@@ -20,7 +20,7 @@ public class ProjectRepository: IProjectRepository {
         var projects: [ProjectDM] = []
         let request = ProjectMO.fetchRequest()
         do {
-            let projectModelObjects = try storageProvider.peristentCloudKitContainer!.viewContext.fetch(request)
+            let projectModelObjects = try storageProvider.container!.viewContext.fetch(request)
             
             projects = projectModelObjects.map {
                 ProjectDM(
@@ -53,7 +53,7 @@ public class ProjectRepository: IProjectRepository {
         let request = ProjectMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.name), name as String)
         request.fetchLimit = 1
-        if let selectedProject = try? storageProvider.peristentCloudKitContainer!.viewContext.fetch(request) {
+        if let selectedProject = try? storageProvider.container!.viewContext.fetch(request) {
             return ProjectDM(id: selectedProject.first!.identifier)
         } else {
             return nil
@@ -61,7 +61,7 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func create(_ _project: ProjectDM) -> ProjectDM? {
-            let project = ProjectMO.findOrInsert(using: _project.name, in: storageProvider.peristentCloudKitContainer!.viewContext)
+            let project = ProjectMO.findOrInsert(using: _project.name, in: storageProvider.container!.viewContext)
             project.identifier = UUID()
             project.name = _project.name
             project.creationDate = Date()
@@ -69,11 +69,11 @@ public class ProjectRepository: IProjectRepository {
             project.stage = _project.stage
             project.deadline = _project.deadline
             do {
-                if storageProvider.peristentCloudKitContainer!.viewContext.hasChanges {
-                    try storageProvider.peristentCloudKitContainer!.viewContext.save()
+                if storageProvider.container!.viewContext.hasChanges {
+                    try storageProvider.container!.viewContext.save()
                 }
             } catch {
-                storageProvider.peristentCloudKitContainer!.viewContext.rollback()
+                storageProvider.container!.viewContext.rollback()
             }
             return ProjectDM(
                 id: project.identifier,
@@ -98,7 +98,7 @@ public class ProjectRepository: IProjectRepository {
             projectToEdit = ProjectDM(id: project.identifier)
             
             do {
-                try storageProvider.peristentCloudKitContainer!.viewContext.save()
+                try storageProvider.container!.viewContext.save()
             } catch {
                 print("There was an issue saving the edited issue")
             }
@@ -110,7 +110,7 @@ public class ProjectRepository: IProjectRepository {
     
     public func delete(_ _project: ProjectDM) -> Bool {
         if let project = getById(_project.id) {
-            let context = project.managedObjectContext ?? storageProvider.peristentCloudKitContainer!.viewContext
+            let context = project.managedObjectContext ?? storageProvider.container!.viewContext
             context.delete(project)
             print("Deleted successfully")
             do {
@@ -132,7 +132,7 @@ public class ProjectRepository: IProjectRepository {
         let request = ProjectMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.identifier), id as NSUUID)
         request.fetchLimit = 1
-        if let project = try? storageProvider.peristentCloudKitContainer!.viewContext.fetch(request).first {
+        if let project = try? storageProvider.container!.viewContext.fetch(request).first {
             return project
         } else {
             print("Unable to find Project Entity by provided id - \(id)")

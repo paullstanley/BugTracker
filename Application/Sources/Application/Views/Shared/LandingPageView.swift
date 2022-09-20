@@ -10,40 +10,36 @@ import CoreDataPlugin
 
 public struct LandingPageView: View {
     let storageProvider: StorageProvider
-    @ObservedObject var vm: LandingPageViewModel
-    @State var someBool: Bool = false
+    @ObservedObject var landingPageVM: LandingPageViewModel
     
-    public init(vm: LandingPageViewModel, storageProvider: StorageProvider) {
+    public init(landingPageVM: LandingPageViewModel, storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
-        self.vm = vm
+        self.landingPageVM = landingPageVM
         
     }
     
     public var body: some View {
         TabView {
-            NavigationStack {
                 NavigationSplitView {
-                    List(MenuItems.tempSidebar, selection: $vm.selectedMenu) { item in
+                    List(MenuItems.tempSidebar, selection: $landingPageVM.selectedMenu) { item in
                             Label(item.name, systemImage: item.image)
                                 .fixedSize()
                                 .tag(item)
                     }
                 } detail: {
-                    if vm.selectedMenu?.name == "Create Ticket" {
-                       // CreateProjectView(storageProvider: storageProvider)
+                    if landingPageVM.selectedMenu?.name == "Create Ticket" {
+                        //AddProjectView()
                         
-                    } else if vm.selectedMenu?.name == "Projects" {
+                    } else if landingPageVM.selectedMenu?.name == "Projects" {
                         ProjectsLandingPageView(storageProvider: storageProvider)
                     }
-                    else if vm.selectedMenu?.name == "Home" ||
-                                vm.selectedMenu?.name == "" ||
-                                vm.selectedMenu?.name == nil
+                    else if landingPageVM.selectedMenu?.name == "Home" ||
+                                landingPageVM.selectedMenu?.name == "" ||
+                                landingPageVM.selectedMenu?.name == nil
                     {
                         WelcomePage()
                     }
                 }
-                
-            }
             .tabItem {
                 Label("Home", systemImage: "house")
                     .fixedSize()
@@ -70,7 +66,7 @@ public struct LandingPageView: View {
 
 struct LandingPageView_Previews: PreviewProvider {
     static var previews: some View {
-        LandingPageView(vm: LandingPageViewModel(storageProvider: StorageProvider()), storageProvider: StorageProvider())
+        LandingPageView(landingPageVM: LandingPageViewModel(storageProvider: StorageProvider()), storageProvider: StorageProvider())
     }
 }
 

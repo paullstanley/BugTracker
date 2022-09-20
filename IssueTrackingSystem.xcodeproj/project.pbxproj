@@ -10,7 +10,7 @@
 		FA1E4B9A28C8143D009D195A /* IssueTrackingSystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */; };
 		FA1E4B9F28C8143D009D195A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1E4B7128C8143D009D195A /* Assets.xcassets */; };
 		FA1E4BA028C8143D009D195A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1E4B7128C8143D009D195A /* Assets.xcassets */; };
-		FAABDCB428CD30F60014DCFB /* IssueTrackingSystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */; };
+		FA8F219828DA1DEE004230CB /* IssueTrackingSystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F219728DA1DEE004230CB /* IssueTrackingSystemApp.swift */; };
 		FAAC0D3128D830F40028E419 /* Application in Frameworks */ = {isa = PBXBuildFile; productRef = FAAC0D3028D830F40028E419 /* Application */; };
 		FAAC0D3328D831090028E419 /* Application in Frameworks */ = {isa = PBXBuildFile; productRef = FAAC0D3228D831090028E419 /* Application */; };
 		FAFCBB4828D2D55200128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4728D2D55200128B79 /* CloudKit.framework */; };
@@ -46,6 +46,7 @@
 		FA28861328D1025D00A24F7B /* IssueTrackingSystem (macOS)Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (macOS)Release.entitlements"; sourceTree = "<group>"; };
 		FA686D8028D0BFA4001972A0 /* IssueTrackingSystem (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (iOS).entitlements"; sourceTree = "<group>"; };
 		FA686D8128D0C042001972A0 /* IssueTrackingSystem--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IssueTrackingSystem--iOS--Info.plist"; sourceTree = "<group>"; };
+		FA8F219728DA1DEE004230CB /* IssueTrackingSystemApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTrackingSystemApp.swift; sourceTree = "<group>"; };
 		FAA74AA728D7F37C00EF5F3E /* IssueTrackingSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IssueTrackingSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA74AA828D7F37C00EF5F3E /* IssueTrackingSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IssueTrackingSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA74AA928D7F37C00EF5F3E /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +106,6 @@
 		FA1E4B6628C8143B009D195A = {
 			isa = PBXGroup;
 			children = (
-				FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */,
 				FAAC0D2F28D830140028E419 /* Application */,
 				FAAC0D2E28D82E450028E419 /* Domain */,
 				FAAC0D2D28D82E3D0028E419 /* UseCases */,
@@ -137,6 +137,7 @@
 		FA1E4B7D28C8143D009D195A /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */,
 				FA0039E628D8209400913385 /* macOS.entitlements */,
 			);
 			path = macOS;
@@ -171,6 +172,7 @@
 		FAE4D9AF28D03AB2003F0004 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				FA8F219728DA1DEE004230CB /* IssueTrackingSystemApp.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -343,7 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAABDCB428CD30F60014DCFB /* IssueTrackingSystemApp.swift in Sources */,
+				FA8F219828DA1DEE004230CB /* IssueTrackingSystemApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

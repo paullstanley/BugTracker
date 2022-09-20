@@ -1,9 +1,11 @@
 //
 //  IssueTrackingSystemApp.swift
-//  Shared
+//  IssueTrackingSystem (iOS)
 //
-//  Created by Paull Stanley on 9/6/22.
+//  Created by Paull Stanley on 9/20/22.
 //
+
+
 
 import SwiftUI
 import Application
@@ -14,7 +16,7 @@ struct IssueTrackingSystemApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+            iOSMainView()
         }
         .onChange(of: scenePhase) { phase in
             switch phase {

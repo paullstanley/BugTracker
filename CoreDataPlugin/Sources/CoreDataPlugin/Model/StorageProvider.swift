@@ -12,6 +12,7 @@ public class PersistentContainer: NSPersistentContainer { }
 public class PersistentCloudKitContainer: NSPersistentCloudKitContainer { }
 
 public class StorageProvider {
+    public lazy var container = createContainer(inTheCloud: true)
     
     public init() { }
 
@@ -51,6 +52,14 @@ public class StorageProvider {
         })
         return cloudKitContainer
     }()
+    
+    private func createContainer(inTheCloud: Bool)-> NSPersistentContainer? {
+        if inTheCloud {
+            return peristentCloudKitContainer
+        } else {
+            return persistentContainer
+        }
+    }
  
     public func saveContext() {
         guard let context: NSManagedObjectContext = self.persistentContainer?.viewContext else { return }

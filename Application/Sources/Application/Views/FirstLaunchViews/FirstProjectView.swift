@@ -9,15 +9,15 @@ import SwiftUI
 import CoreDataPlugin
 
 public struct FirstProjectView: View {
-    let vm: LandingPageViewModel
+    let landingPageVM: LandingPageViewModel
     let storageProvider: StorageProvider
     
     @State var moving = false
     @State var nextView = false
     @State var skip = false
     
-    public init(vm: LandingPageViewModel, storageProvider: StorageProvider, moving: Bool = false, nextView: Bool = false, skip: Bool = false) {
-        self.vm = vm
+    public init(landingPageVM: LandingPageViewModel, storageProvider: StorageProvider, moving: Bool = false, nextView: Bool = false, skip: Bool = false) {
+        self.landingPageVM = landingPageVM
         self.storageProvider = storageProvider
         self.moving = moving
         self.nextView = nextView
@@ -27,9 +27,9 @@ public struct FirstProjectView: View {
     public var body: some View {
         VStack {
             if nextView == true {
-                FirstProjectNamingAssistant(landingPageVM: vm, storageProvider: storageProvider)
+                FirstProjectNamingAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider)
             } else if skip == true {
-                LandingPageView(vm: vm, storageProvider: storageProvider)
+                LandingPageView(landingPageVM: landingPageVM, storageProvider: storageProvider)
             } else {
                 ZStack {
                     Color.accentColor
