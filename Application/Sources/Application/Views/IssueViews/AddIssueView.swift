@@ -10,12 +10,12 @@ import Domain
 import CoreDataPlugin
 import UseCases
 
-struct CreateIssueView: View {
-    @ObservedObject var createIssueVM: CreateIssueViewModel
+struct AddIssueView: View {
+    @ObservedObject var createIssueVM: AddIssueViewModel
     @State var landingPageVM: ProjectsLandingPageViewModel
     
     init(storageProvider: StorageProvider, landingPageVM: ProjectsLandingPageViewModel) {
-        self.createIssueVM = CreateIssueViewModel(storageProvider: storageProvider)
+        self.createIssueVM = AddIssueViewModel(storageProvider: storageProvider)
         self.landingPageVM = landingPageVM
     }
     
@@ -56,17 +56,3 @@ struct CreateIssueView: View {
     }
 }
 
-class CreateIssueViewModel: ObservableObject {
-    private let repository: IssueRepository
-    
-    @Published var issue: IssueDM = IssueDM(id: UUID().uuidString)
-    
-    init(storageProvider: StorageProvider) {
-        repository = IssueRepository(storageProvider: storageProvider)
-    }
-    
-    func execute() {
-        guard let newIssue: IssueDM = AddIssueUseCase(issueRepository: repository).execute(issue) else { return }
-        issue = newIssue
-    }
-}

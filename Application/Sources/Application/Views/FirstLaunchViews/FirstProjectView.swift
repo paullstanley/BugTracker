@@ -29,7 +29,7 @@ public struct FirstProjectView: View {
             if nextView == true {
                 FirstProjectNamingAssistant(landingPageVM: vm, storageProvider: storageProvider)
             } else if skip == true {
-                LandingPageView(vm: vm, _storageProvider: storageProvider)
+                LandingPageView(vm: vm, storageProvider: storageProvider)
             } else {
                 ZStack {
                     Color.accentColor

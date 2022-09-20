@@ -13,34 +13,36 @@ public struct LandingPageView: View {
     @ObservedObject var vm: LandingPageViewModel
     @State var someBool: Bool = false
     
-    public init(vm: LandingPageViewModel, _storageProvider: StorageProvider) {
-        self.vm = LandingPageViewModel(storageProvider: _storageProvider)
-        storageProvider = _storageProvider
+    public init(vm: LandingPageViewModel, storageProvider: StorageProvider) {
+        self.storageProvider = storageProvider
+        self.vm = vm
+        
     }
     
     public var body: some View {
         TabView {
-            NavigationSplitView {
-                List(MenuItems.tempSidebar, selection: $vm.selectedMenu) { item in
-                    DynamicStack {
-                        Label(item.name, systemImage: item.image)
-                            .fixedSize()
+            NavigationStack {
+                NavigationSplitView {
+                    List(MenuItems.tempSidebar, selection: $vm.selectedMenu) { item in
+                            Label(item.name, systemImage: item.image)
+                                .fixedSize()
+                                .tag(item)
                     }
-                    .tag(item)
+                } detail: {
+                    if vm.selectedMenu?.name == "Create Ticket" {
+                       // CreateProjectView(storageProvider: storageProvider)
+                        
+                    } else if vm.selectedMenu?.name == "Projects" {
+                        ProjectsLandingPageView(storageProvider: storageProvider)
+                    }
+                    else if vm.selectedMenu?.name == "Home" ||
+                                vm.selectedMenu?.name == "" ||
+                                vm.selectedMenu?.name == nil
+                    {
+                        WelcomePage()
+                    }
                 }
-            } detail: {
-                if vm.selectedMenu?.name == "Create Ticket" {
-                   // CreateProjectView(storageProvider: storageProvider)
-                    
-                } else if vm.selectedMenu?.name == "Projects" {
-                    ProjectsLandingPageView(storageProvider: storageProvider)
-                }
-                else if vm.selectedMenu?.name == "Home" ||
-                            vm.selectedMenu?.name == "" ||
-                            vm.selectedMenu?.name == nil
-                {
-                    WelcomePage()
-                } 
+                
             }
             .tabItem {
                 Label("Home", systemImage: "house")
@@ -68,7 +70,7 @@ public struct LandingPageView: View {
 
 struct LandingPageView_Previews: PreviewProvider {
     static var previews: some View {
-        LandingPageView(vm: LandingPageViewModel(storageProvider: StorageProvider()), _storageProvider: StorageProvider())
+        LandingPageView(vm: LandingPageViewModel(storageProvider: StorageProvider()), storageProvider: StorageProvider())
     }
 }
 

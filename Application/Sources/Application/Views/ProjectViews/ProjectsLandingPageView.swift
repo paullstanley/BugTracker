@@ -35,7 +35,7 @@ struct ProjectsLandingPageView: View {
             .border(Color.accentColor, width: 3)
             .cornerRadius(3)
             .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
-            IssueTableView(vm: vm, storageProvider: storageProvider)
+            IssueTableView(storageProvider: storageProvider, vm: vm)
                 .border(Color.accentColor, width: 3)
                 .cornerRadius(3)
                 .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)

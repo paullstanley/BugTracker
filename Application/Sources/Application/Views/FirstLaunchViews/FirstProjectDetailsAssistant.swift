@@ -23,7 +23,7 @@ struct FirstProjectDetailsAssistant: View {
             Color.accentColor.ignoresSafeArea()
             DynamicStack {
                 if nextView == true {
-                    LandingPageView(vm: landingPageVM, _storageProvider: storageProvider)
+                    LandingPageView(vm: landingPageVM, storageProvider: storageProvider)
                         .background()
                 } else if previousView == true {
                     FirstProjectNamingAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider)

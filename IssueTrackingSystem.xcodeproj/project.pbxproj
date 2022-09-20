@@ -112,6 +112,7 @@
 				FAAC0D2C28D82D6C0028E419 /* CoreDataPlugin */,
 				FA28861328D1025D00A24F7B /* IssueTrackingSystem (macOS)Release.entitlements */,
 				FA686D8028D0BFA4001972A0 /* IssueTrackingSystem (iOS).entitlements */,
+				FA686D8128D0C042001972A0 /* IssueTrackingSystem--iOS--Info.plist */,
 				FA28861228D1025100A24F7B /* IssueTrackingSystem (iOS)Release.entitlements */,
 				FA0039E128D81B1200913385 /* Tests */,
 				FAE4D9AF28D03AB2003F0004 /* iOS */,
@@ -170,7 +171,6 @@
 		FAE4D9AF28D03AB2003F0004 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				FA686D8128D0C042001972A0 /* IssueTrackingSystem--iOS--Info.plist */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -538,6 +538,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "IssueTrackingSystem (iOS)Release.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F6YKB36Y9U;
@@ -557,6 +558,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.paullo.IssueTrackingSystem.new;
 				PRODUCT_NAME = IssueTrackingSystem;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

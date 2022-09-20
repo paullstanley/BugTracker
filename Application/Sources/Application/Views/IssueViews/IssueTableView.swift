@@ -42,7 +42,7 @@ struct IssueTableView: View {
             .padding()
             .buttonStyle(.borderedProminent)
             .popover(isPresented: $vm.showingCreateIssue, content: {
-                CreateIssueView(storageProvider: storageProvider, landingPageVM: vm)
+                AddIssueView(storageProvider: storageProvider, landingPageVM: vm)
             })
         }
         

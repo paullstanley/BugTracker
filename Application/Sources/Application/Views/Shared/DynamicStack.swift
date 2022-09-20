@@ -27,6 +27,10 @@ private extension DynamicStack {
             return horizontalLayout
         case .compact:
             return verticalLayout
+#if os(iOS)
+        case .some(_):
+            return horizontalLayout
+#endif
         }
     }
 
