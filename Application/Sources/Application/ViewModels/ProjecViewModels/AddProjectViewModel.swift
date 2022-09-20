@@ -10,11 +10,11 @@ import CoreDataPlugin
 import Domain
 import UseCases
 
-class CreateProjectViewModel: ObservableObject {
+class AddProjectViewModel: ObservableObject {
     private let repository: ProjectRepository
     let addProjectUseCase: IAddProjectUseCase
     
-    @Published var project: ProjectDM = ProjectDM(id: UUID(), name: "", creationDate: String(describing: Date()))
+    @Published var project: ProjectDM = ProjectDM(id: UUID())
     
     init(storageProvider: StorageProvider) {
         repository = ProjectRepository(storageProvider: storageProvider)

@@ -9,17 +9,30 @@ import SwiftUI
 import Domain
 
 struct ProjectsTableView: View {
-    @ObservedObject var vm: ProjectsLandingPageViewModel
+    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     @State var selection: UUID?
     
     var sortedProjects: [ProjectDM]  {
-        vm.projects
-            .sorted(using: vm.order)
+        projectsLandingPageVM.projects
+            .sorted(using: projectsLandingPageVM.projectOrder)
     }
     
     var body: some View {
-        DynamicStack {
-            Table(sortedProjects, selection: $selection, sortOrder: $vm.order) {
+        VStack {
+            DynamicStack {
+                Spacer()
+                Text("Current Projects")
+                    .fixedSize()
+                Spacer()
+            }
+            .font(.title)
+            .foregroundColor(.white)
+            .bold()
+            .padding()
+            .background(Color.accentColor.gradient)
+            .cornerRadius(3)
+            .scaleEffect()
+            Table(sortedProjects, selection: $selection, sortOrder: $projectsLandingPageVM.projectOrder) {
                 TableColumn("Id", value: \.stringId)
                 TableColumn("Name", value: \.name)
                 TableColumn("Creation date", value: \.creationDate)
@@ -31,7 +44,7 @@ struct ProjectsTableView: View {
         }
         .scaleEffect()
         .onChange(of: selection, perform: { _ in
-            vm.updateSelecttion(selection)
+            projectsLandingPageVM.updateProjectSelection(selection)
         })
     }
 }

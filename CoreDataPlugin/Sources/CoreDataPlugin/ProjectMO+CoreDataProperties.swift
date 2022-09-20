@@ -56,6 +56,7 @@ extension ProjectMO {
             return project
         } else {
             let project: ProjectMO = ProjectMO(context: context)
+            project.creationDate = Date()
             project.identifier = UUID()
             project.name = name
             return project

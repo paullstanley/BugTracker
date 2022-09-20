@@ -19,7 +19,6 @@ public class ProjectRepository: IProjectRepository {
     public func getAll()-> [ProjectDM] {
         var projects: [ProjectDM] = []
         let request = ProjectMO.fetchRequest()
-        request.returnsObjectsAsFaults = false
         do {
             let projectModelObjects = try storageProvider.persistentContainer!.viewContext.fetch(request)
             
@@ -33,7 +32,7 @@ public class ProjectRepository: IProjectRepository {
                     stage: $0.stage, deadline: $0.deadline,
                     issues: $0.fetchedIssues.map {
                         IssueDM(
-                            id: $0.projectIdentifier.uuidString,
+                            id: $0.identifier.uuidString,
                             title: $0.title,
                             type: $0.type,
                             creationDate: $0.creationDate.formatted(),
@@ -93,8 +92,9 @@ public class ProjectRepository: IProjectRepository {
             project.identifier = _project.id
             project.name = _project.name
             project.info = _project.info
-            project.creationDate = DateFormatter().date(from:_project.creationDate) ?? project.creationDate
+            project.creationDate = DateFormatter().date(from: _project.creationDate) ?? project.creationDate
             project.stage = _project.stage
+            
             projectToEdit = ProjectDM(id: project.identifier)
             
             do {

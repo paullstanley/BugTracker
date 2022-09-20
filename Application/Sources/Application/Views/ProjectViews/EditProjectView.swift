@@ -9,10 +9,11 @@ import SwiftUI
 import Domain
 
 struct EditProjectView: View {
+    @Environment(\.dismiss) var onDissmiss: DismissAction
     let project: ProjectDM
-    let vm: EditProjectViewModel = EditProjectViewModel()
+    let editProjectVM: EditProjectViewModel = EditProjectViewModel()
     
-    @StateObject var parentVM: ProjectsLandingPageViewModel
+    @StateObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     
     @State var name: String = ""
     @State var info: String = ""
@@ -35,8 +36,8 @@ struct EditProjectView: View {
                         Spacer()
                         Button("Save") {
                             let newProject = ProjectDM(id: project.id, name: name, info: info, stage: stage, deadline: deadline)
-                            _ = vm.execute(newProject)
-                                parentVM.getProjects()
+                            _ = editProjectVM.execute(newProject)
+                            onDissmiss()
                         }
                         .cornerRadius(5)
                     }

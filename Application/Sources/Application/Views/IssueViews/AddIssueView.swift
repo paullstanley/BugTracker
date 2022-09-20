@@ -11,37 +11,35 @@ import CoreDataPlugin
 import UseCases
 
 struct AddIssueView: View {
-    @ObservedObject var createIssueVM: AddIssueViewModel
-    @State var landingPageVM: ProjectsLandingPageViewModel
+    @State var addIssueVM: AddIssueViewModel
+    @ObservedObject var projectsLandingPageView: ProjectsLandingPageViewModel
     
-    init(storageProvider: StorageProvider, landingPageVM: ProjectsLandingPageViewModel) {
-        self.createIssueVM = AddIssueViewModel(storageProvider: storageProvider)
-        self.landingPageVM = landingPageVM
+    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
+        self.addIssueVM = AddIssueViewModel(storageProvider: storageProvider)
+        self.projectsLandingPageView = projectsLandingPageVM
     }
-    
-    @State  var title: String = ""
-    @State  var type: String = ""
-    @State  var info: String = ""
     
     var body: some View {
         DynamicStack {
             GroupBox {
                 Form {
                     Text("Title")
-                    TextField("", text: $title)
+                    TextField("", text: $addIssueVM.issue.title)
                     Text("Type")
-                    TextField("", text: $type)
+                    TextField("", text: $addIssueVM.issue.type)
                     Text("Description")
-                    TextField("", text: $info)
+                    TextField("", text: $addIssueVM.issue.info)
                     HStack {
                         Button("Save") {
-                            createIssueVM.issue = IssueDM(id: landingPageVM.selectedProject.stringId, title: title, type: type, creationDate: Date().formatted(), info: info, lastModified: Date().formatted(), project: landingPageVM.selectedProject, projectIdentifier: landingPageVM.selectedProject.stringId)
+                            addIssueVM.issue.project = projectsLandingPageView.selectedProject
+                            addIssueVM.issue.projectIdentifier = projectsLandingPageView.selectedProject.stringId
+                            addIssueVM.issue.id = projectsLandingPageView.selectedProject.stringId
                             
-                            createIssueVM.execute()
-                            landingPageVM.showingCreateIssue.toggle()
+                            addIssueVM.execute()
+                            projectsLandingPageView.showingCreateIssue.toggle()
                         }
                         Button("Cancel") {
-                            landingPageVM.showingCreateIssue.toggle()
+                            projectsLandingPageView.showingCreateIssue.toggle()
                         }
                         .buttonStyle(.borderedProminent)
                     }

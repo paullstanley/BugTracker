@@ -11,7 +11,7 @@ import Domain
 import UseCases
 
 class DeleteProjectViewModel: ObservableObject {
-    private let repository: ProjectRepository
+    private let repository: IProjectRepository
     @Published var isDeleted: Bool = false
     
     init(storageProvider: StorageProvider) {

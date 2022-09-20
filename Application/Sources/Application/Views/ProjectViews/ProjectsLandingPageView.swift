@@ -10,22 +10,22 @@ import CoreDataPlugin
 
 struct ProjectsLandingPageView: View {
     let storageProvider: StorageProvider
-    @ObservedObject var vm:  ProjectsLandingPageViewModel
+    @ObservedObject var projectsLandingPageVM:  ProjectsLandingPageViewModel
     
     init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
-        vm = ProjectsLandingPageViewModel(repository: ProjectRepository(storageProvider: self.storageProvider))
+        projectsLandingPageVM = ProjectsLandingPageViewModel(repository: ProjectRepository(storageProvider: self.storageProvider))
     }
     
     var body: some View {
         VStack {
-            #if os(iOS)
+#if os(iOS)
             DynamicStack {
-                ProjectItemView(vm: vm)
+                ProjectItemView(projectsLandingPageVM: projectsLandingPageVM)
                 HStack {
-                    DeleteProjectView(landingPageVM: vm, vm: DeleteProjectViewModel(storageProvider: storageProvider))
+                    DeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
                     Button {
-                        vm.showingCreateProject.toggle()
+                        projectsLandingPageVM.showingCreateProject.toggle()
                     } label: {
                         Label("Create", systemImage: "plus")
                     }
@@ -35,44 +35,63 @@ struct ProjectsLandingPageView: View {
             .border(Color.accentColor, width: 3)
             .cornerRadius(3)
             .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
-            IssueTableView(storageProvider: storageProvider, vm: vm)
+            IssueTableView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
                 .border(Color.accentColor, width: 3)
                 .cornerRadius(3)
                 .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
-            #else
+#else
             HStack {
                 VStack {
-                    ProjectItemView(vm: vm)
+                    ProjectItemView(projectsLandingPageVM: projectsLandingPageVM)
                     HStack {
-                        DeleteProjectView(landingPageVM: vm, vm: DeleteProjectViewModel(storageProvider: storageProvider))
+                        DeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
                         Button {
-                            vm.showingCreateProject.toggle()
+                            projectsLandingPageVM.showingCreateProject.toggle()
                         } label: {
                             Label("Create", systemImage: "plus")
                         }
                         .padding()
                     }
                 }
-                .fixedSize()
                 .border(Color.accentColor, width: 3)
                 .cornerRadius(3)
                 .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
-                IssueTableView(storageProvider: storageProvider, vm: vm)
-                    .border(Color.accentColor, width: 3)
-                    .cornerRadius(3)
-                    .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
+                VStack {
+                    IssueItemView(projectsLandingPageVM: projectsLandingPageVM)
+                    HStack {
+                        DeleteIssueView(projectsLandingPageVM: projectsLandingPageVM, deleteIssueVM: DeleteIssueViewModel(storageProvider: storageProvider))
+                        Button {
+                            projectsLandingPageVM.showingCreateIssue.toggle()
+                        } label: {
+                            Label("Create", systemImage: "plus")
+                        }
+                        .padding()
+                    }
+                }
+                .border(Color.accentColor, width: 3)
+                .cornerRadius(3)
+                .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
             }
-            .scaledToFit()
+            .scaleEffect()
             .padding()
-            .sheet(isPresented: $vm.showingCreateProject, content: {
-                AddProjectView(storageProvider: storageProvider, landingPageVM: vm)
+            .sheet(isPresented: $projectsLandingPageVM.showingCreateIssue, content: {
+                AddIssueView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
                     .onDisappear(perform: {
-                        vm.getProjects()
+                        projectsLandingPageVM.getProjects()
                     })
             })
-            #endif
-            ProjectsTableView(vm: vm)
-                .padding()
+            .sheet(isPresented: $projectsLandingPageVM.showingCreateProject, content: {
+                AddProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                    .onDisappear(perform: {
+                        projectsLandingPageVM.getProjects()
+                    })
+            })
+#endif
+            HStack {
+                ProjectsTableView(projectsLandingPageVM: projectsLandingPageVM)
+                IssueTableView(projectsLandingPageVM: projectsLandingPageVM)
+            }
+            .padding()
         }
     }
 }

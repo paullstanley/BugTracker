@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectItemView: View {
-    @ObservedObject var vm: ProjectsLandingPageViewModel
+    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     @State var showingEditView: Bool = false
     
     var body: some View {
@@ -28,7 +28,10 @@ struct ProjectItemView: View {
                     }
                     .buttonStyle(.plain)
                     .popover(isPresented: $showingEditView, content: {
-                        EditProjectView(project: vm.selectedProject, parentVM: vm)
+                        EditProjectView(project: projectsLandingPageVM.selectedProject, projectsLandingPageVM: projectsLandingPageVM)
+                            .onDisappear(perform: {
+                                projectsLandingPageVM.getProjects()
+                            })
                     })
                     Spacer()
                 }
@@ -42,23 +45,31 @@ struct ProjectItemView: View {
                 Group {
                     HStack {
                         Text("Name:")
+                            .fixedSize()
                             .bold()
-                        Text(vm.selectedProject.name)
+                        Text(projectsLandingPageVM.selectedProject.name)
+                            .fixedSize()
                     }
                     HStack {
                         Text("Creation Date:")
+                            .fixedSize()
                             .bold()
-                        Text("\(vm.selectedProject.creationDate)")
+                        Text("\(projectsLandingPageVM.selectedProject.creationDate)")
+                            .fixedSize()
                     }
                     HStack {
                         Text("Stage:")
+                            .fixedSize()
                             .bold()
-                        Text("\(vm.selectedProject.stage)")
+                        Text("\(projectsLandingPageVM.selectedProject.stage)")
+                            .fixedSize()
                     }
                     HStack {
                         Text("Information:")
+                            .fixedSize()
                             .bold()
-                        Text("\(vm.selectedProject.info)")
+                        Text("\(projectsLandingPageVM.selectedProject.info)")
+                            .fixedSize()
                     }
                 }
                 .padding(.leading, 10)

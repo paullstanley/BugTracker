@@ -9,12 +9,12 @@ import SwiftUI
 import CoreDataPlugin
 
 struct AddProjectView: View {
-    @State var landingPageVM: ProjectsLandingPageViewModel
-    @ObservedObject var vm: CreateProjectViewModel
+    @State var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @ObservedObject var addProjectViewModel: AddProjectViewModel
     
-    init(storageProvider: StorageProvider, landingPageVM: ProjectsLandingPageViewModel) {
-        vm = CreateProjectViewModel(storageProvider: storageProvider)
-        self.landingPageVM = landingPageVM
+    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
+        addProjectViewModel = AddProjectViewModel(storageProvider: storageProvider)
+        self.projectsLandingPageVM = projectsLandingPageVM
     }
     
     var body: some View {
@@ -22,23 +22,23 @@ struct AddProjectView: View {
                 GroupBox {
                     Form {
                         Text("Project name")
-                        TextField("", text: $vm.project.name)
+                        TextField("", text: $addProjectViewModel.project.name)
                         Text("Project stage")
-                        TextField("", text: $vm.project.stage)
+                        TextField("", text: $addProjectViewModel.project.stage)
                         Text("Project deadline")
-                        TextField("", text: $vm.project.deadline)
+                        TextField("", text: $addProjectViewModel.project.deadline)
                         Text("Project info")
-                        TextField("", text: $vm.project.info)
+                        TextField("", text: $addProjectViewModel.project.info)
                         HStack {
                             Button {
-                                vm.execute()
-                                landingPageVM.showingCreateProject.toggle()
+                                addProjectViewModel.execute()
+                                projectsLandingPageVM.showingCreateProject.toggle()
                             } label: {
                                 Label("Create", systemImage: "plus")
                             }
                             .cornerRadius(5)
                             Button {
-                                landingPageVM.showingCreateProject.toggle()
+                                projectsLandingPageVM.showingCreateProject.toggle()
                             } label: {
                                 Text("Cancel")
                             }

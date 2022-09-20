@@ -4,7 +4,8 @@
 //
 //  Created by Paull Stanley on 9/18/22.
 //
+import Domain
 
 protocol IDeleteIssueUseCase {
-    func execute()-> Bool
+    func execute(_ issue: IssueDM)-> Bool
 }

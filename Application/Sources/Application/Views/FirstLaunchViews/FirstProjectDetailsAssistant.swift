@@ -13,7 +13,7 @@ struct FirstProjectDetailsAssistant: View {
     let landingPageVM: LandingPageViewModel
     let storageProvider: StorageProvider
     
-    @ObservedObject var vm: CreateProjectViewModel
+    @ObservedObject var addProjectVM: AddProjectViewModel
     @State var nextView: Bool = false
     @State var previousView: Bool = false
     @State var selectedMenu: MenuItem?
@@ -46,7 +46,7 @@ struct FirstProjectDetailsAssistant: View {
                             .fixedSize()
                             .bold()
                         
-                        TextField("", text: $vm.project.info)
+                        TextField("", text: $addProjectVM.project.info)
                             .labelsHidden()
                             .background(.thickMaterial)
                             .frame(width:150)
@@ -58,14 +58,14 @@ struct FirstProjectDetailsAssistant: View {
                             .fixedSize()
                             .bold()
                         
-                        TextField("", text: $vm.project.deadline)
+                        TextField("", text: $addProjectVM.project.deadline)
                             .labelsHidden()
                             .background(.thickMaterial)
                             .frame(width:150)
                             .border(Color.accentColor, width: 2)
                             .cornerRadius(2)
                         Button {
-                            vm.execute()
+                            addProjectVM.execute()
                             withAnimation {
                                 nextView = true
                             }

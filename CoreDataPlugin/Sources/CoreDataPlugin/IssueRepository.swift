@@ -17,17 +17,20 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func getAll()-> [IssueDM] {
-        var issues: [IssueDM] = []
         let request = IssueMO.fetchRequest()
-        request.returnsObjectsAsFaults = false
         do {
             let issueModelObjects = try storageProvider.persistentContainer!.viewContext.fetch(request)
-            for modelObject in issueModelObjects {
-                let projectMO = modelObject.project
-                let projectDM: ProjectDM = ProjectDM(id: projectMO.identifier, name: projectMO.name, creationDate: projectMO.creationDate.formatted(), info: projectMO.info ?? "", lastModified: projectMO.lastModified?.formatted() ?? "", stage: projectMO.stage, deadline: projectMO.deadline)
-                issues.append(IssueDM(id: modelObject.projectIdentifier.uuidString, title: modelObject.title, type: modelObject.type, creationDate: modelObject.creationDate.formatted(), info: modelObject.info ?? "", lastModified: modelObject.lastModified?.formatted() ?? "", project: projectDM, projectIdentifier: modelObject.projectIdentifier.uuidString))
-            }
-            return issues
+            
+            return issueModelObjects.map {
+                IssueDM(
+                    id: $0.identifier.uuidString,
+                    title: $0.title,
+                    type: $0.type,
+                    creationDate: $0.creationDate.formatted(),
+                    info: $0.info ?? "",
+                    lastModified: $0.lastModified?.formatted() ?? "",
+                    projectIdentifier: $0.projectIdentifier.uuidString
+                )}
         } catch {
             print("There was an issue fetching the issues")
         }
@@ -47,7 +50,8 @@ public class IssueRepository: IIssueRepository {
     
     public func create(_ _issue: IssueDM) -> IssueDM? {
         let projectMO = ProjectMO.findOrInsert(using: _issue.project!.name, in: storageProvider.persistentContainer!.viewContext)
-        let issue = IssueMO.findOrInsert(using: _issue.project!.id, for: projectMO, in: storageProvider.persistentContainer!.viewContext)
+        if let issueId = UUID(uuidString: _issue.id)  {
+            let issue = IssueMO.findOrInsert(using: issueId, for: projectMO, in: storageProvider.persistentContainer!.viewContext)
             issue.projectIdentifier = projectMO.identifier
             issue.title = _issue.title
             issue.creationDate = Date()
@@ -61,22 +65,35 @@ public class IssueRepository: IIssueRepository {
             } catch {
                 storageProvider.persistentContainer!.viewContext.rollback()
             }
-            return IssueDM(id: issue.projectIdentifier.uuidString, title: issue.title, type: issue.type, creationDate: issue.creationDate.formatted(), info: issue.info ?? "", lastModified: issue.lastModified?.formatted() ?? "", project: ProjectDM(id: issue.projectIdentifier), projectIdentifier: issue.projectIdentifier.uuidString)
-       // }
+            return IssueDM(
+                id: issue.projectIdentifier.uuidString,
+                title: issue.title,
+                type: issue.type,
+                creationDate: issue.creationDate.formatted(),
+                info: issue.info ?? "",
+                lastModified: issue.lastModified?.formatted() ?? "",
+                project: ProjectDM(id: issue.projectIdentifier),
+                projectIdentifier: issue.projectIdentifier.uuidString
+            )
+        }
+        return nil
     }
     
     public func edit(_ _issue: IssueDM) -> IssueDM {
         var issueToEdit = _issue
-        if let issue = getById(UUID(uuidString: _issue.projectIdentifier)!) {
-            issue.projectIdentifier = UUID(uuidString: _issue.projectIdentifier)!
+        guard let issueId = UUID(uuidString: _issue.id) else { return _issue}
+        if let issue = getById(issueId) {
+            issue.identifier = issueId
             issue.title = _issue.title
             issue.info = _issue.info
-            issue.creationDate = DateFormatter().date(from:_issue.creationDate) ?? issue.creationDate
             issue.type = _issue.type
-            issueToEdit = IssueDM(id: issue.projectIdentifier.uuidString, title: issue.title, type: issue.type, creationDate: issue.creationDate.formatted(), info: issue.info ?? "", lastModified: issue.lastModified?.formatted() ?? "",  projectIdentifier: issue.projectIdentifier.uuidString)
+            issue.creationDate = DateFormatter().date(from: _issue.creationDate) ?? issue.creationDate
+            issue.lastModified = Date()
             
+            issueToEdit = IssueDM(id: issue.identifier.uuidString)
             do {
                 try storageProvider.persistentContainer!.viewContext.save()
+                
             } catch {
                 print("There was an issue saving the edited issue")
             }
@@ -87,15 +104,13 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func delete(_ _issue: IssueDM) -> Bool {
-        if let issue = getById(UUID(uuidString:  _issue.projectIdentifier)!) {
+        if let issue = getById(UUID(uuidString:  _issue.id)!) {
             let context = issue.managedObjectContext ?? storageProvider.persistentContainer!.viewContext
             context.delete(issue)
-            print("Deleted successfully")
             do {
                 if context.hasChanges {
                     try context.save()
                     _ = getAll()
-                    print("Saved successfully")
                 }
             } catch {
                 context.rollback()
@@ -108,7 +123,7 @@ public class IssueRepository: IIssueRepository {
     
     private func getById(_ id: UUID)-> IssueMO? {
         let request = IssueMO.fetchRequest()
-        request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.projectIdentifier), id as NSUUID)
+        request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.identifier), id as NSUUID)
         request.fetchLimit = 1
         if let issue = try? storageProvider.persistentContainer!.viewContext.fetch(request).first {
             return issue

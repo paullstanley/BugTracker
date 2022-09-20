@@ -8,9 +8,10 @@
 import Foundation
 import CoreDataPlugin
 import Domain
+import UseCases
 
 class EditProjectViewModel: ObservableObject {
-    private let repository: ProjectRepository
+    private let repository: IProjectRepository
     
     init() {
         repository = ProjectRepository(storageProvider: StorageProvider())

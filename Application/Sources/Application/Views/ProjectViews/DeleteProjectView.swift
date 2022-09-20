@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct DeleteProjectView: View {
-    @ObservedObject var landingPageVM: ProjectsLandingPageViewModel
-    @State var vm: DeleteProjectViewModel
+    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @State var deleteProjectVM: DeleteProjectViewModel
     
     var body: some View {
         Button {
-            vm.execute(landingPageVM.selectedProject)
-            landingPageVM.getProjects()
+            deleteProjectVM.execute(projectsLandingPageVM.selectedProject)
+            projectsLandingPageVM.getProjects()
         } label: {
             Label("Delete", systemImage: "trash.circle")
         }

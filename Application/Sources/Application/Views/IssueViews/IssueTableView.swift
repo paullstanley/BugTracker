@@ -6,19 +6,23 @@
 //
 
 import SwiftUI
-import CoreDataPlugin
+import Domain
 
 struct IssueTableView: View {
-    let storageProvider: StorageProvider
-    @ObservedObject var vm: ProjectsLandingPageViewModel
+    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @State var selection: String?
+    
+    var sortedIssues: [IssueDM] {
+        projectsLandingPageVM.selectedProject.issues?.sorted(using: projectsLandingPageVM.issueOrder) ?? []
+    }
     
     var body: some View {
         VStack {
             DynamicStack {
                 Spacer()
-                    Text(vm.selectedProject.name)
-                        .foregroundColor(.orange)
-                    Text(" Issues")
+                Text(projectsLandingPageVM.selectedProject.name)
+                    .foregroundColor(.orange)
+                Text(" Issues")
                     .fixedSize()
                 Spacer()
             }
@@ -29,22 +33,19 @@ struct IssueTableView: View {
             .background(Color.accentColor.gradient)
             .cornerRadius(3)
             .scaleEffect()
-            Table(vm.selectedProject.issues ?? []) {
+            
+            Table(sortedIssues, selection: $selection, sortOrder: $projectsLandingPageVM.issueOrder) {
+                TableColumn("Id", value: \.id)
+                TableColumn("Creation Date", value: \.creationDate)
                 TableColumn("Title", value: \.title)
                 TableColumn("Type", value: \.type)
+                TableColumn("Info", value: \.info)
             }
-            .padding()
-            Button {
-                vm.showingCreateIssue.toggle()
-            } label: {
-                Label("New Issue", systemImage: "plus")
-            }
-            .padding()
-            .buttonStyle(.borderedProminent)
-            .popover(isPresented: $vm.showingCreateIssue, content: {
-                AddIssueView(storageProvider: storageProvider, landingPageVM: vm)
-            })
         }
-        
+        .scaleEffect()
+        .onChange(of: selection, perform: { _ in
+            projectsLandingPageVM.updateIssueSelection(selection)
+        })
     }
 }
+

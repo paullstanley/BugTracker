@@ -13,20 +13,20 @@ struct FirstProjectNamingAssistant: View {
     let landingPageVM: LandingPageViewModel
     let storageProvider: StorageProvider
     
-    @ObservedObject var vm: CreateProjectViewModel
+    @ObservedObject var addProjectVM: AddProjectViewModel
     @State var nextView = false
     
     init(landingPageVM: LandingPageViewModel, storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
         self.landingPageVM = landingPageVM
-        vm = CreateProjectViewModel(storageProvider: storageProvider)
+        addProjectVM = AddProjectViewModel(storageProvider: storageProvider)
     }
     
     var body: some View {
             ZStack {
                 Color.accentColor.ignoresSafeArea()
                 if nextView == true {
-                    FirstProjectDetailsAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider, vm: vm)
+                    FirstProjectDetailsAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider, addProjectVM: addProjectVM)
                 } else {
                     DynamicStack {
                         Spacer()
@@ -44,7 +44,7 @@ struct FirstProjectNamingAssistant: View {
                                 .padding()
                             #endif
                                 HStack {
-                                    TextField("", text: $vm.project.name)
+                                    TextField("", text: $addProjectVM.project.name)
                                         .labelsHidden()
                                         .background(.thickMaterial)
                                         .border(Color.accentColor, width: 2)
