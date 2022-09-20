@@ -19,7 +19,7 @@ public class IssueRepository: IIssueRepository {
     public func getAll()-> [IssueDM] {
         let request = IssueMO.fetchRequest()
         do {
-            let issueModelObjects = try storageProvider.persistentContainer!.viewContext.fetch(request)
+            let issueModelObjects = try storageProvider.peristentCloudKitContainer!.viewContext.fetch(request)
             
             return issueModelObjects.map {
                 IssueDM(
@@ -41,7 +41,7 @@ public class IssueRepository: IIssueRepository {
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.title), title as String)
         request.fetchLimit = 1
-        if let selectedIssue = try? storageProvider.persistentContainer!.viewContext.fetch(request) {
+        if let selectedIssue = try? storageProvider.peristentCloudKitContainer!.viewContext.fetch(request) {
             return IssueDM(id: selectedIssue.first!.projectIdentifier.uuidString)
         } else {
             return nil
@@ -49,9 +49,9 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func create(_ _issue: IssueDM) -> IssueDM? {
-        let projectMO = ProjectMO.findOrInsert(using: _issue.project!.name, in: storageProvider.persistentContainer!.viewContext)
+        let projectMO = ProjectMO.findOrInsert(using: _issue.project!.name, in: storageProvider.peristentCloudKitContainer!.viewContext)
         if let issueId = UUID(uuidString: _issue.id)  {
-            let issue = IssueMO.findOrInsert(using: issueId, for: projectMO, in: storageProvider.persistentContainer!.viewContext)
+            let issue = IssueMO.findOrInsert(using: issueId, for: projectMO, in: storageProvider.peristentCloudKitContainer!.viewContext)
             issue.projectIdentifier = projectMO.identifier
             issue.title = _issue.title
             issue.creationDate = Date()
@@ -59,11 +59,11 @@ public class IssueRepository: IIssueRepository {
             issue.type = _issue.type
             issue.project = projectMO
             do {
-                if storageProvider.persistentContainer!.viewContext.hasChanges {
-                    try storageProvider.persistentContainer!.viewContext.save()
+                if storageProvider.peristentCloudKitContainer!.viewContext.hasChanges {
+                    try storageProvider.peristentCloudKitContainer!.viewContext.save()
                 }
             } catch {
-                storageProvider.persistentContainer!.viewContext.rollback()
+                storageProvider.peristentCloudKitContainer!.viewContext.rollback()
             }
             return IssueDM(
                 id: issue.projectIdentifier.uuidString,
@@ -92,7 +92,7 @@ public class IssueRepository: IIssueRepository {
             
             issueToEdit = IssueDM(id: issue.identifier.uuidString)
             do {
-                try storageProvider.persistentContainer!.viewContext.save()
+                try storageProvider.peristentCloudKitContainer!.viewContext.save()
                 
             } catch {
                 print("There was an issue saving the edited issue")
@@ -105,7 +105,7 @@ public class IssueRepository: IIssueRepository {
     
     public func delete(_ _issue: IssueDM) -> Bool {
         if let issue = getById(UUID(uuidString:  _issue.id)!) {
-            let context = issue.managedObjectContext ?? storageProvider.persistentContainer!.viewContext
+            let context = issue.managedObjectContext ?? storageProvider.peristentCloudKitContainer!.viewContext
             context.delete(issue)
             do {
                 if context.hasChanges {
@@ -125,7 +125,7 @@ public class IssueRepository: IIssueRepository {
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.identifier), id as NSUUID)
         request.fetchLimit = 1
-        if let issue = try? storageProvider.persistentContainer!.viewContext.fetch(request).first {
+        if let issue = try? storageProvider.peristentCloudKitContainer!.viewContext.fetch(request).first {
             return issue
         } else {
             print("Unable to find Issue Entity by provided id - \(id)")
