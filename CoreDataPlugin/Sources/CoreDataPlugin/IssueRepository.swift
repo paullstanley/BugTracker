@@ -19,9 +19,9 @@ public class IssueRepository: IIssueRepository {
     public func getAll()-> [IssueDM] {
         let request = IssueMO.fetchRequest()
         do {
-            let issueModelObjects = try storageProvider.container!.viewContext.fetch(request)
+            let issuesMO = try storageProvider.container!.viewContext.fetch(request)
             
-            return issueModelObjects.map {
+            return issuesMO.map {
                 IssueDM(
                     id: $0.identifier.uuidString,
                     title: $0.title,
@@ -41,23 +41,24 @@ public class IssueRepository: IIssueRepository {
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.title), title as String)
         request.fetchLimit = 1
-        if let selectedIssue = try? storageProvider.container!.viewContext.fetch(request) {
-            return IssueDM(id: selectedIssue.first!.projectIdentifier.uuidString)
+        if let selectedIssueMO = try? storageProvider.container!.viewContext.fetch(request) {
+            return IssueDM(id: selectedIssueMO.first!.projectIdentifier.uuidString)
         } else {
             return nil
         }
     }
     
     public func create(_ _issue: IssueDM) -> IssueDM? {
-        let projectMO = ProjectMO.findOrInsert(using: _issue.project!.name, in: storageProvider.container!.viewContext)
+        guard let storageContainer = storageProvider.container else { return nil }
+        let projectMO = ProjectMO.findOrInsert(using: _issue.project!.name, in: storageContainer.viewContext)
         if let issueId = UUID(uuidString: _issue.id)  {
-            let issue = IssueMO.findOrInsert(using: issueId, for: projectMO, in: storageProvider.container!.viewContext)
-            issue.projectIdentifier = projectMO.identifier
-            issue.title = _issue.title
-            issue.creationDate = Date()
-            issue.info = _issue.info
-            issue.type = _issue.type
-            issue.project = projectMO
+            let issueMO = IssueMO.findOrInsert(using: issueId, for: projectMO, in: storageProvider.container!.viewContext)
+            issueMO.projectIdentifier = projectMO.identifier
+            issueMO.title = _issue.title
+            issueMO.creationDate = Date()
+            issueMO.info = _issue.info
+            issueMO.type = _issue.type
+            issueMO.project = projectMO
             do {
                 if storageProvider.container!.viewContext.hasChanges {
                     try storageProvider.container!.viewContext.save()
@@ -66,70 +67,65 @@ public class IssueRepository: IIssueRepository {
                 storageProvider.container!.viewContext.rollback()
             }
             return IssueDM(
-                id: issue.projectIdentifier.uuidString,
-                title: issue.title,
-                type: issue.type,
-                creationDate: issue.creationDate.formatted(),
-                info: issue.info ?? "",
-                lastModified: issue.lastModified?.formatted() ?? "",
-                project: ProjectDM(id: issue.projectIdentifier),
-                projectIdentifier: issue.projectIdentifier.uuidString
+                id: issueMO.projectIdentifier.uuidString,
+                title: issueMO.title,
+                type: issueMO.type,
+                creationDate: issueMO.creationDate.formatted(),
+                info: issueMO.info ?? "",
+                lastModified: issueMO.lastModified?.formatted() ?? "",
+                project: ProjectDM(id: issueMO.projectIdentifier),
+                projectIdentifier: issueMO.projectIdentifier.uuidString
             )
         }
         return nil
     }
     
     public func edit(_ _issue: IssueDM) -> IssueDM {
-        var issueToEdit = _issue
+        var issueDM = _issue
         guard let issueId = UUID(uuidString: _issue.id) else { return _issue}
-        if let issue = getById(issueId) {
-            issue.identifier = issueId
-            issue.title = _issue.title
-            issue.info = _issue.info
-            issue.type = _issue.type
-            issue.creationDate = DateFormatter().date(from: _issue.creationDate) ?? issue.creationDate
-            issue.lastModified = Date()
+        guard let issueMO = getById(issueId) else { return _issue }
+            issueMO.identifier = issueId
+            issueMO.title = _issue.title
+            issueMO.info = _issue.info
+            issueMO.type = _issue.type
+            issueMO.creationDate = DateFormatter().date(from: _issue.creationDate) ?? issueMO.creationDate
+            issueMO.lastModified = Date()
             
-            issueToEdit = IssueDM(id: issue.identifier.uuidString)
+            issueDM = IssueDM(id: issueMO.identifier.uuidString)
             do {
                 try storageProvider.container!.viewContext.save()
                 
             } catch {
                 print("There was an issue saving the edited issue")
             }
-        } else {
-            print("There was an issue fetching the the issue to edit")
+            return issueDM
         }
-        return issueToEdit
-    }
     
     public func delete(_ _issue: IssueDM) -> Bool {
-        if let issue = getById(UUID(uuidString:  _issue.id)!) {
-            let context = issue.managedObjectContext ?? storageProvider.container!.viewContext
-            context.delete(issue)
-            do {
-                if context.hasChanges {
-                    try context.save()
-                    _ = getAll()
-                }
-            } catch {
-                context.rollback()
-                print("Was unable to save")
+        guard let storageContainer = storageProvider.container else { return false }
+        guard let issueId = UUID(uuidString: _issue.id) else { return false }
+        guard let issueMO = getById(issueId) else { return false }
+        
+        let context = issueMO.managedObjectContext ?? storageContainer.viewContext
+        do {
+            context.delete(issueMO)
+            if context.hasChanges {
+                try context.save()
+                _ = getAll()
             }
-            return true
+        }catch {
+            context.rollback()
+            print("Was unable to save")
         }
-        return false
+        return true
     }
     
     private func getById(_ id: UUID)-> IssueMO? {
+        guard let storageContainer = storageProvider.container else { return nil }
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.identifier), id as NSUUID)
         request.fetchLimit = 1
-        if let issue = try? storageProvider.container!.viewContext.fetch(request).first {
-            return issue
-        } else {
-            print("Unable to find Issue Entity by provided id - \(id)")
-            return nil
-        }
+        guard let issueMO = try? storageContainer.viewContext.fetch(request).first else { return nil }
+            return issueMO
     }
 }

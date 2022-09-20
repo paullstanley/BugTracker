@@ -17,12 +17,13 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func getAll()-> [ProjectDM] {
-        var projects: [ProjectDM] = []
+        guard let storageProviderContainer = storageProvider.container else { return [] }
+        var projectsDM: [ProjectDM] = []
         let request = ProjectMO.fetchRequest()
         do {
-            let projectModelObjects = try storageProvider.container!.viewContext.fetch(request)
+            let projectsMO = try storageProviderContainer.viewContext.fetch(request)
             
-            projects = projectModelObjects.map {
+            projectsDM = projectsMO.map {
                 ProjectDM(
                     id: $0.identifier,
                     name: $0.name,
@@ -42,7 +43,7 @@ public class ProjectRepository: IProjectRepository {
                         )})
                 
             }
-            return projects
+            return projectsDM
         } catch {
             print("There was an issue fetching the projects")
         }
@@ -50,93 +51,89 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func getByName(_ name: String) -> ProjectDM? {
+        guard let storageProviderContainer = storageProvider.container else { return nil }
         let request = ProjectMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.name), name as String)
         request.fetchLimit = 1
-        if let selectedProject = try? storageProvider.container!.viewContext.fetch(request) {
+        
+        guard let selectedProject = try? storageProviderContainer.viewContext.fetch(request) else { return nil }
             return ProjectDM(id: selectedProject.first!.identifier)
-        } else {
-            return nil
-        }
     }
     
     public func create(_ _project: ProjectDM) -> ProjectDM? {
-            let project = ProjectMO.findOrInsert(using: _project.name, in: storageProvider.container!.viewContext)
-            project.identifier = UUID()
-            project.name = _project.name
-            project.creationDate = Date()
-            project.info = _project.info
-            project.stage = _project.stage
-            project.deadline = _project.deadline
-            do {
-                if storageProvider.container!.viewContext.hasChanges {
-                    try storageProvider.container!.viewContext.save()
-                }
-            } catch {
-                storageProvider.container!.viewContext.rollback()
+        guard let storageProviderContainer = storageProvider.container else { return nil }
+        let projectMO = ProjectMO.findOrInsert(using: _project.name, in: storageProviderContainer.viewContext)
+        projectMO.identifier = UUID()
+        projectMO.name = _project.name
+        projectMO.creationDate = Date()
+        projectMO.info = _project.info
+        projectMO.stage = _project.stage
+        projectMO.deadline = _project.deadline
+        do {
+            if storageProviderContainer.viewContext.hasChanges {
+                try storageProviderContainer.viewContext.save()
             }
-            return ProjectDM(
-                id: project.identifier,
-                name: project.name,
-                creationDate: project.creationDate.formatted(),
-                info: project.info ?? "",
-                lastModified: project.lastModified?.formatted() ?? "",
-                stage: project.stage,
-                deadline: project.deadline
-            )
+        } catch {
+            storageProviderContainer.viewContext.rollback()
+        }
+        return ProjectDM(
+            id: projectMO.identifier,
+            name: projectMO.name,
+            creationDate: projectMO.creationDate.formatted(),
+            info: projectMO.info ?? "",
+            lastModified: projectMO.lastModified?.formatted() ?? "",
+            stage: projectMO.stage,
+            deadline: projectMO.deadline
+        )
     }
     
     public func edit(_ _project: ProjectDM) -> ProjectDM {
-        var projectToEdit = _project
-        if let project = getById(_project.id) {
-            project.identifier = _project.id
-            project.name = _project.name
-            project.info = _project.info
-            project.creationDate = DateFormatter().date(from: _project.creationDate) ?? project.creationDate
-            project.stage = _project.stage
+        guard let storageProviderContainer = storageProvider.container else { return _project }
+        var projectDM = _project
+        if let projectMO = getById(_project.id) {
+            projectMO.identifier = _project.id
+            projectMO.name = _project.name
+            projectMO.info = _project.info
+            projectMO.creationDate = DateFormatter().date(from: _project.creationDate) ?? projectMO.creationDate
+            projectMO.stage = _project.stage
             
-            projectToEdit = ProjectDM(id: project.identifier)
+            projectDM = ProjectDM(id: projectMO.identifier)
             
             do {
-                try storageProvider.container!.viewContext.save()
+                try storageProviderContainer.viewContext.save()
             } catch {
                 print("There was an issue saving the edited issue")
             }
         } else {
             print("There was an issue fetching the the project to edit")
         }
-        return projectToEdit
+        return projectDM
     }
     
     public func delete(_ _project: ProjectDM) -> Bool {
-        if let project = getById(_project.id) {
-            let context = project.managedObjectContext ?? storageProvider.container!.viewContext
-            context.delete(project)
-            print("Deleted successfully")
-            do {
-                if context.hasChanges {
-                    try context.save()
-                    _ = getAll()
-                    print("Saved successfully")
-                }
-            } catch {
-                context.rollback()
-                print("Was unable to save")
+        guard let storageProviderContext = storageProvider.container?.viewContext else { return false }
+        guard let project = getById(_project.id) else { return false }
+        
+        let context = project.managedObjectContext ?? storageProviderContext
+        context.delete(project)
+        do {
+            if context.hasChanges {
+                try context.save()
+                _ = getAll()
             }
-            return true
+        } catch {
+            context.rollback()
+            print("Was unable to save")
         }
-        return false
+        return true
     }
     
     private func getById(_ id: UUID)-> ProjectMO? {
+        guard let storageContainer = storageProvider.container else { return nil }
         let request = ProjectMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.identifier), id as NSUUID)
         request.fetchLimit = 1
-        if let project = try? storageProvider.container!.viewContext.fetch(request).first {
-            return project
-        } else {
-            print("Unable to find Project Entity by provided id - \(id)")
-            return nil
-        }
+        guard let projectMO = try? storageContainer.viewContext.fetch(request).first else { return nil }
+        return projectMO
     }
 }

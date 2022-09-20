@@ -107,9 +107,9 @@
 			isa = PBXGroup;
 			children = (
 				FAAC0D2F28D830140028E419 /* Application */,
-				FAAC0D2E28D82E450028E419 /* Domain */,
-				FAAC0D2D28D82E3D0028E419 /* UseCases */,
 				FAAC0D2C28D82D6C0028E419 /* CoreDataPlugin */,
+				FAAC0D2D28D82E3D0028E419 /* UseCases */,
+				FAAC0D2E28D82E450028E419 /* Domain */,
 				FA28861328D1025D00A24F7B /* IssueTrackingSystem (macOS)Release.entitlements */,
 				FA686D8028D0BFA4001972A0 /* IssueTrackingSystem (iOS).entitlements */,
 				FA686D8128D0C042001972A0 /* IssueTrackingSystem--iOS--Info.plist */,
