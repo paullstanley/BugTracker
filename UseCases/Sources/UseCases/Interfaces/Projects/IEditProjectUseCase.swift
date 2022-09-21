@@ -8,5 +8,5 @@
 import Domain
 
 protocol IEditProjectUseCase {
-    func execute()-> ProjectDM?
+    func execute(_ project: ProjectDM)-> ProjectDM?
 }

@@ -10,10 +10,9 @@ import Domain
 
 struct EditProjectView: View {
     @Environment(\.dismiss) var onDissmiss: DismissAction
-    let project: ProjectDM
-    let editProjectVM: EditProjectViewModel = EditProjectViewModel()
+    @State var editProjectVM: EditProjectViewModel = EditProjectViewModel()
     
-    @StateObject var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     
     @State var name: String = ""
     @State var info: String = ""
@@ -35,8 +34,16 @@ struct EditProjectView: View {
                     HStack {
                         Spacer()
                         Button("Save") {
-                            let newProject = ProjectDM(id: project.id, name: name, info: info, stage: stage, deadline: deadline)
+                            if name.isEmpty { name = projectsLandingPageVM.selectedProject.name }
+                            if stage.isEmpty { stage = projectsLandingPageVM.selectedProject.name }
+                            if deadline.isEmpty { deadline = projectsLandingPageVM.selectedProject.name }
+                            if info.isEmpty { info = projectsLandingPageVM.selectedProject.name }
+                            
+                            let newProject = ProjectDM(id: projectsLandingPageVM.selectedProject.id, name: name, info: info, stage: stage, deadline: deadline)
                             _ = editProjectVM.execute(newProject)
+                            projectsLandingPageVM.getProjects()
+                            print("!!!!!!")
+                            print(projectsLandingPageVM.selectedProject.id)
                             onDissmiss()
                         }
                         .cornerRadius(5)

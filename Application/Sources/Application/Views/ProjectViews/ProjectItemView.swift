@@ -44,10 +44,8 @@ struct ProjectItemView: View {
                     }
                     .buttonStyle(.plain)
                     .popover(isPresented: $showingEditView, content: {
-                        EditProjectView(project: projectsLandingPageVM.selectedProject, projectsLandingPageVM: projectsLandingPageVM)
-                            .onDisappear(perform: {
-                                projectsLandingPageVM.getProjects()
-                            })
+                        EditProjectView( projectsLandingPageVM: projectsLandingPageVM)
+                            
                     })
                 }
                 .font(.title)

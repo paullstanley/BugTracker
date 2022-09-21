@@ -7,8 +7,14 @@
 
 import Domain
 
-struct EditProjectUseCase: IEditProjectUseCase {
-    func execute()-> ProjectDM? {
-        return nil
+public struct EditProjectUseCase: IEditProjectUseCase {
+    private let projectRepository: IProjectRepository
+    
+    public init(projectRepository: IProjectRepository) {
+        self.projectRepository = projectRepository
+    }
+    
+    public func execute(_ project: ProjectDM) -> ProjectDM? {
+        projectRepository.edit(project)
     }
 }

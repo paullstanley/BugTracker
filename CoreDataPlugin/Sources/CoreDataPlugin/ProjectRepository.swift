@@ -57,7 +57,7 @@ public class ProjectRepository: IProjectRepository {
         request.fetchLimit = 1
         
         guard let selectedProject = try? storageProviderContainer.viewContext.fetch(request) else { return nil }
-            return ProjectDM(id: selectedProject.first!.identifier)
+        return ProjectDM(id: selectedProject.first!.identifier)
     }
     
     public func create(_ _project: ProjectDM) -> ProjectDM? {
@@ -93,6 +93,8 @@ public class ProjectRepository: IProjectRepository {
         }
         var projectDM = _project
         if let projectMO = getById(_project.id) {
+            let context = projectMO.managedObjectContext ?? storageProviderContainer.viewContext
+            
             projectMO.identifier = _project.id
             projectMO.name = _project.name
             projectMO.info = _project.info
@@ -102,7 +104,9 @@ public class ProjectRepository: IProjectRepository {
             projectDM = ProjectDM(id: projectMO.identifier)
             
             do {
-                try storageProviderContainer.viewContext.save()
+                if context.hasChanges {
+                    try context.save()
+                }
             } catch {
                 print("There was an issue saving the edited issue")
             }
@@ -113,10 +117,10 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func delete(_ _project: ProjectDM) -> Bool {
-        guard let storageProviderContext = storageProvider.persistentContainer?.viewContext else { return false }
+        guard let storageProviderContainer = storageProvider.persistentContainer else { return false }
         guard let project = getById(_project.id) else { return false }
         
-        let context = project.managedObjectContext ?? storageProviderContext
+        let context = project.managedObjectContext ?? storageProviderContainer.viewContext
         context.delete(project)
         do {
             if context.hasChanges {

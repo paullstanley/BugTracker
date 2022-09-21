@@ -45,7 +45,7 @@ struct iOSProjectItemView: View {
                     }
                     .buttonStyle(.plain)
                     .popover(isPresented: $showingEditView, content: {
-                        EditProjectView(project: projectsLandingPageVM.selectedProject, projectsLandingPageVM: projectsLandingPageVM)
+                        iOSEditProjectView(projectsLandingPageVM: projectsLandingPageVM)
                             .onDisappear(perform: {
                                 projectsLandingPageVM.getProjects()
                             })

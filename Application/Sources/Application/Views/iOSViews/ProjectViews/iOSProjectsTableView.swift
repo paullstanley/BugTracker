@@ -38,7 +38,6 @@ struct iOSProjectsTableView: View {
                 TableColumn("Stage", value: \.stage)
                 TableColumn("Deadline", value: \.deadline)
             }
-            
         }
         .onChange(of: selection, perform: { _ in
             projectsLandingPageVM.updateProjectSelection(selection)

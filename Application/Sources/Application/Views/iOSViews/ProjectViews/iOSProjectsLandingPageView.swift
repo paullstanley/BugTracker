@@ -21,39 +21,34 @@ struct iOSProjectsLandingPageView: View {
             VStack {
                 iOSProjectItemView(projectsLandingPageVM: projectsLandingPageVM)
                 HStack {
-                    DeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
+                    iOSDeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
                     Button {
                         projectsLandingPageVM.showingCreateProject.toggle()
                     } label: {
                         Label("Create", systemImage: "plus")
                     }
                 }
+                .sheet(isPresented: $projectsLandingPageVM.showingCreateIssue, content: {
+                    AddIssueView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                        .onDisappear(perform: {
+                            projectsLandingPageVM.getProjects()
+                        })
+                })
+                .sheet(isPresented: $projectsLandingPageVM.showingCreateProject, content: {
+                    iOSAddProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                        .onDisappear(perform: {
+                            projectsLandingPageVM.getProjects()
+                        })
+                })
             }
             DynamicStack {
                 iOSProjectsTableView(projectsLandingPageVM: projectsLandingPageVM)
                 
                 iOSIssueTableView(projectsLandingPageVM: projectsLandingPageVM)
             }
-            .sheet(isPresented: $projectsLandingPageVM.showingCreateIssue, content: {
-                AddIssueView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                    .onDisappear(perform: {
-                        projectsLandingPageVM.getProjects()
-                    })
-            })
-            .sheet(isPresented: $projectsLandingPageVM.showingCreateProject, content: {
-                iOSAddProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                    .onDisappear(perform: {
-                        projectsLandingPageVM.getProjects()
-                    })
-            })
             
-            //            HStack {
-            //                iOSProjectsTableView(projectsLandingPageVM: projectsLandingPageVM)
-            //                iOSIssueTableView(projectsLandingPageVM: projectsLandingPageVM)
-            //            }
             Spacer()
         }
-        
     }
 }
 

@@ -12,10 +12,9 @@ public struct LandingPageView: View {
     let storageProvider: StorageProvider
     @ObservedObject var landingPageVM: LandingPageViewModel
     
-    public init(landingPageVM: LandingPageViewModel, storageProvider: StorageProvider) {
+    public init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
-        self.landingPageVM = landingPageVM
-        
+        self.landingPageVM = LandingPageViewModel(storageProvider: self.storageProvider)
     }
     
     public var body: some View {
@@ -62,12 +61,3 @@ public struct LandingPageView: View {
         }
     }
 }
-
-
-struct LandingPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        LandingPageView(landingPageVM: LandingPageViewModel(storageProvider: StorageProvider()), storageProvider: StorageProvider())
-    }
-}
-
-

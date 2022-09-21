@@ -73,12 +73,3 @@ struct ProjectsLandingPageView: View {
         }
     }
 }
-
-struct ProjectsLandingPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectsLandingPageView(storageProvider: StorageProvider())
-    }
-}
-
-
-

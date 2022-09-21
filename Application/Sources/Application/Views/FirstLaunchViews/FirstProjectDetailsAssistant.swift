@@ -10,7 +10,6 @@ import CoreDataPlugin
 import Domain
 
 struct FirstProjectDetailsAssistant: View {
-    let landingPageVM: LandingPageViewModel
     let storageProvider: StorageProvider
     
     @ObservedObject var addProjectVM: AddProjectViewModel
@@ -23,10 +22,10 @@ struct FirstProjectDetailsAssistant: View {
             Color.accentColor.ignoresSafeArea()
             DynamicStack {
                 if nextView == true {
-                    LandingPageView(landingPageVM: landingPageVM, storageProvider: storageProvider)
+                    LandingPageView(storageProvider: storageProvider)
                         .background()
                 } else if previousView == true {
-                    FirstProjectNamingAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider)
+                    FirstProjectNamingAssistant(storageProvider: storageProvider)
                 } else {
                     Group {
                         Text("Let's add a few more details")
@@ -39,8 +38,6 @@ struct FirstProjectDetailsAssistant: View {
                             .fixedSize()
                     }
                     .scaleEffect()
-                    
-                    
                     VStack {
                         Text("Details")
                             .fixedSize()

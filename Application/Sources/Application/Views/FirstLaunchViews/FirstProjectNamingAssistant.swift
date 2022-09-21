@@ -16,17 +16,18 @@ struct FirstProjectNamingAssistant: View {
     @ObservedObject var addProjectVM: AddProjectViewModel
     @State var nextView = false
     
-    init(landingPageVM: LandingPageViewModel, storageProvider: StorageProvider) {
+    init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
-        self.landingPageVM = landingPageVM
+        self.landingPageVM = LandingPageViewModel(storageProvider: self.storageProvider)
         addProjectVM = AddProjectViewModel(storageProvider: storageProvider)
+        nextView = false
     }
     
     var body: some View {
             ZStack {
                 Color.accentColor.ignoresSafeArea()
                 if nextView == true {
-                    FirstProjectDetailsAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider, addProjectVM: addProjectVM)
+                    FirstProjectDetailsAssistant(storageProvider: storageProvider, addProjectVM: addProjectVM)
                 } else {
                     DynamicStack {
                         Spacer()

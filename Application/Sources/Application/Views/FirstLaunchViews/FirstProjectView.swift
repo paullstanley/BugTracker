@@ -16,9 +16,9 @@ public struct FirstProjectView: View {
     @State var nextView = false
     @State var skip = false
     
-    public init(landingPageVM: LandingPageViewModel, storageProvider: StorageProvider, moving: Bool = false, nextView: Bool = false, skip: Bool = false) {
-        self.landingPageVM = landingPageVM
+    public init(storageProvider: StorageProvider, moving: Bool = false, nextView: Bool = false, skip: Bool = false) {
         self.storageProvider = storageProvider
+        self.landingPageVM = LandingPageViewModel(storageProvider: StorageProvider())
         self.moving = moving
         self.nextView = nextView
         self.skip = skip
@@ -27,9 +27,9 @@ public struct FirstProjectView: View {
     public var body: some View {
         VStack {
             if nextView == true {
-                FirstProjectNamingAssistant(landingPageVM: landingPageVM, storageProvider: storageProvider)
+                FirstProjectNamingAssistant(storageProvider: storageProvider)
             } else if skip == true {
-                LandingPageView(landingPageVM: landingPageVM, storageProvider: storageProvider)
+                LandingPageView(storageProvider: storageProvider)
             } else {
                 ZStack {
                     Color.accentColor

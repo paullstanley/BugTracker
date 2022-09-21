@@ -11,13 +11,11 @@ import Domain
 import UseCases
 
 class EditProjectViewModel: ObservableObject {
-    private let repository: IProjectRepository
-    
-    init() {
-        repository = ProjectRepository(storageProvider: StorageProvider())
-    }
+    private let editProjectUseCase = EditProjectUseCase(projectRepository: ProjectRepository(storageProvider: StorageProvider()))
+    @Published var project: ProjectDM?
     
     func execute(_ project: ProjectDM)-> ProjectDM {
-        repository.edit(project)
+        self.project = editProjectUseCase.execute(project)
+        return self.project ?? project
     }
 }
