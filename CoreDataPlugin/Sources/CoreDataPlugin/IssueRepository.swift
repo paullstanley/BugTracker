@@ -19,7 +19,7 @@ public class IssueRepository: IIssueRepository {
     public func getAll()-> [IssueDM] {
         let request = IssueMO.fetchRequest()
         do {
-            let issuesMO = try storageProvider.container!.viewContext.fetch(request)
+            let issuesMO = try storageProvider.peristentContainer!.viewContext.fetch(request)
             
             return issuesMO.map {
                 IssueDM(
@@ -41,7 +41,7 @@ public class IssueRepository: IIssueRepository {
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.title), title as String)
         request.fetchLimit = 1
-        if let selectedIssueMO = try? storageProvider.container!.viewContext.fetch(request) {
+        if let selectedIssueMO = try? storageProvider.peristentContainer!.viewContext.fetch(request) {
             return IssueDM(id: selectedIssueMO.first!.projectIdentifier.uuidString)
         } else {
             return nil
@@ -49,10 +49,10 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func create(_ _issue: IssueDM) -> IssueDM? {
-        guard let storageContainer = storageProvider.container else { return nil }
+        guard let storageContainer = storageProvider.peristentContainer else { return nil }
         let projectMO = ProjectMO.findOrInsert(using: _issue.project!.name, in: storageContainer.viewContext)
         if let issueId = UUID(uuidString: _issue.id)  {
-            let issueMO = IssueMO.findOrInsert(using: issueId, for: projectMO, in: storageProvider.container!.viewContext)
+            let issueMO = IssueMO.findOrInsert(using: issueId, for: projectMO, in: storageContainer.viewContext)
             issueMO.projectIdentifier = projectMO.identifier
             issueMO.title = _issue.title
             issueMO.creationDate = Date()
@@ -60,11 +60,11 @@ public class IssueRepository: IIssueRepository {
             issueMO.type = _issue.type
             issueMO.project = projectMO
             do {
-                if storageProvider.container!.viewContext.hasChanges {
-                    try storageProvider.container!.viewContext.save()
+                if storageContainer.viewContext.hasChanges {
+                    try storageContainer.viewContext.save()
                 }
             } catch {
-                storageProvider.container!.viewContext.rollback()
+                storageContainer.viewContext.rollback()
             }
             return IssueDM(
                 id: issueMO.projectIdentifier.uuidString,
@@ -81,6 +81,9 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func edit(_ _issue: IssueDM) -> IssueDM {
+        guard let storageContainer = storageProvider.peristentContainer else {
+            fatalError("There was an isue accessing the persistentContainer")
+        }
         var issueDM = _issue
         guard let issueId = UUID(uuidString: _issue.id) else { return _issue}
         guard let issueMO = getById(issueId) else { return _issue }
@@ -93,7 +96,7 @@ public class IssueRepository: IIssueRepository {
             
             issueDM = IssueDM(id: issueMO.identifier.uuidString)
             do {
-                try storageProvider.container!.viewContext.save()
+                try storageContainer.viewContext.save()
                 
             } catch {
                 print("There was an issue saving the edited issue")
@@ -102,7 +105,7 @@ public class IssueRepository: IIssueRepository {
         }
     
     public func delete(_ _issue: IssueDM) -> Bool {
-        guard let storageContainer = storageProvider.container else { return false }
+        guard let storageContainer = storageProvider.peristentContainer else { return false }
         guard let issueId = UUID(uuidString: _issue.id) else { return false }
         guard let issueMO = getById(issueId) else { return false }
         
@@ -121,7 +124,7 @@ public class IssueRepository: IIssueRepository {
     }
     
     private func getById(_ id: UUID)-> IssueMO? {
-        guard let storageContainer = storageProvider.container else { return nil }
+        guard let storageContainer = storageProvider.peristentContainer else { return nil }
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.identifier), id as NSUUID)
         request.fetchLimit = 1
