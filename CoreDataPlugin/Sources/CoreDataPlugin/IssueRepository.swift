@@ -19,7 +19,7 @@ public class IssueRepository: IIssueRepository {
     public func getAll()-> [IssueDM] {
         let request = IssueMO.fetchRequest()
         do {
-            let issuesMO = try storageProvider.peristentContainer!.viewContext.fetch(request)
+            let issuesMO = try storageProvider.persistentContainer!.viewContext.fetch(request)
             
             return issuesMO.map {
                 IssueDM(
@@ -41,7 +41,7 @@ public class IssueRepository: IIssueRepository {
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.title), title as String)
         request.fetchLimit = 1
-        if let selectedIssueMO = try? storageProvider.peristentContainer!.viewContext.fetch(request) {
+        if let selectedIssueMO = try? storageProvider.persistentContainer!.viewContext.fetch(request) {
             return IssueDM(id: selectedIssueMO.first!.projectIdentifier.uuidString)
         } else {
             return nil
@@ -49,7 +49,7 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func create(_ _issue: IssueDM) -> IssueDM? {
-        guard let storageContainer = storageProvider.peristentContainer else { return nil }
+        guard let storageContainer = storageProvider.persistentContainer else { return nil }
         let projectMO = ProjectMO.findOrInsert(using: _issue.project!.name, in: storageContainer.viewContext)
         if let issueId = UUID(uuidString: _issue.id)  {
             let issueMO = IssueMO.findOrInsert(using: issueId, for: projectMO, in: storageContainer.viewContext)
@@ -81,7 +81,7 @@ public class IssueRepository: IIssueRepository {
     }
     
     public func edit(_ _issue: IssueDM) -> IssueDM {
-        guard let storageContainer = storageProvider.peristentContainer else {
+        guard let storageContainer = storageProvider.persistentContainer else {
             fatalError("There was an isue accessing the persistentContainer")
         }
         var issueDM = _issue
@@ -105,7 +105,7 @@ public class IssueRepository: IIssueRepository {
         }
     
     public func delete(_ _issue: IssueDM) -> Bool {
-        guard let storageContainer = storageProvider.peristentContainer else { return false }
+        guard let storageContainer = storageProvider.persistentContainer else { return false }
         guard let issueId = UUID(uuidString: _issue.id) else { return false }
         guard let issueMO = getById(issueId) else { return false }
         
@@ -124,7 +124,7 @@ public class IssueRepository: IIssueRepository {
     }
     
     private func getById(_ id: UUID)-> IssueMO? {
-        guard let storageContainer = storageProvider.peristentContainer else { return nil }
+        guard let storageContainer = storageProvider.persistentContainer else { return nil }
         let request = IssueMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.identifier), id as NSUUID)
         request.fetchLimit = 1

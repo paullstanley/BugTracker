@@ -7,18 +7,19 @@
 
 import CoreData
 import CloudKit
+import Domain
 
 public class PersistentContainer: NSPersistentCloudKitContainer { }
 
 public class StorageProvider {
-   // public lazy var container = createContainer(inTheCloud: true)
+    static let shared = StorageProvider()
     private var _privatePersistentStore: NSPersistentStore?
     private var _sharedPersistentStore: NSPersistentStore?
     
     public init() { }
     
-    var ckContainer: CKContainer {
-        let storeDescription = peristentContainer!.persistentStoreDescriptions.first
+    public var ckContainer: CKContainer {
+        let storeDescription = persistentContainer!.persistentStoreDescriptions.first
         guard let identifier = storeDescription?.cloudKitContainerOptions!.containerIdentifier else {
         fatalError("Unable to get container identifier")
       }
@@ -26,7 +27,7 @@ public class StorageProvider {
     }
 
     var context: NSManagedObjectContext {
-        peristentContainer!.viewContext
+        persistentContainer!.viewContext
     }
 
     var privatePersistentStore: NSPersistentStore {
@@ -43,7 +44,7 @@ public class StorageProvider {
       return sharedStore
     }
     
-    lazy public var peristentContainer: PersistentContainer? = {
+    lazy public var persistentContainer: PersistentContainer? = {
         guard let modelURL: URL = Bundle.module.url(forResource:"IssueTrackingSystem", withExtension: "momd") else {
             fatalError()
         }
@@ -101,9 +102,71 @@ public class StorageProvider {
     }()
  
     public func saveContext() {
-        guard let context: NSManagedObjectContext = self.peristentContainer?.viewContext else { return }
+        guard let context: NSManagedObjectContext = self.persistentContainer?.viewContext else { return }
         if context.hasChanges {
                 try? context.save()
         }
     }
+}
+
+extension StorageProvider {
+  public func isShared(object: ProjectDM) -> Bool {
+    //let _object = ProjectMO.findOrInsert(using: object.name, in: persistentContainer!.viewContext)
+      isShared(objectID: object)
+  }
+
+   public func canEdit(object: ProjectDM) -> Bool {
+    let _object = ProjectMO.findOrInsert(using: object.name, in: persistentContainer!.viewContext)
+    return persistentContainer!.canUpdateRecord(forManagedObjectWith: _object.objectID)
+  }
+
+    public func canDelete(object: NSManagedObject) -> Bool {
+    return persistentContainer!.canDeleteRecord(forManagedObjectWith: object.objectID)
+  }
+
+    public func isOwner(object: ProjectDM) -> Bool {
+    let _object = ProjectMO.findOrInsert(using: object.name, in: persistentContainer!.viewContext)
+    guard isShared(object: object) else { return false }
+    guard let share = try? persistentContainer?.fetchShares(matching: [_object.objectID])[_object.objectID] else {
+      print("Get ckshare error")
+      return false
+    }
+    if let currentUser = share.currentUserParticipant, currentUser == share.owner {
+      return true
+    }
+    return false
+  }
+
+    public func getShare(_ project: ProjectDM) -> CKShare? {
+    let _object = ProjectMO.findOrInsert(using: project.name, in: persistentContainer!.viewContext)
+    guard isShared(object: project) else { return nil }
+    guard let shareDictionary = try? persistentContainer?.fetchShares(matching: [_object.objectID]),
+      let share = shareDictionary[_object.objectID] else {
+      print("Unable to get CKShare")
+      return nil
+    }
+    share[CKShare.SystemFieldKey.title] = project.name
+    return share
+  }
+
+  private func isShared(objectID: ProjectDM) -> Bool {
+    let _object = ProjectMO.findOrInsert(using: objectID.name, in: persistentContainer!.viewContext)
+    var isShared = false
+      if let persistentStore = _object.objectID.persistentStore {
+      if persistentStore == sharedPersistentStore {
+        isShared = true
+      } else {
+        let container = persistentContainer
+        do {
+            let shares = try container!.fetchShares(matching: [_object.objectID])
+          if shares.first != nil {
+            isShared = true
+          }
+        } catch {
+          print("Failed to fetch share for \(objectID): \(error)")
+        }
+      }
+    }
+    return isShared
+  }
 }

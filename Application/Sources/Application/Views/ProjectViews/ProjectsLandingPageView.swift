@@ -19,39 +19,6 @@ struct ProjectsLandingPageView: View {
     
     var body: some View {
         VStack {
-#if os(iOS)
-            DynamicStack {
-                ProjectItemView(projectsLandingPageVM: projectsLandingPageVM)
-                HStack {
-                    DeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
-                    Button {
-                        projectsLandingPageVM.showingCreateProject.toggle()
-                    } label: {
-                        Label("Create", systemImage: "plus")
-                    }
-                    .padding()
-                }
-            }
-            .border(Color.accentColor, width: 3)
-            .cornerRadius(3)
-            .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
-            IssueTableView(projectsLandingPageVM: projectsLandingPageVM)
-                .border(Color.accentColor, width: 3)
-                .cornerRadius(3)
-                .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
-                .sheet(isPresented: $projectsLandingPageVM.showingCreateIssue, content: {
-                    AddIssueView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                        .onDisappear(perform: {
-                            projectsLandingPageVM.getProjects()
-                        })
-                })
-                .sheet(isPresented: $projectsLandingPageVM.showingCreateProject, content: {
-                    AddProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                        .onDisappear(perform: {
-                            projectsLandingPageVM.getProjects()
-                        })
-                })
-#else
             HStack {
                 VStack {
                     ProjectItemView(projectsLandingPageVM: projectsLandingPageVM)
@@ -98,7 +65,6 @@ struct ProjectsLandingPageView: View {
                         projectsLandingPageVM.getProjects()
                     })
             })
-#endif
             HStack {
                 ProjectsTableView(projectsLandingPageVM: projectsLandingPageVM)
                 IssueTableView(projectsLandingPageVM: projectsLandingPageVM)

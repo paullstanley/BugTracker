@@ -17,7 +17,7 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func getAll()-> [ProjectDM] {
-        guard let storageProviderContainer = storageProvider.peristentContainer else { return [] }
+        guard let storageProviderContainer = storageProvider.persistentContainer else { return [] }
         var projectsDM: [ProjectDM] = []
         let request = ProjectMO.fetchRequest()
         do {
@@ -51,7 +51,7 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func getByName(_ name: String) -> ProjectDM? {
-        guard let storageProviderContainer = storageProvider.peristentContainer else { return nil }
+        guard let storageProviderContainer = storageProvider.persistentContainer else { return nil }
         let request = ProjectMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.name), name as String)
         request.fetchLimit = 1
@@ -61,7 +61,7 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func create(_ _project: ProjectDM) -> ProjectDM? {
-        guard let storageProviderContainer = storageProvider.peristentContainer else { return nil }
+        guard let storageProviderContainer = storageProvider.persistentContainer else { return nil }
         let projectMO = ProjectMO.findOrInsert(using: _project.name, in: storageProviderContainer.viewContext)
         projectMO.identifier = UUID()
         projectMO.name = _project.name
@@ -88,7 +88,7 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func edit(_ _project: ProjectDM) -> ProjectDM {
-        guard let storageProviderContainer = storageProvider.peristentContainer else {
+        guard let storageProviderContainer = storageProvider.persistentContainer else {
             fatalError("There was an isue accessing the persistentContainer")
         }
         var projectDM = _project
@@ -113,7 +113,7 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func delete(_ _project: ProjectDM) -> Bool {
-        guard let storageProviderContext = storageProvider.peristentContainer?.viewContext else { return false }
+        guard let storageProviderContext = storageProvider.persistentContainer?.viewContext else { return false }
         guard let project = getById(_project.id) else { return false }
         
         let context = project.managedObjectContext ?? storageProviderContext
@@ -131,7 +131,7 @@ public class ProjectRepository: IProjectRepository {
     }
     
     private func getById(_ id: UUID)-> ProjectMO? {
-        guard let storageContainer = storageProvider.peristentContainer else { return nil }
+        guard let storageContainer = storageProvider.persistentContainer else { return nil }
         let request = ProjectMO.fetchRequest()
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.identifier), id as NSUUID)
         request.fetchLimit = 1
