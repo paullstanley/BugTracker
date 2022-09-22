@@ -33,10 +33,10 @@ struct iOSAddProjectView: View {
         }
         .onSubmit {
             addProjectViewModel.execute()
-            projectsLandingPageVM.projects.append(addProjectViewModel.project)
+            projectsLandingPageVM.getProjects()
             
             projectsLandingPageVM.showingCreateProject.toggle()
-            self.presentationMode.wrappedValue.dismiss()
+           // self.presentationMode.wrappedValue.dismiss()
         }
         .padding()
         .cornerRadius(5)

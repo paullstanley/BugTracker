@@ -36,7 +36,7 @@ struct iOSAddIssueView: View {
                     addIssueVM.issue.id = projectsLandingPageVM.selectedProject.stringId
                     
                     addIssueVM.execute()
-                    projectsLandingPageVM.projectIssues.append(addIssueVM.issue)
+                    projectsLandingPageVM.getProjects()
                     self.presentationMode.wrappedValue.dismiss()
                 }
     }
