@@ -6,23 +6,23 @@
 //
 
 import Foundation
-import UseCases
 import CoreDataPlugin
 import Domain
+import UseCases
 
 class AddIssueViewModel: ObservableObject {
     private let repository: IIssueRepository
+    let addIssueUseCase: IAddIssueUseCase
     
-    @Published var issue: IssueDM = IssueDM()
+    @Published var issue: IssueDM = IssueDM(id: UUID().uuidString)
     
     init(storageProvider: StorageProvider) {
-        self.repository = IssueRepository(storageProvider: storageProvider)
+        repository = IssueRepository(storageProvider: storageProvider)
+        addIssueUseCase = AddIssueUseCase(issueRepository: self.repository)
     }
     
     func execute() {
-            if let newIssue: IssueDM = AddIssueUseCase(issueRepository: repository).execute(issue) {
-                self.issue = newIssue
-            }    
-        
+           guard let newIssue: IssueDM = addIssueUseCase.execute(issue) else { return }
+        self.issue = newIssue
     }
 }

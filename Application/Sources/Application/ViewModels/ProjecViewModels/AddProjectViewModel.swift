@@ -11,7 +11,7 @@ import Domain
 import UseCases
 
 class AddProjectViewModel: ObservableObject {
-    private let repository: ProjectRepository
+    private let repository: IProjectRepository
     let addProjectUseCase: IAddProjectUseCase
     
     @Published var project: ProjectDM = ProjectDM(id: UUID())

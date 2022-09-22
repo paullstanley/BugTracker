@@ -19,6 +19,7 @@ public struct MainView: View {
             FirstProjectView(storageProvider: storageProvider)
         } else {
             LandingPageView(storageProvider: storageProvider)
+            
         }
     }
 }

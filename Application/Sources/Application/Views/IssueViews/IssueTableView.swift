@@ -13,7 +13,7 @@ struct IssueTableView: View {
     @State var selection: String?
     
     var sortedIssues: [IssueDM] {
-        projectsLandingPageVM.selectedProject.issues?.sorted(using: projectsLandingPageVM.issueOrder) ?? []
+        projectsLandingPageVM.selectedProject.issues.sorted(using: projectsLandingPageVM.issueOrder)
     }
     
     var body: some View {

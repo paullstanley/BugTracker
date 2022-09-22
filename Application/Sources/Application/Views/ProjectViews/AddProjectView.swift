@@ -32,6 +32,7 @@ struct AddProjectView: View {
                         HStack {
                             Button {
                                 addProjectViewModel.execute()
+                                projectsLandingPageVM.getProjects()
                                 projectsLandingPageVM.showingCreateProject.toggle()
                             } label: {
                                 Label("Create", systemImage: "plus")

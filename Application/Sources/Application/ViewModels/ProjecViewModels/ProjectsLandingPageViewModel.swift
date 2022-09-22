@@ -15,8 +15,8 @@ class ProjectsLandingPageViewModel: ObservableObject {
     @Published var projectSelection: UUID = UUID()
     @Published var issueSelection: String = ""
     
-    @Published var projects: [ProjectDM]
-    @Published private(set) var projectIssues: [IssueDM] = []
+    @Published var projects: [ProjectDM] = []
+    @Published var projectIssues: [IssueDM] = []
     
     @Published var projectOrder: [KeyPathComparator<ProjectDM>] = [
         .init(\ProjectDM.stringId, order: SortOrder.forward)
@@ -31,15 +31,14 @@ class ProjectsLandingPageViewModel: ObservableObject {
     
     init(storageProvider: StorageProvider) {
         self.repository = ProjectRepository(storageProvider: storageProvider)
-        projects = repository.getAll()
     }
     
-    private var sortedProjects: [ProjectDM] {
+    public var sortedProjects: [ProjectDM] {
         return projects.sorted(using: projectOrder)
     }
     
-    private var sortedIssues: [IssueDM] {
-        return selectedProject.issues?.sorted(using: issueOrder) ?? []
+    public var sortedIssues: [IssueDM] {
+        return selectedProject.issues.sorted(using: issueOrder)
     }
     
     func updateProjectSelection(_ selection: UUID?) {
@@ -54,6 +53,7 @@ class ProjectsLandingPageViewModel: ObservableObject {
     
     func getProjects() {
         projects =  repository.getAll()
+        projectIssues = selectedProject.issues
     }
     
     var selectedIssue: IssueDM  {

@@ -14,7 +14,7 @@ struct iOSProjectsTableView: View {
     
     var sortedProjects: [ProjectDM]  {
         projectsLandingPageVM.projects
-            .sorted(using: projectsLandingPageVM.projectOrder)
+                    .sorted(using: projectsLandingPageVM.projectOrder)
     }
     
     var body: some View {
@@ -30,7 +30,7 @@ struct iOSProjectsTableView: View {
             .background(Color.accentColor.gradient)
             
             Table(sortedProjects, selection: $selection, sortOrder: $projectsLandingPageVM.projectOrder) {
-                TableColumn("Id", value: \.stringId)
+                //TableColumn("Id", value: \.stringId)
                 TableColumn("Name", value: \.name)
                 TableColumn("Creation date", value: \.creationDate)
                 TableColumn("Info", value: \.info)
@@ -40,7 +40,7 @@ struct iOSProjectsTableView: View {
             }
         }
         .onChange(of: selection, perform: { _ in
-            projectsLandingPageVM.updateProjectSelection(selection)
+           // projectsLandingPageVM.updateProjectSelection(selection)
         })
     }
 }

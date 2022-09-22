@@ -15,13 +15,14 @@ struct ProjectsLandingPageView: View {
     init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
         projectsLandingPageVM = ProjectsLandingPageViewModel(storageProvider: self.storageProvider)
+        projectsLandingPageVM.getProjects()
     }
     
     var body: some View {
         VStack {
             HStack {
                 VStack {
-                    ProjectItemView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                    ProjectDetailView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
                     HStack {
                         DeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
                         Button {
@@ -55,15 +56,9 @@ struct ProjectsLandingPageView: View {
             .padding()
             .sheet(isPresented: $projectsLandingPageVM.showingCreateIssue, content: {
                 AddIssueView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                    .onDisappear(perform: {
-                        projectsLandingPageVM.getProjects()
-                    })
             })
             .sheet(isPresented: $projectsLandingPageVM.showingCreateProject, content: {
                 AddProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                    .onDisappear(perform: {
-                        projectsLandingPageVM.getProjects()
-                    })
             })
             HStack {
                 ProjectsTableView(projectsLandingPageVM: projectsLandingPageVM)

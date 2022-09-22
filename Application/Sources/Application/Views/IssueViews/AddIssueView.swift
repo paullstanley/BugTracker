@@ -12,11 +12,11 @@ import UseCases
 
 struct AddIssueView: View {
     @State var addIssueVM: AddIssueViewModel
-    @ObservedObject var projectsLandingPageView: ProjectsLandingPageViewModel
+    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     
     init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
         self.addIssueVM = AddIssueViewModel(storageProvider: storageProvider)
-        self.projectsLandingPageView = projectsLandingPageVM
+        self.projectsLandingPageVM = projectsLandingPageVM
     }
     
     var body: some View {
@@ -31,15 +31,16 @@ struct AddIssueView: View {
                     TextField("", text: $addIssueVM.issue.info)
                     HStack {
                         Button("Save") {
-                            addIssueVM.issue.project = projectsLandingPageView.selectedProject
-                            addIssueVM.issue.projectIdentifier = projectsLandingPageView.selectedProject.stringId
-                            addIssueVM.issue.id = projectsLandingPageView.selectedProject.stringId
-                            
+                            addIssueVM.issue.project = projectsLandingPageVM.selectedProject
+                            addIssueVM.issue.projectIdentifier = projectsLandingPageVM.selectedProject.stringId
+                            addIssueVM.issue.id = projectsLandingPageVM.selectedProject.stringId
+                    
                             addIssueVM.execute()
-                            projectsLandingPageView.showingCreateIssue.toggle()
+                            projectsLandingPageVM.getProjects()
+                            projectsLandingPageVM.showingCreateIssue.toggle()
                         }
                         Button("Cancel") {
-                            projectsLandingPageView.showingCreateIssue.toggle()
+                            projectsLandingPageVM.showingCreateIssue.toggle()
                         }
                         .buttonStyle(.borderedProminent)
                     }

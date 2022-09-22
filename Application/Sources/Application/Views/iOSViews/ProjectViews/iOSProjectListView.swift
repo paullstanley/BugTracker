@@ -1,5 +1,5 @@
 //
-//  ProjectsLandingPageView.swift
+//  iOSProjectListView.swift
 //  
 //
 //  Created by Paull Stanley on 9/21/22.
@@ -10,13 +10,14 @@ import CoreDataPlugin
 import Domain
 import UseCases
 
-struct iOSProjectsLandingPageView: View {
+struct iOSProjectListView: View {
     let storageProvider: StorageProvider
     @ObservedObject var projectsLandingPageVM:  ProjectsLandingPageViewModel
     
     init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
         projectsLandingPageVM = ProjectsLandingPageViewModel(storageProvider: self.storageProvider)
+        projectsLandingPageVM.getProjects()
     }
     
     var body: some View {
@@ -29,6 +30,7 @@ struct iOSProjectsLandingPageView: View {
                     Image(systemName: "plus")
                 })
             }
+            .padding()
             List {
                 ForEach(projectsLandingPageVM.projects) {
                     NavigationLink($0.name, value: $0)
@@ -37,7 +39,7 @@ struct iOSProjectsLandingPageView: View {
             }
             .navigationTitle("Projects")
             .navigationDestination(for: ProjectDM.self) { project in
-                ProjectItemView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                iOSProjectDetailView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
             }
         }
     }

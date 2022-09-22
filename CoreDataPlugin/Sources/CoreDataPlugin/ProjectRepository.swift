@@ -143,3 +143,14 @@ public class ProjectRepository: IProjectRepository {
         return projectMO
     }
 }
+
+extension ProjectRepository {
+    func getAllIssues(for project: ProjectDM)-> [IssueDM] {
+        guard let storageContainer = storageProvider.persistentContainer else { return [] }
+        let projectMO = ProjectMO.findOrInsert(using: project.name, in: storageContainer.viewContext)
+        let issuesDM = projectMO.fetchedIssues.map {
+            IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", projectIdentifier: $0.projectIdentifier.uuidString)
+        }
+        return issuesDM
+    }
+}

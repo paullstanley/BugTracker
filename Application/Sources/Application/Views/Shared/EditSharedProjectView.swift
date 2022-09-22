@@ -69,7 +69,7 @@ struct EditSharedProjectView: View {
     }
     .onAppear {
         projectName = project.name
-        projectDetails = project.info ?? ""
+        projectDetails = project.info
     }
   }
 }

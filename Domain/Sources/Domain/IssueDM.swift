@@ -30,3 +30,12 @@ public struct IssueDM {
 
 extension IssueDM: Identifiable { }
 
+extension IssueDM: Hashable {
+    public static func == (lhs: IssueDM, rhs: IssueDM) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

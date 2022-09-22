@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Domain
+import CoreDataPlugin
 
 struct ProjectsTableView: View {
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
@@ -32,7 +33,7 @@ struct ProjectsTableView: View {
             .background(Color.accentColor.gradient)
             .cornerRadius(3)
             .scaleEffect()
-            Table(sortedProjects, selection: $selection, sortOrder: $projectsLandingPageVM.projectOrder) {
+            Table(projectsLandingPageVM.sortedProjects, selection: $selection, sortOrder: $projectsLandingPageVM.projectOrder) {
                 TableColumn("Id", value: \.stringId)
                 TableColumn("Name", value: \.name)
                 TableColumn("Creation date", value: \.creationDate)

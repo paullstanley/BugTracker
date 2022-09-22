@@ -8,7 +8,7 @@
 import Domain
 
 public struct AddIssueUseCase: IAddIssueUseCase {
-    public let issueRepository: IIssueRepository
+    private let issueRepository: IIssueRepository
     
     public init(issueRepository: IIssueRepository) {
         self.issueRepository = issueRepository

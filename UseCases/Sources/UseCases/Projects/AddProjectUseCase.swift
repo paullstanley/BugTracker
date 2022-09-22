@@ -8,7 +8,7 @@
 import Domain
 
 public struct AddProjectUseCase: IAddProjectUseCase {
-    public let projectRepository: IProjectRepository
+    private let projectRepository: IProjectRepository
     
     public init(projectRepository: IProjectRepository) {
         self.projectRepository = projectRepository
