@@ -15,7 +15,7 @@ class ProjectsLandingPageViewModel: ObservableObject {
     @Published var projectSelection: UUID = UUID()
     @Published var issueSelection: String = ""
     
-    @Published private(set) var projects: [ProjectDM]
+    @Published var projects: [ProjectDM]
     @Published private(set) var projectIssues: [IssueDM] = []
     
     @Published var projectOrder: [KeyPathComparator<ProjectDM>] = [

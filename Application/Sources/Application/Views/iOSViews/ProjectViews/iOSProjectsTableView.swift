@@ -44,4 +44,3 @@ struct iOSProjectsTableView: View {
         })
     }
 }
-

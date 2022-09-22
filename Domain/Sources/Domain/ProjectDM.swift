@@ -44,3 +44,14 @@ extension ProjectDM {
 }
 
 extension ProjectDM: Identifiable { }
+
+extension ProjectDM: Hashable {
+    public static func == (lhs: ProjectDM, rhs: ProjectDM) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+}

@@ -7,9 +7,11 @@
 
 import SwiftUI
 import CoreDataPlugin
+import Domain
 
 struct iOSAddProjectView: View {
-    @State var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     @ObservedObject var addProjectViewModel: AddProjectViewModel
     
     init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
@@ -27,22 +29,14 @@ struct iOSAddProjectView: View {
             TextField("", text: $addProjectViewModel.project.deadline)
             Text("Project info")
             TextField("", text: $addProjectViewModel.project.info)
-            HStack {
-                Button {
-                    addProjectViewModel.execute()
-                    projectsLandingPageVM.showingCreateProject.toggle()
-                } label: {
-                    Label("Create", systemImage: "plus")
-                }
-                .cornerRadius(5)
-                Button {
-                    projectsLandingPageVM.showingCreateProject.toggle()
-                } label: {
-                    Text("Cancel")
-                }
-                
-            }
-            .buttonStyle(.borderedProminent)
+                .buttonStyle(.borderedProminent)
+        }
+        .onSubmit {
+            addProjectViewModel.execute()
+            projectsLandingPageVM.projects.append(addProjectViewModel.project)
+            
+            projectsLandingPageVM.showingCreateProject.toggle()
+            self.presentationMode.wrappedValue.dismiss()
         }
         .padding()
         .cornerRadius(5)

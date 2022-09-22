@@ -4,8 +4,11 @@
 //
 //  Created by Paull Stanley on 9/21/22.
 //
+import Foundation
 import SwiftUI
 import CoreDataPlugin
+import Domain
+import UseCases
 
 struct iOSProjectsLandingPageView: View {
     let storageProvider: StorageProvider
@@ -17,38 +20,39 @@ struct iOSProjectsLandingPageView: View {
     }
     
     var body: some View {
-        VStack {
-            VStack {
-                iOSProjectItemView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                HStack {
-                    iOSDeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
-                    Button {
-                        projectsLandingPageVM.showingCreateProject.toggle()
-                    } label: {
-                        Label("Create", systemImage: "plus")
-                    }
-                }
-                .sheet(isPresented: $projectsLandingPageVM.showingCreateIssue, content: {
-                    AddIssueView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                        .onDisappear(perform: {
-                            projectsLandingPageVM.getProjects()
-                        })
-                })
-                .sheet(isPresented: $projectsLandingPageVM.showingCreateProject, content: {
+        NavigationStack {
+            HStack {
+                Spacer()
+                NavigationLink(destination: {
                     iOSAddProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                        .onDisappear(perform: {
-                            projectsLandingPageVM.getProjects()
-                        })
+                }, label: {
+                    Image(systemName: "plus")
                 })
             }
-            DynamicStack {
-                iOSProjectsTableView(projectsLandingPageVM: projectsLandingPageVM)
-                
-                iOSIssueTableView(projectsLandingPageVM: projectsLandingPageVM)
+            List {
+                ForEach(projectsLandingPageVM.projects) {
+                    NavigationLink($0.name, value: $0)
+                }
+                .onDelete(perform: self.deleteRow)
             }
-            
-            Spacer()
+            .navigationTitle("Projects")
+            .navigationDestination(for: ProjectDM.self) { project in
+                ProjectItemView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+            }
         }
+    }
+    private func deleteRow(at indexSet: IndexSet) {
+        let projectToDelete = indexSet.map { self.projectsLandingPageVM.projects[$0] }
+        
+        _ = projectToDelete.compactMap { project in
+            if(DeleteProjectUseCase(projectRepository: ProjectRepository(storageProvider: storageProvider)).execute(project)) {
+                DispatchQueue.main.async {
+                    self.projectsLandingPageVM.projects.removeAll { $0 == project}
+                    projectsLandingPageVM.getProjects()
+                }
+            }
+        }
+        self.projectsLandingPageVM.projects.remove(atOffsets: indexSet)
     }
 }
 
