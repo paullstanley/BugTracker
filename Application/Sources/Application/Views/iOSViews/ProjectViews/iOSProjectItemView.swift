@@ -9,9 +9,15 @@ import SwiftUI
 import CoreDataPlugin
 
 struct iOSProjectItemView: View {
+    let storageProvider: StorageProvider
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     @State var showingEditView: Bool = false
     @State var showingShareView: Bool = false
+    
+    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
+        self.storageProvider = storageProvider
+        self.projectsLandingPageVM = projectsLandingPageVM
+    }
 
     public var body: some View {
         HStack {
@@ -45,7 +51,7 @@ struct iOSProjectItemView: View {
                     }
                     .buttonStyle(.plain)
                     .popover(isPresented: $showingEditView, content: {
-                        iOSEditProjectView(projectsLandingPageVM: projectsLandingPageVM)
+                        iOSEditProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
                             .onDisappear(perform: {
                                 projectsLandingPageVM.getProjects()
                             })

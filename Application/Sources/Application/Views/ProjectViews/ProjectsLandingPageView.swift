@@ -14,14 +14,14 @@ struct ProjectsLandingPageView: View {
     
     init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
-        projectsLandingPageVM = ProjectsLandingPageViewModel(repository: ProjectRepository(storageProvider: self.storageProvider))
+        projectsLandingPageVM = ProjectsLandingPageViewModel(storageProvider: self.storageProvider)
     }
     
     var body: some View {
         VStack {
             HStack {
                 VStack {
-                    ProjectItemView(projectsLandingPageVM: projectsLandingPageVM)
+                    ProjectItemView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
                     HStack {
                         DeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
                         Button {
@@ -36,7 +36,7 @@ struct ProjectsLandingPageView: View {
                 .cornerRadius(3)
                 .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
                 VStack {
-                    IssueItemView(projectsLandingPageVM: projectsLandingPageVM)
+                    IssueItemView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
                     HStack {
                         DeleteIssueView(projectsLandingPageVM: projectsLandingPageVM, deleteIssueVM: DeleteIssueViewModel(storageProvider: storageProvider))
                         Button {

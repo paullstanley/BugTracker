@@ -13,11 +13,15 @@ import UseCases
 class EditIssueViewModel: ObservableObject {
     private let repository: IIssueRepository
     
-    init() {
-        repository = IssueRepository(storageProvider: StorageProvider())
+    @Published var issueToEdit: IssueDM?
+    
+    init(storageProvider: StorageProvider) {
+        repository = IssueRepository(storageProvider: storageProvider)
     }
     
     func execute(_ issue: IssueDM)-> IssueDM {
-        repository.edit(issue)
+        issueToEdit = repository.edit(issue)
+        guard let editedIssue = issueToEdit else { return issue }
+        return editedIssue
     }
 }

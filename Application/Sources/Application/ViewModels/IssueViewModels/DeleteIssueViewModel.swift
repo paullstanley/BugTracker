@@ -12,6 +12,7 @@ import UseCases
 
 class DeleteIssueViewModel: ObservableObject {
     private let repository: IIssueRepository
+    
     @Published var isDeleted: Bool = false
     
     init(storageProvider: StorageProvider) {

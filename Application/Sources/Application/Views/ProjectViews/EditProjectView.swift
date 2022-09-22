@@ -7,12 +7,18 @@
 
 import SwiftUI
 import Domain
+import CoreDataPlugin
 
 struct EditProjectView: View {
     @Environment(\.dismiss) var onDissmiss: DismissAction
-    @State var editProjectVM: EditProjectViewModel = EditProjectViewModel()
+    @ObservedObject var editProjectVM: EditProjectViewModel
     
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
+    
+    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
+        editProjectVM = EditProjectViewModel(storageProvider: storageProvider)
+        self.projectsLandingPageVM = projectsLandingPageVM
+    }
     
     @State var name: String = ""
     @State var info: String = ""
@@ -42,8 +48,6 @@ struct EditProjectView: View {
                             let newProject = ProjectDM(id: projectsLandingPageVM.selectedProject.id, name: name, info: info, stage: stage, deadline: deadline)
                             _ = editProjectVM.execute(newProject)
                             projectsLandingPageVM.getProjects()
-                            print("!!!!!!")
-                            print(projectsLandingPageVM.selectedProject.id)
                             onDissmiss()
                         }
                         .cornerRadius(5)

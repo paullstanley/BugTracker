@@ -13,13 +13,13 @@ struct iOSProjectsLandingPageView: View {
     
     init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
-        projectsLandingPageVM = ProjectsLandingPageViewModel(repository: ProjectRepository(storageProvider: self.storageProvider))
+        projectsLandingPageVM = ProjectsLandingPageViewModel(storageProvider: self.storageProvider)
     }
     
     var body: some View {
         VStack {
             VStack {
-                iOSProjectItemView(projectsLandingPageVM: projectsLandingPageVM)
+                iOSProjectItemView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
                 HStack {
                     iOSDeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
                     Button {

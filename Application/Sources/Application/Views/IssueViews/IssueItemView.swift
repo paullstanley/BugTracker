@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import CoreDataPlugin
 
 struct IssueItemView: View {
+    let storageProvider: StorageProvider
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     @State var showingEditView: Bool = false
     
@@ -28,7 +30,7 @@ struct IssueItemView: View {
                     }
                     .buttonStyle(.plain)
                     .popover(isPresented: $showingEditView, content: {
-                        EditIssueView(issue: projectsLandingPageVM.selectedIssue)
+                        EditIssueView(storageProvider: storageProvider, issue: projectsLandingPageVM.selectedIssue)
                             .onDisappear(perform: {
                                 projectsLandingPageVM.getProjects()
                             })

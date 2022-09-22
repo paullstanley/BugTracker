@@ -11,7 +11,7 @@ import Domain
 import UseCases
 
 class ProjectsLandingPageViewModel: ObservableObject {
-    private let repository: IProjectRepository
+    private let repository: ProjectRepository
     @Published var projectSelection: UUID = UUID()
     @Published var issueSelection: String = ""
     
@@ -29,8 +29,8 @@ class ProjectsLandingPageViewModel: ObservableObject {
     @Published var showingCreateIssue: Bool = false
     @Published var showingCreateProject: Bool = false
     
-    init(repository: IProjectRepository) {
-        self.repository = repository
+    init(storageProvider: StorageProvider) {
+        self.repository = ProjectRepository(storageProvider: storageProvider)
         projects = repository.getAll()
     }
     

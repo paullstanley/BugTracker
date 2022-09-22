@@ -7,12 +7,18 @@
 
 import SwiftUI
 import Domain
+import CoreDataPlugin
 
 struct iOSEditProjectView: View {
     @Environment(\.dismiss) var onDissmiss: DismissAction
-    @State var editProjectVM: EditProjectViewModel = EditProjectViewModel()
+    @ObservedObject var editProjectVM: EditProjectViewModel
     
-    @State var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
+    
+    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
+        editProjectVM = EditProjectViewModel(storageProvider: storageProvider)
+        self.projectsLandingPageVM = projectsLandingPageVM
+    }
     
     @State var name: String = ""
     @State var info: String = ""
