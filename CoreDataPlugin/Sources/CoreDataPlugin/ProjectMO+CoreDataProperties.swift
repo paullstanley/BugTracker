@@ -35,6 +35,20 @@ extension ProjectMO {
 }
 
 extension ProjectMO {
+    enum ValidationError: Error {
+        case invalidName(String)
+    }
+    
+    public override func validateForInsert() throws {
+        try super.validateForInsert()
+        
+        if  name.isEmpty {
+            throw ValidationError.invalidName("Name show be a non-empty string")
+        }
+    }
+}
+
+extension ProjectMO {
     override public func willSave() {
         if let lastModified: Date = lastModified {
             if lastModified.timeIntervalSince(Date()) > 10.0 {
@@ -49,9 +63,9 @@ extension ProjectMO {
 extension ProjectMO {
     public static func findOrInsert(using name: String, in context: NSManagedObjectContext)-> ProjectMO {
         let request: NSFetchRequest = NSFetchRequest<ProjectMO>(entityName: "ProjectEntity")
-
+        
         request.predicate = NSPredicate(format: "%K == %@", #keyPath(ProjectMO.name), name as String)
-
+        
         if let project: ProjectMO = try? context.fetch(request).first {
             return project
         } else {
@@ -68,13 +82,13 @@ extension ProjectMO {
 extension ProjectMO {
     @objc(addIssuesObject:)
     @NSManaged public func addToIssues(_ value: IssueMO)
-
+    
     @objc(removeIssuesObject:)
     @NSManaged public func removeFromIssues(_ value: IssueMO)
-
+    
     @objc(addIssues:)
     @NSManaged public func addToIssues(_ values: Set<IssueMO>)
-
+    
     @objc(removeIssues:)
     @NSManaged public func removeFromIssues(_ values: Set<IssueMO>)
 }

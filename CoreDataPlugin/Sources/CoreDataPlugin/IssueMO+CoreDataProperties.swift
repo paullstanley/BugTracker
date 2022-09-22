@@ -31,6 +31,20 @@ extension IssueMO {
 }
 
 extension IssueMO {
+    enum ValidationError: Error {
+        case invalidName(String)
+    }
+    
+    public override func validateForInsert() throws {
+        try super.validateForInsert()
+        
+        if  title.isEmpty {
+            throw ValidationError.invalidName("Title show be a non-empty string")
+        }
+    }
+}
+
+extension IssueMO {
     override public func willSave() {
         if let lastModified: Date = lastModified {
             if lastModified.timeIntervalSince(Date()) > 10.0 {
