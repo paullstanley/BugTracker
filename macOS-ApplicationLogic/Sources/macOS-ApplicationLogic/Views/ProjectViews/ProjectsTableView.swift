@@ -44,6 +44,9 @@ struct ProjectsTableView: View {
             }
         }
         .scaleEffect()
+        .onAppear( perform: {
+            selection = sortedProjects.first?.id
+        })
         .onChange(of: selection, perform: { _ in
             projectsLandingPageVM.updateProjectSelection(selection)
         })

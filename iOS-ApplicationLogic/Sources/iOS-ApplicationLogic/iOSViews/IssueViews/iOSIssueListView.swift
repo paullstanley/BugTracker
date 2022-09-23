@@ -7,64 +7,59 @@
 
 import SwiftUI
 import CoreDataPlugin
-import UseCases
 import Domain
 
 struct iOSIssueListView: View {
-    let storageProvider: StorageProvider
-    @ObservedObject var projectsIssuesVM: ProjectsIssuesViewModel
-    @ObservedObject var projectsLandingPageVM:  ProjectsLandingPageViewModel
+    @StateObject var issueListVM = IssueListViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
+    let project: ProjectDM
     
     @State private var toBeDeleted: IndexSet? = nil
     @State private var showingDeleteAlert: Bool = false
-    
-    init(storageProvider: StorageProvider, projectsLandingPageVM:  ProjectsLandingPageViewModel) {
-        self.storageProvider = storageProvider
-        self.projectsLandingPageVM = projectsLandingPageVM
-        self.projectsIssuesVM = ProjectsIssuesViewModel(storageProvider: self.storageProvider)
-    }
+
     
     var body: some View {
-        List {
-            ForEach(projectsIssuesVM.execute(projectsLandingPageVM.selectedProject), id: \.id) {
-                NavigationLink($0.title, value: $0)
-                    .alert(isPresented: $showingDeleteAlert) {
-                        
-                        Alert(title: Text("Are you sure?"), message: Text("Yes?"), primaryButton: .destructive(Text("Delete")) {
-                            guard let indexSet = toBeDeleted else { return }
+            List {
+                ForEach(project.issues, id: \.id) {
+                    NavigationLink($0.title, value: $0)
+                        .alert(isPresented: $showingDeleteAlert) {
                             
-                            let issueToDelete = indexSet.map { self.projectsLandingPageVM.projectIssues[$0] }
-                                self.projectsLandingPageVM.projectIssues.remove(atOffsets: toBeDeleted!)
-                                _ = issueToDelete.compactMap { issue in
-                                    
-                                    if(DeleteIssueUseCase(issueRepository: IssueRepository(storageProvider: storageProvider)).execute(issue)) {
-                                        DispatchQueue.main.async {
-                                            self.projectsLandingPageVM.projectIssues.removeAll { $0 == issue}
-                                        }
+                            Alert(title: Text("Are you sure?"), message: Text("Yes?"), primaryButton: .destructive(Text("Delete")) {
+                                guard let indexSet = toBeDeleted else { return }
+                                
+                                let issueToDelete = indexSet.map { issueListVM.issues[$0] }
+                                issueListVM.issues.remove(atOffsets: toBeDeleted!)
+                                    _ = issueToDelete.compactMap { issue in
+                                        
+    //                                    if(DeleteIssueUseCase(issueRepository: IssueRepository(storageProvider: storageProvider)).execute(issue)) {
+    //                                        DispatchQueue.main.async {
+    //                                            project.issues.removeAll { $0 == issue}
+    //                                        }
+    //                                    }
                                     }
-                                }
-                            self.toBeDeleted = nil
-                        }, secondaryButton: .cancel() {
-                            self.toBeDeleted = nil
+                                self.toBeDeleted = nil
+                            }, secondaryButton: .cancel() {
+                                self.toBeDeleted = nil
+                            }
+                            )
                         }
-                        )
-                    }
+                }
+                .onDelete(perform: self.deleteRow)
+                .navigationTitle("Issues")
+               
+                NavigationLink(destination: {
+                    iOSAddIssueView(project: project)
+                        .onDisappear(perform: {
+                            issueListVM.getIssues()
+                        })
+                }, label: {
+                    Image(systemName: "plus")
+                })
             }
-            .onDelete(perform: self.deleteRow)
-            .navigationTitle("Issues")
-           
-            NavigationLink(destination: {
-                iOSAddIssueView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                    .onDisappear(perform: {
-                        projectsLandingPageVM.getProjects()
-                    })
-            }, label: {
-                Image(systemName: "plus")
-            })
-        }
-        .navigationDestination(for: ProjectDM.self) { issue in
-            iOSProjectDetailView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-        }
+            .navigationDestination(for: ProjectDM.self) { issue in
+                iOSProjectDetailView(project: project)
+            }
+        
+        
     }
     private func deleteRow(at indexSet: IndexSet) {
         self.toBeDeleted = indexSet

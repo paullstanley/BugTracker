@@ -6,25 +6,20 @@
 //
 
 import SwiftUI
+import Domain
 import CoreDataPlugin
 
 struct iOSProjectDetailView: View {
-    let storageProvider: StorageProvider
-    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @StateObject var projectDetailViewModel = ProjectDetailViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
+    let project: ProjectDM
     @State var showingEditView: Bool = false
     @State var showingShareView: Bool = false
     
-    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
-        self.storageProvider = storageProvider
-        self.projectsLandingPageVM = projectsLandingPageVM
-    }
-
     public var body: some View {
                 HStack {
                     Spacer()
                     Text("Project Details")
                         .fixedSize()
-#if os(iOS)
                     Button {
                         showingShareView.toggle()
                     } label: {
@@ -34,9 +29,8 @@ struct iOSProjectDetailView: View {
                             .foregroundColor(.orange)
                     }
                     .popover(isPresented: $showingShareView, content: {
-                        SharedProjectDetailView(projectsLandingPageVM: projectsLandingPageVM)
+                        //SharedProjectDetailView(projectsLandingPageVM: projectsLandingPageVM)
                     })
-#endif
                     Spacer()
                     Button {
                         showingEditView.toggle()
@@ -48,9 +42,9 @@ struct iOSProjectDetailView: View {
                     }
                     .buttonStyle(.plain)
                     .popover(isPresented: $showingEditView, content: {
-                        iOSEditProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                        iOSEditProjectView(project: project)
                             .onDisappear(perform: {
-                                projectsLandingPageVM.getProjects()
+                                projectDetailViewModel.getProject(project)
                             })
                     })
                 }
@@ -64,25 +58,25 @@ struct iOSProjectDetailView: View {
                     HStack {
                         Text("Name:")
                             .bold()
-                        Text(projectsLandingPageVM.selectedProject.name)
+                        Text(project.name)
                     }
                     HStack {
                         Text("Creation Date:")
                             .bold()
-                        Text("\(projectsLandingPageVM.selectedProject.creationDate)")
+                        Text("\(project.creationDate)")
                     }
                     HStack {
                         Text("Stage:")
                             .bold()
-                        Text("\(projectsLandingPageVM.selectedProject.stage)")
+                        Text("\(project.stage)")
                     }
                     HStack {
                         Text("Information:")
                             .bold()
-                        Text("\(projectsLandingPageVM.selectedProject.info)")
+                        Text("\(project.info)")
                     }
                 }
                 Spacer()
-        iOSIssueListView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+        iOSIssueListView(project: project)
     }
 }

@@ -7,36 +7,28 @@
 
 import SwiftUI
 import CoreDataPlugin
-import Domain
+
 
 struct iOSAddProjectView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
-    @ObservedObject var addProjectViewModel: AddProjectViewModel
     
-    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
-        addProjectViewModel = AddProjectViewModel(storageProvider: storageProvider)
-        self.projectsLandingPageVM = projectsLandingPageVM
-    }
+    @StateObject var addProjectVM = AddProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     
     var body: some View {
         Form {
             Text("Project name")
-            TextField("", text: $addProjectViewModel.project.name)
+            TextField("", text: $addProjectVM.project.name)
             Text("Project stage")
-            TextField("", text: $addProjectViewModel.project.stage)
+            TextField("", text: $addProjectVM.project.stage)
             Text("Project deadline")
-            TextField("", text: $addProjectViewModel.project.deadline)
+            TextField("", text: $addProjectVM.project.deadline)
             Text("Project info")
-            TextField("", text: $addProjectViewModel.project.info)
+            TextField("", text: $addProjectVM.project.info)
                 .buttonStyle(.borderedProminent)
         }
         .onSubmit {
-            addProjectViewModel.execute()
-            projectsLandingPageVM.getProjects()
-            
-            projectsLandingPageVM.showingCreateProject.toggle()
-           // self.presentationMode.wrappedValue.dismiss()
+            addProjectVM.execute()
+           self.presentationMode.wrappedValue.dismiss()
         }
         .padding()
         .cornerRadius(5)

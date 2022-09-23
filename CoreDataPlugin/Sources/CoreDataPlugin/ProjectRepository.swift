@@ -9,13 +9,15 @@ import Foundation
 import Domain
 import UseCases
 
-public class ProjectRepository: IProjectRepository {
+public class ProjectRepository {
     private let storageProvider: StorageProvider
     
     public init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
     }
-    
+}
+
+extension ProjectRepository: IProjectRepository {
     public func getAll()-> [ProjectDM] {
         guard let storageProviderContainer = storageProvider.persistentContainer else { return [] }
         let context = storageProviderContainer.viewContext
@@ -23,6 +25,7 @@ public class ProjectRepository: IProjectRepository {
         var projectsDM: [ProjectDM] = []
         
         return context.performAndWait {
+            context.reset()
             let request = ProjectMO.fetchRequest()
             do {
                 let projectsMO = try context.fetch(request)
@@ -74,7 +77,7 @@ public class ProjectRepository: IProjectRepository {
         let projectDMId = UUID()
         
         return context.performAndWait {
-            let projectMO = ProjectMO.findOrInsert(using: projectDMId, in: storageProviderContainer.viewContext)
+            let projectMO = ProjectMO.findOrInsert(using: projectDMId, in: context)
             projectMO.identifier = UUID()
             projectMO.name = _project.name
             projectMO.creationDate = Date()
@@ -173,20 +176,21 @@ public class ProjectRepository: IProjectRepository {
         }
        
     }
-}
-
-extension ProjectRepository {
-    func getAllIssues(for project: ProjectDM)-> [IssueDM] {
+    public func getAllIssues(for project: ProjectDM)-> [IssueDM] {
+        print("##################################################")
         guard let projectDMId = UUID(uuidString: project.id) else { return [] }
         guard let storageProviderContainer = storageProvider.persistentContainer else { return [] }
         let context = storageProviderContainer.viewContext
         
         return context.performAndWait {
             let projectMO = ProjectMO.findOrInsert(using: projectDMId, in: context)
-            
+        
             let issuesDM = projectMO.fetchedIssues.map {
-                IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", projectIdentifier: $0.projectIdentifier.uuidString)
+                IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", projectIdentifier: projectMO.identifier.uuidString)
             }
+            context.reset()
+            print("##################################################")
+            print(issuesDM)
             return issuesDM
         }
     }

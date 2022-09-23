@@ -39,3 +39,7 @@ extension IssueDM: Hashable {
         hasher.combine(id)
     }
 }
+
+extension IssueDM {
+    public static let placeHolder: IssueDM = IssueDM()
+}

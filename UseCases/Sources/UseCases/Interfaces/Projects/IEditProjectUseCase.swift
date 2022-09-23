@@ -7,6 +7,6 @@
 
 import Domain
 
-protocol IEditProjectUseCase {
+public protocol IEditProjectUseCase {
     func execute(_ project: ProjectDM)-> ProjectDM?
 }

@@ -10,10 +10,10 @@ import Domain
 import CoreDataPlugin
 
 public struct iOSLandingPageView: View {
-    @State var selectedMenu: MenuItem?
-    let storageProvider: StorageProvider = StorageProvider()
+    @StateObject private var landingPageVM =  LandingPageViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
+    @State private var selectedMenu: MenuItem?
     
-    public init() {  }
+    public init() { }
     
     public var body: some View {
         DynamicStack {
@@ -24,7 +24,7 @@ public struct iOSLandingPageView: View {
                 }
             } detail: {
                 if selectedMenu?.name == "Projects" {
-                    iOSProjectListView(storageProvider: storageProvider)
+                    iOSProjectListView()
                 }
                 else if selectedMenu?.name == "Home" ||
                             selectedMenu?.name == "" ||

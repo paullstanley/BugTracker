@@ -8,7 +8,11 @@
 
 
 import SwiftUI
+import Domain
+import UseCases
+import CoreDataPlugin
 import iOS_ApplicationLogic
+
 
 @main
 struct IssueTrackingSystemApp: App {

@@ -7,6 +7,6 @@
 
 import Domain
 
-protocol IViewAllProjectsUseCase {
+public protocol IViewAllProjectsUseCase {
     func execute()-> [ProjectDM]
 }

@@ -9,14 +9,16 @@ import Foundation
 import Domain
 import UseCases
 
-public class IssueRepository: IIssueRepository {
+public class IssueRepository {
     
     private let storageProvider: StorageProvider
     
     public init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
-    }
+    }   
+}
 
+extension IssueRepository: IIssueRepository {
     public func getAllIssues(for project: ProjectDM)-> [IssueDM] {
         guard let storageProviderContainer = storageProvider.persistentContainer else { return [] }
         let context = storageProviderContainer.viewContext
@@ -64,7 +66,6 @@ public class IssueRepository: IIssueRepository {
                 let issueMO = IssueMO.findOrInsert(using: issueId, for: issueMOsProject, in: context)
                 
                 issueMO.title = _issue.title
-                issueMO.creationDate = Date()
                 issueMO.info = _issue.info
                 issueMO.type = _issue.type
                 issueMO.project = issueMOsProject

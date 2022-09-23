@@ -11,14 +11,9 @@ import CoreDataPlugin
 
 struct iOSEditProjectView: View {
     @Environment(\.dismiss) var onDissmiss: DismissAction
-    @ObservedObject var editProjectVM: EditProjectViewModel
+    @StateObject var editProjectVM = EditProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     
-    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
-    
-    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
-        editProjectVM = EditProjectViewModel(storageProvider: storageProvider)
-        self.projectsLandingPageVM = projectsLandingPageVM
-    }
+    let project: ProjectDM
     
     @State var name: String = ""
     @State var info: String = ""
@@ -27,19 +22,19 @@ struct iOSEditProjectView: View {
     
     var body: some View {
         Form {
-            TextField("name", text: $name)
-            TextField("stage", text: $stage)
-            TextField("deadline", text: $deadline)
-            TextField("info", text: $info)
+            TextField("name", text: $editProjectVM.project.name)
+            TextField("stage", text: $editProjectVM.project.stage)
+            TextField("deadline", text: $editProjectVM.project.deadline)
+            TextField("info", text: $editProjectVM.project.info)
         }
         .onSubmit {
-            if name.isEmpty { name = projectsLandingPageVM.selectedProject.name }
-            if stage.isEmpty { stage = projectsLandingPageVM.selectedProject.name }
-            if deadline.isEmpty { deadline = projectsLandingPageVM.selectedProject.name }
-            if info.isEmpty { info = projectsLandingPageVM.selectedProject.name }
+            if name.isEmpty { name = project.name }
+            if stage.isEmpty { stage = project.stage }
+            if deadline.isEmpty { deadline = project.deadline }
+            if info.isEmpty { info = project.info }
             
-            let newProject = ProjectDM(name: name, info: info, stage: stage, deadline: deadline)
-            _ = editProjectVM.execute(newProject)
+            let newProject = ProjectDM(id: project.id, name: name, creationDate: project.creationDate, info: info, lastModified: Date().formatted(), stage: stage, deadline: deadline, issues: project.issues)
+            editProjectVM.execute(newProject)
             onDissmiss()
         }
     }

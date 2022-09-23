@@ -13,7 +13,8 @@ struct IssueTableView: View {
     @State var selection: String?
     
     var sortedIssues: [IssueDM] {
-        projectsLandingPageVM.selectedProject.issues.sorted(using: projectsLandingPageVM.issueOrder)
+        projectsLandingPageVM.selectedProject.issues
+            .sorted(using: projectsLandingPageVM.issueOrder)
     }
     
     var body: some View {
@@ -34,7 +35,7 @@ struct IssueTableView: View {
             .cornerRadius(3)
             .scaleEffect()
             
-            Table(sortedIssues, selection: $selection, sortOrder: $projectsLandingPageVM.issueOrder) {
+            Table(projectsLandingPageVM.sortedIssues, selection: $selection, sortOrder: $projectsLandingPageVM.issueOrder) {
                 TableColumn("Id", value: \.id)
                 TableColumn("Creation Date", value: \.creationDate)
                 TableColumn("Title", value: \.title)
@@ -43,6 +44,9 @@ struct IssueTableView: View {
             }
         }
         .scaleEffect()
+        .onAppear( perform: {
+            selection = sortedIssues.first?.id
+        })
         .onChange(of: selection, perform: { _ in
             projectsLandingPageVM.updateIssueSelection(selection)
         })

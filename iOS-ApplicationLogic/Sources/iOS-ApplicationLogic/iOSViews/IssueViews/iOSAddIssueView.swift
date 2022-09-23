@@ -11,17 +11,10 @@ import UseCases
 import Domain
 
 struct iOSAddIssueView: View {
-    @State var addIssueVM: AddIssueViewModel
-    @State var isShowing: Bool = true
-    //@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-   
-    
-    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
-        self.addIssueVM = AddIssueViewModel(storageProvider: storageProvider)
-        self.projectsLandingPageVM = projectsLandingPageVM
-    }
+    @StateObject var addIssueVM = AddIssueViewModel(repository: IssueRepository(storageProvider: StorageProvider.shared))
+    let project: ProjectDM
     
     var body: some View {
                 Form {
@@ -33,11 +26,9 @@ struct iOSAddIssueView: View {
                     TextField("", text: $addIssueVM.issue.info)
                 }
                 .onSubmit {
-                    addIssueVM.issue.project = projectsLandingPageVM.selectedProject
-                    addIssueVM.issue.id = projectsLandingPageVM.selectedProject.id
-                    
+                    addIssueVM.issue.project = project
                     addIssueVM.execute()
-                    projectsLandingPageVM.getProjects()
+                    presentationMode.wrappedValue.dismiss()
                    
                 }
     }

@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import Domain
+import CoreDataPlugin
+
 
 struct iOSDeleteProjectView: View {
-    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
-    @State var deleteProjectVM: DeleteProjectViewModel
+    @StateObject var deleteProjectVM = DeleteProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
+    @State var project: ProjectDM
     
     var body: some View {
         Button {
-            deleteProjectVM.execute(projectsLandingPageVM.selectedProject)
-            projectsLandingPageVM.getProjects()
+            deleteProjectVM.execute(project)
         } label: {
             Label("Delete", systemImage: "trash.circle")
         }

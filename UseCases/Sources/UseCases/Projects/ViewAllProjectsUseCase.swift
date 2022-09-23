@@ -7,10 +7,14 @@
 
 import Domain
 
-struct ViewAllProjectsUseCase: IViewAllProjectsUseCase {
-    let projectRepository: IProjectRepository
+public struct ViewAllProjectsUseCase: IViewAllProjectsUseCase {
+    private let projectRepository: IProjectRepository
     
-    func execute()-> [ProjectDM] {
+    public init(repository: IProjectRepository) {
+        projectRepository = repository
+    }
+    
+    public func execute()-> [ProjectDM] {
         return projectRepository.getAll()
     }   
 }

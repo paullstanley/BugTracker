@@ -11,38 +11,14 @@ import Domain
 
 public class PersistentContainer: NSPersistentCloudKitContainer { }
 
+
+
 public class StorageProvider {
-    static let shared = StorageProvider()
+    public static let shared = StorageProvider()
     private var _privatePersistentStore: NSPersistentStore?
     private var _sharedPersistentStore: NSPersistentStore?
     
-    public init() { }
-    
-    public var ckContainer: CKContainer {
-        let storeDescription = persistentContainer!.persistentStoreDescriptions.first
-        guard let identifier = storeDescription?.cloudKitContainerOptions!.containerIdentifier else {
-        fatalError("Unable to get container identifier")
-      }
-      return CKContainer(identifier: identifier)
-    }
-
-    var context: NSManagedObjectContext {
-        persistentContainer!.viewContext
-    }
-
-    var privatePersistentStore: NSPersistentStore {
-      guard let privateStore = _privatePersistentStore else {
-        fatalError("Private store is not set")
-      }
-      return privateStore
-    }
-
-    var sharedPersistentStore: NSPersistentStore {
-      guard let sharedStore = _sharedPersistentStore else {
-        fatalError("Shared store is not set")
-      }
-      return sharedStore
-    }
+    private init() { }
     
     lazy public var persistentContainer: PersistentContainer? = {
         guard let modelURL: URL = Bundle.module.url(forResource:"IssueTrackingSystem", withExtension: "momd") else {
@@ -100,19 +76,63 @@ public class StorageProvider {
         }
         return container
     }()
- 
-    public func saveContext() {
-        guard let context: NSManagedObjectContext = self.persistentContainer?.viewContext else { return }
+}
+
+extension StorageProvider {
+    public static func saveContext(_ context: NSManagedObjectContext) {
         if context.hasChanges {
-                try? context.save()
+            context.perform {
+                do {
+                    try context.save()
+                } catch {
+                    context.rollback()
+                }
+            }
         }
     }
 }
 
 extension StorageProvider {
+    public var ckContainer: CKContainer {
+        let storeDescription = persistentContainer!.persistentStoreDescriptions.first
+        guard let identifier = storeDescription?.cloudKitContainerOptions!.containerIdentifier else {
+        fatalError("Unable to get container identifier")
+      }
+      return CKContainer(identifier: identifier)
+    }
+
+    var context: NSManagedObjectContext {
+        persistentContainer!.viewContext
+    }
+
+    var privatePersistentStore: NSPersistentStore {
+      guard let privateStore = _privatePersistentStore else {
+        fatalError("Private store is not set")
+      }
+      return privateStore
+    }
+
+    var sharedPersistentStore: NSPersistentStore {
+      guard let sharedStore = _sharedPersistentStore else {
+        fatalError("Shared store is not set")
+      }
+      return sharedStore
+    }
+}
+
+
+//MARK: Extension for sharing
+extension StorageProvider {
   public func isShared(object: ProjectDM) -> Bool {
-    //let _object = ProjectMO.findOrInsert(using: object.name, in: persistentContainer!.viewContext)
-      isShared(objectID: object)
+      guard let projectId = UUID(uuidString: object.id) else { return false }
+      guard let container = persistentContainer else { return false }
+      let context = container.viewContext
+      return context.performAndWait {
+          let _object = ProjectMO.findOrInsert(using: projectId, in: context)
+            isShared(objectID: object)
+          return true
+      }
+    
   }
 
    public func canEdit(object: ProjectDM) -> Bool {
@@ -178,4 +198,8 @@ extension StorageProvider {
       }
     
   }
+}
+
+extension StorageProvider {
+    
 }
