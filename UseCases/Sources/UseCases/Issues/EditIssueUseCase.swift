@@ -7,8 +7,13 @@
 
 import Domain
 
-struct EditIssueUseCase: IEditIssueUseCase {
-    func execute() -> IssueDM? {
-        return nil
+public struct EditIssueUseCase: IEditIssueUseCase {
+    private let issueRepository: IIssueRepository
+    
+    public init(issueRepository: IIssueRepository) {
+        self.issueRepository = issueRepository
+    }
+    public func execute(_ issue: IssueDM) -> IssueDM? {
+        issueRepository.edit(issue)
     }
 }

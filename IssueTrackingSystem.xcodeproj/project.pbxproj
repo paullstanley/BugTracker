@@ -10,9 +10,9 @@
 		FA1E4B9A28C8143D009D195A /* IssueTrackingSystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1E4B6E28C8143B009D195A /* IssueTrackingSystemApp.swift */; };
 		FA1E4B9F28C8143D009D195A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1E4B7128C8143D009D195A /* Assets.xcassets */; };
 		FA1E4BA028C8143D009D195A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1E4B7128C8143D009D195A /* Assets.xcassets */; };
+		FA2AFD8A28DD3CF60034672C /* iOS-ApplicationLogic in Frameworks */ = {isa = PBXBuildFile; productRef = FA2AFD8928DD3CF60034672C /* iOS-ApplicationLogic */; };
+		FA2AFD8C28DD3D010034672C /* macOS-ApplicationLogic in Frameworks */ = {isa = PBXBuildFile; productRef = FA2AFD8B28DD3D010034672C /* macOS-ApplicationLogic */; };
 		FA8F219828DA1DEE004230CB /* IssueTrackingSystemApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F219728DA1DEE004230CB /* IssueTrackingSystemApp.swift */; };
-		FAAC0D3128D830F40028E419 /* Application in Frameworks */ = {isa = PBXBuildFile; productRef = FAAC0D3028D830F40028E419 /* Application */; };
-		FAAC0D3328D831090028E419 /* Application in Frameworks */ = {isa = PBXBuildFile; productRef = FAAC0D3228D831090028E419 /* Application */; };
 		FAFCBB4828D2D55200128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4728D2D55200128B79 /* CloudKit.framework */; };
 		FAFCBB4928D2F0B600128B79 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFCBB4728D2D55200128B79 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
@@ -44,6 +44,8 @@
 		FA1E4B9528C8143D009D195A /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		FA28861228D1025100A24F7B /* IssueTrackingSystem (iOS)Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (iOS)Release.entitlements"; sourceTree = "<group>"; };
 		FA28861328D1025D00A24F7B /* IssueTrackingSystem (macOS)Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (macOS)Release.entitlements"; sourceTree = "<group>"; };
+		FA2AFD8728DD3CA00034672C /* macOS-ApplicationLogic */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "macOS-ApplicationLogic"; sourceTree = "<group>"; };
+		FA2AFD8828DD3CB00034672C /* iOS-ApplicationLogic */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "iOS-ApplicationLogic"; sourceTree = "<group>"; };
 		FA686D8028D0BFA4001972A0 /* IssueTrackingSystem (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IssueTrackingSystem (iOS).entitlements"; sourceTree = "<group>"; };
 		FA686D8128D0C042001972A0 /* IssueTrackingSystem--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IssueTrackingSystem--iOS--Info.plist"; sourceTree = "<group>"; };
 		FA8F219728DA1DEE004230CB /* IssueTrackingSystemApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTrackingSystemApp.swift; sourceTree = "<group>"; };
@@ -54,7 +56,6 @@
 		FAAC0D2C28D82D6C0028E419 /* CoreDataPlugin */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CoreDataPlugin; sourceTree = "<group>"; };
 		FAAC0D2D28D82E3D0028E419 /* UseCases */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UseCases; sourceTree = "<group>"; };
 		FAAC0D2E28D82E450028E419 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Domain; sourceTree = "<group>"; };
-		FAAC0D2F28D830140028E419 /* Application */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Application; sourceTree = "<group>"; };
 		FAFCBB4728D2D55200128B79 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -63,8 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAAC0D3128D830F40028E419 /* Application in Frameworks */,
 				FAFCBB4928D2F0B600128B79 /* CloudKit.framework in Frameworks */,
+				FA2AFD8A28DD3CF60034672C /* iOS-ApplicationLogic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAFCBB4828D2D55200128B79 /* CloudKit.framework in Frameworks */,
-				FAAC0D3328D831090028E419 /* Application in Frameworks */,
+				FA2AFD8C28DD3D010034672C /* macOS-ApplicationLogic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +107,8 @@
 		FA1E4B6628C8143B009D195A = {
 			isa = PBXGroup;
 			children = (
-				FAAC0D2F28D830140028E419 /* Application */,
+				FA2AFD8828DD3CB00034672C /* iOS-ApplicationLogic */,
+				FA2AFD8728DD3CA00034672C /* macOS-ApplicationLogic */,
 				FAAC0D2C28D82D6C0028E419 /* CoreDataPlugin */,
 				FAAC0D2D28D82E3D0028E419 /* UseCases */,
 				FAAC0D2E28D82E450028E419 /* Domain */,
@@ -194,7 +196,7 @@
 			);
 			name = "IssueTrackingSystem (iOS)";
 			packageProductDependencies = (
-				FAAC0D3028D830F40028E419 /* Application */,
+				FA2AFD8928DD3CF60034672C /* iOS-ApplicationLogic */,
 			);
 			productName = "IssueTrackingSystem (iOS)";
 			productReference = FAA74AA728D7F37C00EF5F3E /* IssueTrackingSystem.app */;
@@ -214,7 +216,7 @@
 			);
 			name = "IssueTrackingSystem (macOS)";
 			packageProductDependencies = (
-				FAAC0D3228D831090028E419 /* Application */,
+				FA2AFD8B28DD3D010034672C /* macOS-ApplicationLogic */,
 			);
 			productName = "IssueTrackingSystem (macOS)";
 			productReference = FAA74AA828D7F37C00EF5F3E /* IssueTrackingSystem.app */;
@@ -763,13 +765,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FAAC0D3028D830F40028E419 /* Application */ = {
+		FA2AFD8928DD3CF60034672C /* iOS-ApplicationLogic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Application;
+			productName = "iOS-ApplicationLogic";
 		};
-		FAAC0D3228D831090028E419 /* Application */ = {
+		FA2AFD8B28DD3D010034672C /* macOS-ApplicationLogic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Application;
+			productName = "macOS-ApplicationLogic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -9,7 +9,7 @@ import Foundation
 
 public struct ProjectDM {
     
-    public init(id: UUID, name: String = "", creationDate: String = "", info: String = "", lastModified: String = "", stage: String = "", deadline: String = "", issues: [IssueDM]? = nil) {
+    public init(id: String = "", name: String = "", creationDate: String = "", info: String = "", lastModified: String = "", stage: String = "", deadline: String = "", issues: [IssueDM]? = nil) {
         self.id = id
         self.name = name
         self.creationDate = creationDate
@@ -20,7 +20,7 @@ public struct ProjectDM {
         self.issues = issues ?? []
     }
     
-    public let id: UUID
+    public let id: String
     public var name: String
     public let creationDate: String
     public var info: String
@@ -33,13 +33,6 @@ public struct ProjectDM {
 extension ProjectDM {
     public mutating func addIssue(_ issue: IssueDM) {
         issues.append(issue)
-    }
-}
-
-
-extension ProjectDM {
-    public var stringId: String {
-        String(describing: id)
     }
 }
 
@@ -62,5 +55,5 @@ extension ProjectDM: Hashable {
 }
 
 extension ProjectDM {
-    public static let placeHolder: ProjectDM = ProjectDM(id: UUID())
+    public static let placeHolder: ProjectDM = ProjectDM()
 }

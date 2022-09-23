@@ -5,7 +5,7 @@
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="info" optional="YES" attributeType="String"/>
         <attribute name="lastModified" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="projectIdentifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="projectIdentifier" optional="YES" attributeType="UUID" derived="YES" derivationExpression="project.identifier" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="version" attributeType="Integer 64" defaultValueString="1" usesScalarValueType="YES"/>

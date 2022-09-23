@@ -116,7 +116,8 @@ extension StorageProvider {
   }
 
    public func canEdit(object: ProjectDM) -> Bool {
-    let _object = ProjectMO.findOrInsert(using: object.name, in: persistentContainer!.viewContext)
+    guard let projectId = UUID(uuidString: object.id) else { return false }
+    let _object = ProjectMO.findOrInsert(using: projectId, in: persistentContainer!.viewContext)
     return persistentContainer!.canUpdateRecord(forManagedObjectWith: _object.objectID)
   }
 
@@ -125,7 +126,8 @@ extension StorageProvider {
   }
 
     public func isOwner(object: ProjectDM) -> Bool {
-    let _object = ProjectMO.findOrInsert(using: object.name, in: persistentContainer!.viewContext)
+        guard let projectId = UUID(uuidString: object.id) else { return false }
+    let _object = ProjectMO.findOrInsert(using: projectId, in: persistentContainer!.viewContext)
     guard isShared(object: object) else { return false }
     guard let share = try? persistentContainer?.fetchShares(matching: [_object.objectID])[_object.objectID] else {
       print("Get ckshare error")
@@ -138,7 +140,8 @@ extension StorageProvider {
   }
 
     public func getShare(_ project: ProjectDM) -> CKShare? {
-    let _object = ProjectMO.findOrInsert(using: project.name, in: persistentContainer!.viewContext)
+        guard let projectId = UUID(uuidString: project.id) else { return nil }
+    let _object = ProjectMO.findOrInsert(using: projectId, in: persistentContainer!.viewContext)
     guard isShared(object: project) else { return nil }
     guard let shareDictionary = try? persistentContainer?.fetchShares(matching: [_object.objectID]),
       let share = shareDictionary[_object.objectID] else {
@@ -150,23 +153,29 @@ extension StorageProvider {
   }
 
   private func isShared(objectID: ProjectDM) -> Bool {
-    let _object = ProjectMO.findOrInsert(using: objectID.name, in: persistentContainer!.viewContext)
-    var isShared = false
-      if let persistentStore = _object.objectID.persistentStore {
-      if persistentStore == sharedPersistentStore {
-        isShared = true
-      } else {
-        let container = persistentContainer
-        do {
-            let shares = try container!.fetchShares(matching: [_object.objectID])
-          if shares.first != nil {
-            isShared = true
+      guard let projectId = UUID(uuidString: objectID.id) else { return false }
+      guard let container = persistentContainer else { return false }
+      let context = container.viewContext
+      return context.performAndWait {
+          let _object = ProjectMO.findOrInsert(using: projectId, in: context)
+          var isShared = false
+            if let persistentStore = _object.objectID.persistentStore {
+                if persistentStore == self.sharedPersistentStore {
+              isShared = true
+            } else {
+              let container = container
+              do {
+                  let shares = try container.fetchShares(matching: [_object.objectID])
+                if shares.first != nil {
+                  isShared = true
+                }
+              } catch {
+                print("Failed to fetch share for \(objectID): \(error)")
+              }
+            }
           }
-        } catch {
-          print("Failed to fetch share for \(objectID): \(error)")
-        }
+          return isShared
       }
-    }
-    return isShared
+    
   }
 }

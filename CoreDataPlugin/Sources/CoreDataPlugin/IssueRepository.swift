@@ -10,36 +10,22 @@ import Domain
 import UseCases
 
 public class IssueRepository: IIssueRepository {
+    
     private let storageProvider: StorageProvider
     
     public init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
     }
-    
-    public func getAll()-> [IssueDM] {
+
+    public func getAllIssues(for project: ProjectDM)-> [IssueDM] {
         guard let storageProviderContainer = storageProvider.persistentContainer else { return [] }
         let context = storageProviderContainer.viewContext
         
-        var issuesDM: [IssueDM] = []
-        
         return context.performAndWait {
-            let request = IssueMO.fetchRequest()
-            do {
-                let issuesMO = try storageProviderContainer.viewContext.fetch(request)
-                
-                issuesDM = issuesMO.map {
-                    IssueDM(
-                        id: $0.identifier.uuidString,
-                        title: $0.title,
-                        type: $0.type,
-                        creationDate: $0.creationDate.formatted(),
-                        info: $0.info ?? "",
-                        lastModified: $0.lastModified?.formatted() ?? "",
-                        project: ProjectDM(id: $0.project.identifier),
-                        projectIdentifier: $0.project.identifier.uuidString
-                    )}
-            } catch {
-                print("There was an issue fetching the issues")
+            guard let projectDMId = UUID(uuidString: project.id) else { return [] }
+            let projectMO = ProjectMO.findOrInsert(using: projectDMId, in: context)
+            let issuesDM = projectMO.fetchedIssues.map {
+                IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "")
             }
             return issuesDM
         }
@@ -54,33 +40,38 @@ public class IssueRepository: IIssueRepository {
             request.predicate = NSPredicate(format: "%K == %@", #keyPath(IssueMO.title), title as String)
             request.fetchLimit = 1
             if let selectedIssueMO = try? storageProvider.persistentContainer!.viewContext.fetch(request) {
-                return IssueDM(id: selectedIssueMO.first!.projectIdentifier.uuidString)
+                return IssueDM(id: selectedIssueMO.first!.identifier.uuidString)
             } else {
                 return nil
             }
         }
     }
     
-    public func create(_ _issue: IssueDM) -> IssueDM? {
+    public func create(_ _issue: IssueDM, for _project: ProjectDM) -> IssueDM? {
         guard let storageProviderContainer = storageProvider.persistentContainer else { return nil }
         let context = storageProviderContainer.viewContext
         
         guard let issuesProject = _issue.project else { return nil }
         
         return context.performAndWait {
+            
             if let issueId = UUID(uuidString: _issue.id)  {
-                let issueMO = IssueMO.findOrInsert(using: issueId, for: ProjectMO.findOrInsert(using: _issue.project!.name, in: storageProviderContainer.viewContext), in: storageProviderContainer.viewContext)
+                guard let issueDMsProjectId = UUID(uuidString: _project.id) else {
+                    fatalError("There was an issue converting the ProjectDNs Id to UUID")
+                }
                 
-                guard let issuesProjectId = UUID(uuidString: _issue.projectIdentifier) else { return nil }
-                issueMO.projectIdentifier = issuesProjectId
+                let issueMOsProject = ProjectMO.findOrInsert(using: issueDMsProjectId, in: context)
+                let issueMO = IssueMO.findOrInsert(using: issueId, for: issueMOsProject, in: context)
+                
                 issueMO.title = _issue.title
                 issueMO.creationDate = Date()
                 issueMO.info = _issue.info
                 issueMO.type = _issue.type
+                issueMO.project = issueMOsProject
                 
                 do {
-                    if storageProviderContainer.viewContext.hasChanges {
-                        try storageProviderContainer.viewContext.save()
+                    if context.hasChanges {
+                        try context.save()
                     }
                     
                     return IssueDM(
@@ -90,11 +81,10 @@ public class IssueRepository: IIssueRepository {
                         creationDate: issueMO.creationDate.formatted(),
                         info: issueMO.info ?? "",
                         lastModified: issueMO.lastModified?.formatted() ?? "",
-                        project: ProjectDM(id: issuesProject.id),
-                        projectIdentifier: issueMO.projectIdentifier.uuidString
+                        project: ProjectDM(id: issuesProject.id)
                     )
                 } catch {
-                    storageProviderContainer.viewContext.rollback()
+                    context.rollback()
                 }
             }
             return nil
@@ -141,7 +131,8 @@ public class IssueRepository: IIssueRepository {
             context.delete(issueMO)
             if context.hasChanges {
                 try context.save()
-                _ = getAll()
+                guard let issuesProduct = _issue.project else { return false }
+                _ = getAllIssues(for: issuesProduct)
             }
         }catch {
             context.rollback()
@@ -165,17 +156,3 @@ public class IssueRepository: IIssueRepository {
     }
 }
 
-extension IssueRepository {
-    func getAllIssues(for project: ProjectDM)-> [IssueDM] {
-        guard let storageProviderContainer = storageProvider.persistentContainer else { return [] }
-        let context = storageProviderContainer.viewContext
-        
-        return context.performAndWait {
-            let projectMO = ProjectMO.findOrInsert(using: project.name, in: context)
-            let issuesDM = projectMO.fetchedIssues.map {
-                IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", projectIdentifier: $0.projectIdentifier.uuidString)
-            }
-            return issuesDM
-        }
-    }
-}

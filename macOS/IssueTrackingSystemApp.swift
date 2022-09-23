@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Application
+import macOS_ApplicationLogic
 
 @main
 struct IssueTrackingSystemApp: App {

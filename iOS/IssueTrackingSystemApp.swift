@@ -8,7 +8,7 @@
 
 
 import SwiftUI
-import Application
+import iOS_ApplicationLogic
 
 @main
 struct IssueTrackingSystemApp: App {

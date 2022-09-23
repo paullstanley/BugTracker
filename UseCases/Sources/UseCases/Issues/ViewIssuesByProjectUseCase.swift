@@ -7,8 +7,13 @@
 
 import Domain
 
-struct ViewIssuesByProjectUseCase: IViewIssuesByProjectUseCase {
-    func execute()-> [IssueDM] {
-        return []
+public struct ViewIssuesByProjectUseCase: IViewIssuesByProjectUseCase {
+    private let issueRepository: IIssueRepository
+    
+    public init(issueRepository: IIssueRepository) {
+        self.issueRepository = issueRepository
+    }
+    public func execute(_ project: ProjectDM) -> [IssueDM] {
+        issueRepository.getAllIssues(for: project)
     }
 }

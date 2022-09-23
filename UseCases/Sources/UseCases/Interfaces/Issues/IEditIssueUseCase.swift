@@ -7,6 +7,6 @@
 
 import Domain
 
-protocol IEditIssueUseCase {
-    func execute()-> IssueDM?
+public protocol IEditIssueUseCase {
+    func execute(_ issue: IssueDM) -> IssueDM?
 }

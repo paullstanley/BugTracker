@@ -6,6 +6,6 @@
 //
 import Domain
 
-protocol IDeleteIssueUseCase {
+public protocol IDeleteIssueUseCase {
     func execute(_ issue: IssueDM)-> Bool
 }

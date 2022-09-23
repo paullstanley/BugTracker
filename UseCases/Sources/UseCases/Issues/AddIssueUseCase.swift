@@ -15,6 +15,6 @@ public struct AddIssueUseCase: IAddIssueUseCase {
     }
     
     public func execute(_ issue: IssueDM) -> IssueDM? {
-        issueRepository.create(issue)
+        issueRepository.create(issue, for: issue.project!)
     }
 }

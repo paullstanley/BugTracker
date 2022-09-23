@@ -29,7 +29,7 @@ public class ProjectRepository: IProjectRepository {
                 
                 projectsDM = projectsMO.map {
                     ProjectDM(
-                        id: $0.identifier,
+                        id: $0.identifier.uuidString,
                         name: $0.name,
                         creationDate: $0.creationDate.formatted(),
                         info: $0.info ?? "",
@@ -42,8 +42,7 @@ public class ProjectRepository: IProjectRepository {
                                 type: $0.type,
                                 creationDate: $0.creationDate.formatted(),
                                 info: $0.info ?? "",
-                                lastModified: $0.lastModified?.formatted() ?? "",
-                                projectIdentifier: $0.projectIdentifier.uuidString
+                                lastModified: $0.lastModified?.formatted() ?? ""
                             )})
                 }
                 return projectsDM
@@ -65,16 +64,17 @@ public class ProjectRepository: IProjectRepository {
             
             guard let selectedProject = try? context.fetch(request) else { return nil }
             guard let returnedProject = selectedProject.first else { return nil}
-            return ProjectDM(id: returnedProject.identifier)
+            return ProjectDM(id: returnedProject.identifier.uuidString)
         }
     }
     
     public func create(_ _project: ProjectDM) -> ProjectDM? {
         guard let storageProviderContainer = storageProvider.persistentContainer else { return nil }
         let context = storageProviderContainer.viewContext
+        let projectDMId = UUID()
         
         return context.performAndWait {
-            let projectMO = ProjectMO.findOrInsert(using: _project.name, in: storageProviderContainer.viewContext)
+            let projectMO = ProjectMO.findOrInsert(using: projectDMId, in: storageProviderContainer.viewContext)
             projectMO.identifier = UUID()
             projectMO.name = _project.name
             projectMO.creationDate = Date()
@@ -86,7 +86,7 @@ public class ProjectRepository: IProjectRepository {
                     try context.save()
                 }
                 return ProjectDM(
-                    id: projectMO.identifier,
+                    id: projectMO.identifier.uuidString,
                     name: projectMO.name,
                     creationDate: projectMO.creationDate.formatted(),
                     info: projectMO.info ?? "",
@@ -103,21 +103,25 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func edit(_ _project: ProjectDM) -> ProjectDM {
+        guard let projectDMId = UUID(uuidString: _project.id) else {
+            fatalError("There was an issue converting the ProjectDMs Id to UUID")
+        }
+        
         guard let storageProviderContainer = storageProvider.persistentContainer else {
             fatalError("There was an isue accessing the persistentContainer")
         }
         let context = storageProviderContainer.viewContext
         
         var projectDM = _project
-        if let projectMO = getById(_project.id) {
+        if let projectMO = getById(projectDMId) {
             
-            projectMO.identifier = _project.id
+            projectMO.identifier = projectDMId
             projectMO.name = _project.name
             projectMO.info = _project.info
             projectMO.creationDate = DateFormatter().date(from: _project.creationDate) ?? projectMO.creationDate
             projectMO.stage = _project.stage
             
-            projectDM = ProjectDM(id: projectMO.identifier)
+            projectDM = ProjectDM(id: projectMO.identifier.uuidString)
             context.performAndWait {
                 do {
                     if context.hasChanges {
@@ -135,10 +139,11 @@ public class ProjectRepository: IProjectRepository {
     }
     
     public func delete(_ _project: ProjectDM) -> Bool {
+        guard let projectDMId = UUID(uuidString: _project.id) else { return false }
         guard let storageProviderContainer = storageProvider.persistentContainer else { return false }
         let context = storageProviderContainer.viewContext
         
-        guard let project = getById(_project.id) else { return false }
+        guard let project = getById(projectDMId) else { return false }
         
         context.performAndWait {
             context.delete(project)
@@ -172,11 +177,12 @@ public class ProjectRepository: IProjectRepository {
 
 extension ProjectRepository {
     func getAllIssues(for project: ProjectDM)-> [IssueDM] {
+        guard let projectDMId = UUID(uuidString: project.id) else { return [] }
         guard let storageProviderContainer = storageProvider.persistentContainer else { return [] }
         let context = storageProviderContainer.viewContext
         
         return context.performAndWait {
-            let projectMO = ProjectMO.findOrInsert(using: project.name, in: context)
+            let projectMO = ProjectMO.findOrInsert(using: projectDMId, in: context)
             
             let issuesDM = projectMO.fetchedIssues.map {
                 IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", projectIdentifier: $0.projectIdentifier.uuidString)
