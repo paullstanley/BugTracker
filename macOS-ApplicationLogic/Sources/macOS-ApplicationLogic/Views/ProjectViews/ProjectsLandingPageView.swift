@@ -6,24 +6,19 @@
 //
 
 import SwiftUI
+import Domain
 import CoreDataPlugin
 
 struct ProjectsLandingPageView: View {
-    let storageProvider: StorageProvider
-    @ObservedObject var projectsLandingPageVM:  ProjectsLandingPageViewModel
-    
-    init(storageProvider: StorageProvider) {
-        self.storageProvider = storageProvider
-        projectsLandingPageVM = ProjectsLandingPageViewModel(storageProvider: self.storageProvider)
-    }
+    @StateObject var projectsLandingPageVM = ProjectsLandingPageViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     
     var body: some View {
         VStack {
             HStack {
                 VStack {
-                    ProjectDetailView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                    ProjectDetailView(projectsLandingPageVM: projectsLandingPageVM)
                     HStack {
-                        DeleteProjectView(projectsLandingPageVM: projectsLandingPageVM, deleteProjectVM: DeleteProjectViewModel(storageProvider: storageProvider))
+                        DeleteProjectView(projectsLandingPageVM: projectsLandingPageVM)
                         Button {
                             projectsLandingPageVM.showingCreateProject.toggle()
                         } label: {
@@ -36,9 +31,9 @@ struct ProjectsLandingPageView: View {
                 .cornerRadius(3)
                 .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
                 VStack {
-                    IssueItemView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                    IssueItemView(projectsLandingPageVM: projectsLandingPageVM)
                     HStack {
-                        DeleteIssueView(projectsLandingPageVM: projectsLandingPageVM, deleteIssueVM: DeleteIssueViewModel(storageProvider: storageProvider))
+                        DeleteIssueView(projectsLandingPageVM: projectsLandingPageVM)
                         Button {
                             projectsLandingPageVM.showingCreateIssue.toggle()
                         } label: {
@@ -54,10 +49,10 @@ struct ProjectsLandingPageView: View {
             .scaleEffect()
             .padding()
             .sheet(isPresented: $projectsLandingPageVM.showingCreateIssue, content: {
-                AddIssueView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                AddIssueView(issue: IssueDM(project: projectsLandingPageVM.selectedProject))
             })
             .sheet(isPresented: $projectsLandingPageVM.showingCreateProject, content: {
-                AddProjectView(storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
+                AddProjectView()
             })
             HStack {
                 ProjectsTableView(projectsLandingPageVM: projectsLandingPageVM)

@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import UseCases
+import CoreDataPlugin
 
 struct DeleteProjectView: View {
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
-    @State var deleteProjectVM: DeleteProjectViewModel
+    @StateObject var deleteProjectVM = DeleteProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     
     var body: some View {
         Button {

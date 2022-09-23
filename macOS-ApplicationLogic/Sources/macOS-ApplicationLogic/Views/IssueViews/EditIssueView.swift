@@ -7,17 +7,14 @@
 
 import SwiftUI
 import Domain
+import UseCases
 import CoreDataPlugin
 
 struct EditIssueView: View {
     @Environment(\.dismiss) var onDissmiss: DismissAction
-    let issue: IssueDM
-    let editIssueVM: EditIssueViewModel
+    @StateObject var editIssueVM =  EditIssueViewModel(repository: IssueRepository(storageProvider: StorageProvider.shared))
     
-    init(storageProvider: StorageProvider, issue: IssueDM) {
-        editIssueVM = EditIssueViewModel(storageProvider: storageProvider)
-        self.issue = issue
-    }
+    let issue: IssueDM
     
     @State var title: String = ""
     @State var type: String = ""

@@ -9,37 +9,31 @@ import SwiftUI
 import CoreDataPlugin
 
 struct AddProjectView: View {
-    @State var projectsLandingPageVM: ProjectsLandingPageViewModel
-    @ObservedObject var addProjectViewModel: AddProjectViewModel
-    
-    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
-        addProjectViewModel = AddProjectViewModel(storageProvider: storageProvider)
-        self.projectsLandingPageVM = projectsLandingPageVM
-    }
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @StateObject var addProjectVM = AddProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     
     var body: some View {
         DynamicStack {
                 GroupBox {
                     Form {
                         Text("Project name")
-                        TextField("", text: $addProjectViewModel.project.name)
+                        TextField("", text: $addProjectVM.project.name)
                         Text("Project stage")
-                        TextField("", text: $addProjectViewModel.project.stage)
+                        TextField("", text: $addProjectVM.project.stage)
                         Text("Project deadline")
-                        TextField("", text: $addProjectViewModel.project.deadline)
+                        TextField("", text: $addProjectVM.project.deadline)
                         Text("Project info")
-                        TextField("", text: $addProjectViewModel.project.info)
+                        TextField("", text: $addProjectVM.project.info)
                         HStack {
                             Button {
-                                addProjectViewModel.execute()
-                                projectsLandingPageVM.getProjects()
-                                projectsLandingPageVM.showingCreateProject.toggle()
+                                addProjectVM.execute()
+                                self.presentationMode.wrappedValue.dismiss()
                             } label: {
                                 Label("Create", systemImage: "plus")
                             }
                             .cornerRadius(5)
                             Button {
-                                projectsLandingPageVM.showingCreateProject.toggle()
+                                self.presentationMode.wrappedValue.dismiss()
                             } label: {
                                 Text("Cancel")
                             }

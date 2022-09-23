@@ -6,24 +6,14 @@
 //
 
 import SwiftUI
-import CoreDataPlugin
 import Domain
-//import UseCases
 
 struct ProjectDetailView: View {
-    let storageProvider: StorageProvider
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
-    @State var project = ProjectDM.placeHolder
+    @State var project: ProjectDM = .placeHolder
     
     @State var showingEditView: Bool = false
     @State var showingShareView: Bool = false
-    
-    
-    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
-        self.storageProvider = storageProvider
-        self.projectsLandingPageVM = ProjectsLandingPageViewModel(storageProvider: storageProvider)
-        self.projectsLandingPageVM = projectsLandingPageVM
-    }
     
     var body: some View {
         HStack {
@@ -46,7 +36,6 @@ struct ProjectDetailView: View {
                     })
 #endif
                     Spacer()
-                    
                     Button {
                         showingEditView.toggle()
                     } label: {
@@ -57,8 +46,7 @@ struct ProjectDetailView: View {
                     }
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showingEditView, content: {
-                        EditProjectView( storageProvider: storageProvider, projectsLandingPageVM: projectsLandingPageVM)
-                            
+                        EditProjectView(projectsLandingPageVM: projectsLandingPageVM)
                     })
                 }
                 .font(.title)

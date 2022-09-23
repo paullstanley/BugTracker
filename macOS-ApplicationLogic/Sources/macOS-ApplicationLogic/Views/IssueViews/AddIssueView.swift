@@ -11,13 +11,10 @@ import CoreDataPlugin
 import UseCases
 
 struct AddIssueView: View {
-    @State var addIssueVM: AddIssueViewModel
-    @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @StateObject var addIssueVM = AddIssueViewModel(repository: IssueRepository(storageProvider: StorageProvider.shared))
     
-    init(storageProvider: StorageProvider, projectsLandingPageVM: ProjectsLandingPageViewModel) {
-        self.addIssueVM = AddIssueViewModel(storageProvider: storageProvider)
-        self.projectsLandingPageVM = projectsLandingPageVM
-    }
+    @State var issue: IssueDM
     
     var body: some View {
         DynamicStack {
@@ -31,14 +28,12 @@ struct AddIssueView: View {
                     TextField("", text: $addIssueVM.issue.info)
                     HStack {
                         Button("Save") {
-                            addIssueVM.issue.project = projectsLandingPageVM.selectedProject
-                    
+                            addIssueVM.issue.project = issue.project
                             addIssueVM.execute()
-                            projectsLandingPageVM.getProjects()
-                            projectsLandingPageVM.showingCreateIssue.toggle()
+                            presentationMode.wrappedValue.dismiss()
                         }
                         Button("Cancel") {
-                            projectsLandingPageVM.showingCreateIssue.toggle()
+                            presentationMode.wrappedValue.dismiss()
                         }
                         .buttonStyle(.borderedProminent)
                     }

@@ -16,6 +16,7 @@ public struct AddIssueUseCase: IAddIssueUseCase {
     
     @discardableResult
     public func execute(_ issue: IssueDM) -> IssueDM? {
-        repository.create(issue, for: issue.project!)
+        guard let project = issue.project else { return nil }
+        return repository.create(issue, for: project)
     }
 }
