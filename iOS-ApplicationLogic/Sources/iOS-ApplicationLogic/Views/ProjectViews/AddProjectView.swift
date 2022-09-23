@@ -8,8 +8,7 @@
 import SwiftUI
 import CoreDataPlugin
 
-
-struct iOSAddProjectView: View {
+struct AddProjectView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @StateObject var addProjectVM = AddProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))

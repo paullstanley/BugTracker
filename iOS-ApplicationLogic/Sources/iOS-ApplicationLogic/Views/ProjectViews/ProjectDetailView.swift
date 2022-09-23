@@ -9,7 +9,7 @@ import SwiftUI
 import Domain
 import CoreDataPlugin
 
-struct iOSProjectDetailView: View {
+struct ProjectDetailView: View {
     @StateObject var projectDetailViewModel = ProjectDetailViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     let project: ProjectDM
     @State var showingEditView: Bool = false
@@ -42,7 +42,7 @@ struct iOSProjectDetailView: View {
                     }
                     .buttonStyle(.plain)
                     .popover(isPresented: $showingEditView, content: {
-                        iOSEditProjectView(project: project)
+                        EditProjectView(project: project)
                             .onDisappear(perform: {
                                 projectDetailViewModel.getProject(project)
                             })
@@ -77,6 +77,6 @@ struct iOSProjectDetailView: View {
                     }
                 }
                 Spacer()
-        iOSIssueListView(project: project)
+        IssueListView(project: project)
     }
 }

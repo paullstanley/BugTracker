@@ -9,7 +9,7 @@ import SwiftUI
 import Domain
 import CoreDataPlugin
 
-public struct iOSLandingPageView: View {
+public struct LandingPageView: View {
     @StateObject private var landingPageVM =  LandingPageViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     @State private var selectedMenu: MenuItem?
     
@@ -24,7 +24,9 @@ public struct iOSLandingPageView: View {
                 }
             } detail: {
                 if selectedMenu?.name == "Projects" {
-                    iOSProjectListView()
+                    ProjectListView()
+                } else if selectedMenu?.name == "Create Ticket" {
+                    AddProjectView()
                 }
                 else if selectedMenu?.name == "Home" ||
                             selectedMenu?.name == "" ||

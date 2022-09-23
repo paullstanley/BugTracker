@@ -10,11 +10,10 @@ import CoreDataPlugin
 import UseCases
 import Domain
 
-struct iOSAddIssueView: View {
+struct AddIssueView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
     @StateObject var addIssueVM = AddIssueViewModel(repository: IssueRepository(storageProvider: StorageProvider.shared))
-    let project: ProjectDM
+    @State var project: ProjectDM
     
     var body: some View {
                 Form {

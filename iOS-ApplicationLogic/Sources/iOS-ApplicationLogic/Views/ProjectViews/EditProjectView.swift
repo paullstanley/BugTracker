@@ -9,7 +9,7 @@ import SwiftUI
 import Domain
 import CoreDataPlugin
 
-struct iOSEditProjectView: View {
+struct EditProjectView: View {
     @Environment(\.dismiss) var onDissmiss: DismissAction
     @StateObject var editProjectVM = EditProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     

@@ -14,6 +14,7 @@ public struct AddProjectUseCase: IAddProjectUseCase {
         self.projectRepository = projectRepository
     }
     
+    @discardableResult
     public func execute(_ project: ProjectDM) -> ProjectDM? {
         projectRepository.create(project)
     }

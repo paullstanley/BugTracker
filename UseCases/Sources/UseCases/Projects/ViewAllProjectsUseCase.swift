@@ -8,13 +8,14 @@
 import Domain
 
 public struct ViewAllProjectsUseCase: IViewAllProjectsUseCase {
-    private let projectRepository: IProjectRepository
+    private let repository: IProjectRepository
     
     public init(repository: IProjectRepository) {
-        projectRepository = repository
+        self.repository = repository
     }
     
+    @discardableResult
     public func execute()-> [ProjectDM] {
-        return projectRepository.getAll()
+        return repository.getAll()
     }   
 }

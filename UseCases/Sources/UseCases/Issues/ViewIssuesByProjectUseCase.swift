@@ -8,12 +8,14 @@
 import Domain
 
 public struct ViewIssuesByProjectUseCase: IViewIssuesByProjectUseCase {
-    private let projectRepository: IProjectRepository
+    private let repository: IIssueRepository
     
-    public init(projectRepository: IProjectRepository) {
-        self.projectRepository = projectRepository
+    public init(repository: IIssueRepository) {
+        self.repository = repository
     }
+    
+    @discardableResult
     public func execute(_ project: ProjectDM) -> [IssueDM] {
-        projectRepository.getAllIssues(for: project)
+        repository.getAllIssues(for: project)
     }
 }

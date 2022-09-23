@@ -124,12 +124,10 @@ extension StorageProvider {
 //MARK: Extension for sharing
 extension StorageProvider {
   public func isShared(object: ProjectDM) -> Bool {
-      guard let projectId = UUID(uuidString: object.id) else { return false }
       guard let container = persistentContainer else { return false }
       let context = container.viewContext
       return context.performAndWait {
-          let _object = ProjectMO.findOrInsert(using: projectId, in: context)
-            isShared(objectID: object)
+            _ = isShared(objectID: object)
           return true
       }
     

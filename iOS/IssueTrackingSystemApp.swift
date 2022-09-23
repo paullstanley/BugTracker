@@ -20,7 +20,7 @@ struct IssueTrackingSystemApp: App {
     
     var body: some Scene {
         WindowGroup {
-            iOSLandingPageView()
+            LandingPageView()
         }
         .onChange(of: scenePhase) { phase in
             switch phase {

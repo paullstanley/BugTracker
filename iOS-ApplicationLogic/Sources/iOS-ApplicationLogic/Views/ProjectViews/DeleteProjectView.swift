@@ -10,9 +10,9 @@ import Domain
 import CoreDataPlugin
 
 
-struct iOSDeleteProjectView: View {
+struct DeleteProjectView: View {
     @StateObject var deleteProjectVM = DeleteProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
-    @State var project: ProjectDM
+    let project: ProjectDM
     
     var body: some View {
         Button {

@@ -8,13 +8,14 @@
 import Domain
 
 public struct DeleteProjectUseCase: IDeleteProjectUseCase {
-    private let projectRepository: IProjectRepository
+    private let repository: IProjectRepository
     
-    public init(projectRepository: IProjectRepository) {
-        self.projectRepository = projectRepository
+    public init(repository: IProjectRepository) {
+        self.repository = repository
     }
     
+    @discardableResult
     public func execute(_ project: ProjectDM) -> Bool {
-        projectRepository.delete(project)
+        repository.delete(project)
     }
 }

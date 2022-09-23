@@ -13,6 +13,8 @@ public struct EditIssueUseCase: IEditIssueUseCase {
     public init(issueRepository: IIssueRepository) {
         self.issueRepository = issueRepository
     }
+    
+    @discardableResult
     public func execute(_ issue: IssueDM) -> IssueDM? {
         issueRepository.edit(issue)
     }

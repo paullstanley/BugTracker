@@ -9,9 +9,9 @@ import SwiftUI
 import CoreDataPlugin
 import Domain
 
-struct iOSIssueListView: View {
-    @StateObject var issueListVM = IssueListViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
-    let project: ProjectDM
+struct IssueListView: View {
+    @StateObject var issueListVM = IssueListViewModel(repository: IssueRepository(storageProvider: StorageProvider.shared))
+    @State var project: ProjectDM
     
     @State private var toBeDeleted: IndexSet? = nil
     @State private var showingDeleteAlert: Bool = false
@@ -25,16 +25,18 @@ struct iOSIssueListView: View {
                             
                             Alert(title: Text("Are you sure?"), message: Text("Yes?"), primaryButton: .destructive(Text("Delete")) {
                                 guard let indexSet = toBeDeleted else { return }
-                                
+                                issueListVM.issues = project.issues
                                 let issueToDelete = indexSet.map { issueListVM.issues[$0] }
+                                
                                 issueListVM.issues.remove(atOffsets: toBeDeleted!)
                                     _ = issueToDelete.compactMap { issue in
                                         
-    //                                    if(DeleteIssueUseCase(issueRepository: IssueRepository(storageProvider: storageProvider)).execute(issue)) {
-    //                                        DispatchQueue.main.async {
-    //                                            project.issues.removeAll { $0 == issue}
-    //                                        }
-    //                                    }
+                                        if(issueListVM.deleteIssue(issue)) {
+                                            DispatchQueue.main.async {
+                                                issueListVM.issues.removeAll { $0 == issue}
+                                                issueListVM.getIssues(for: project)
+                                            }
+                                        }
                                     }
                                 self.toBeDeleted = nil
                             }, secondaryButton: .cancel() {
@@ -43,20 +45,17 @@ struct iOSIssueListView: View {
                             )
                         }
                 }
-                .onDelete(perform: self.deleteRow)
+                .onDelete(perform: deleteRow)
                 .navigationTitle("Issues")
                
                 NavigationLink(destination: {
-                    iOSAddIssueView(project: project)
-                        .onDisappear(perform: {
-                            issueListVM.getIssues()
-                        })
+                    AddIssueView(project: project)
                 }, label: {
                     Image(systemName: "plus")
                 })
             }
             .navigationDestination(for: ProjectDM.self) { issue in
-                iOSProjectDetailView(project: project)
+                ProjectDetailView(project: self.project)
             }
         
         

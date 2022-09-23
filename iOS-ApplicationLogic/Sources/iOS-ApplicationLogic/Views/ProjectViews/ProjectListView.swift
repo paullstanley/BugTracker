@@ -4,12 +4,12 @@
 //
 //  Created by Paull Stanley on 9/21/22.
 //
-import Foundation
 import SwiftUI
 import Domain
 import CoreDataPlugin
+import UseCases
 
-public struct iOSProjectListView: View {
+public struct ProjectListView: View {
     @StateObject var projectListVM = ProjectListViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     
     @State private var toBeDeleted: IndexSet? = nil
@@ -20,7 +20,7 @@ public struct iOSProjectListView: View {
             HStack {
                 Spacer()
                 NavigationLink(destination: {
-                    iOSAddProjectView()
+                    AddProjectView()
                         .onDisappear {
                             projectListVM.getProjects()
                         }
@@ -41,11 +41,11 @@ public struct iOSProjectListView: View {
                                 projectListVM.projects.remove(atOffsets: toBeDeleted!)
                                 
                                 _ = projectToDelete.compactMap { project in
-//                                    if(DeleteProjectUseCase(projectRepository: ProjectRepository(storageProvider: storageProvider)).execute(project)) {
-//                                        DispatchQueue.main.async {
-//                                            self.projects.removeAll { $0 == project}
-//                                        }
-//                                    }
+                                    if(DeleteProjectUseCase(repository: ProjectRepository(storageProvider: StorageProvider.shared)).execute(project)) {
+                                        DispatchQueue.main.async {
+                                            projectListVM.projects.removeAll { $0 == project}
+                                        }
+                                    }
                                 }
                                 
                                 self.toBeDeleted = nil
@@ -59,7 +59,7 @@ public struct iOSProjectListView: View {
             }
             .navigationTitle("Projects")
             .navigationDestination(for: ProjectDM.self) { project in
-                iOSProjectDetailView(project: project)
+                ProjectDetailView(project: project)
                   
             }
         }
