@@ -8,14 +8,14 @@
 import Domain
 
 public struct EditIssueUseCase: IEditIssueUseCase {
-    private let issueRepository: IIssueRepository
+    private let repository: IIssueRepository
     
-    public init(issueRepository: IIssueRepository) {
-        self.issueRepository = issueRepository
+    public init(repository: IIssueRepository) {
+        self.repository = repository
     }
     
     @discardableResult
     public func execute(_ issue: IssueDM) -> IssueDM? {
-        issueRepository.edit(issue)
+        repository.edit(issue)
     }
 }
