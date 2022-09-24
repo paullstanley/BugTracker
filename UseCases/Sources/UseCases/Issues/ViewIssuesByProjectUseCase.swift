@@ -14,7 +14,6 @@ public struct ViewIssuesByProjectUseCase: IViewIssuesByProjectUseCase {
         self.repository = repository
     }
     
-    @discardableResult
     public func execute(_ project: ProjectDM) -> [IssueDM] {
         repository.getAllIssues(for: project)
     }

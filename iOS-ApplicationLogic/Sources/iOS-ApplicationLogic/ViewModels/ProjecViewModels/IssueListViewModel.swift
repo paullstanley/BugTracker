@@ -23,15 +23,13 @@ class IssueListViewModel: ObservableObject {
     
     func deleteIssue(_ issue: IssueDM)-> Bool {
         if deleteIssueUseCase.execute(issue) {
-            getIssues(for: issue.project!)
+            issues = viewAllIssuesUseCase.execute(ProjectDM(id: issue.projectIdentifier))
             return true
         }
         return false
     }
     
     func getIssues(for project: ProjectDM) {
-        if !issues.isEmpty {
             issues = viewAllIssuesUseCase.execute(project)
-        }
     }
 }

@@ -20,7 +20,7 @@ public struct ProjectDM {
         self.issues = issues ?? []
     }
     
-    public let id: String
+    public var id: String
     public var name: String
     public let creationDate: String
     public var info: String

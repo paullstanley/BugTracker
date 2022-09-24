@@ -10,12 +10,11 @@ import Domain
 import UseCases
 
 public class IssueRepository {
-    
     private let storageProvider: StorageProvider
     
     public init(storageProvider: StorageProvider) {
         self.storageProvider = storageProvider
-    }   
+    }
 }
 
 extension IssueRepository: IIssueRepository {
@@ -27,7 +26,7 @@ extension IssueRepository: IIssueRepository {
             guard let projectDMId = UUID(uuidString: project.id) else { return [] }
             let projectMO = ProjectMO.findOrInsert(using: projectDMId, in: context)
             let issuesDM = projectMO.fetchedIssues.map {
-                IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "")
+                IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", project: ProjectDM(id: $0.project.identifier.uuidString), projectIdentifier: $0.project.identifier.uuidString)
             }
             return issuesDM
         }
@@ -53,18 +52,17 @@ extension IssueRepository: IIssueRepository {
         guard let storageProviderContainer = storageProvider.persistentContainer else { return nil }
         let context = storageProviderContainer.viewContext
         
-        guard let issuesProject = _issue.project else { return nil }
+        let issueIdString = UUID().uuidString
         
-        return context.performAndWait {
+        if let issueId = UUID(uuidString: issueIdString)  {
+            guard let issueDMsProjectId = UUID(uuidString: _project.id) else {
+                fatalError("There was an issue converting the ProjectDNs Id to UUID")
+            }
             
-            if let issueId = UUID(uuidString: _issue.id)  {
-                guard let issueDMsProjectId = UUID(uuidString: _project.id) else {
-                    fatalError("There was an issue converting the ProjectDNs Id to UUID")
-                }
-                
+            return context.performAndWait {
                 let issueMOsProject = ProjectMO.findOrInsert(using: issueDMsProjectId, in: context)
                 let issueMO = IssueMO.findOrInsert(using: issueId, for: issueMOsProject, in: context)
-                
+                issueMO.identifier = issueId
                 issueMO.title = _issue.title
                 issueMO.info = _issue.info
                 issueMO.type = _issue.type
@@ -74,22 +72,23 @@ extension IssueRepository: IIssueRepository {
                     if context.hasChanges {
                         try context.save()
                     }
-                    
-                    return IssueDM(
-                        id: issueMO.identifier.uuidString,
-                        title: issueMO.title,
-                        type: issueMO.type,
-                        creationDate: issueMO.creationDate.formatted(),
-                        info: issueMO.info ?? "",
-                        lastModified: issueMO.lastModified?.formatted() ?? "",
-                        project: ProjectDM(id: issuesProject.id)
-                    )
                 } catch {
                     context.rollback()
                 }
+                
+                return IssueDM(
+                    id: issueMO.identifier.uuidString,
+                    title: issueMO.title,
+                    type: issueMO.type,
+                    creationDate: issueMO.creationDate.formatted(),
+                    info: issueMO.info ?? "",
+                    lastModified: issueMO.lastModified?.formatted() ?? "",
+                    project: ProjectDM(id: _project.id),
+                    projectIdentifier: _project.id
+                )
             }
-            return nil
         }
+        return nil
     }
     
     public func edit(_ _issue: IssueDM) -> IssueDM {
@@ -132,8 +131,6 @@ extension IssueRepository: IIssueRepository {
             context.delete(issueMO)
             if context.hasChanges {
                 try context.save()
-                guard let issuesProduct = _issue.project else { return false }
-                _ = getAllIssues(for: issuesProduct)
             }
         }catch {
             context.rollback()

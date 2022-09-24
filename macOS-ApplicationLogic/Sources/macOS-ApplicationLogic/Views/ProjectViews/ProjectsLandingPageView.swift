@@ -49,10 +49,13 @@ struct ProjectsLandingPageView: View {
             .scaleEffect()
             .padding()
             .sheet(isPresented: $projectsLandingPageVM.showingCreateIssue, content: {
-                AddIssueView(issue: IssueDM(project: projectsLandingPageVM.selectedProject))
-            })
+                AddIssueView(project: projectsLandingPageVM.selectedProject)
+                    .onDisappear {
+                        projectsLandingPageVM.getProjects()
+                    }
+                    })
             .sheet(isPresented: $projectsLandingPageVM.showingCreateProject, content: {
-                AddProjectView()
+                AddProjectView(projects: $projectsLandingPageVM.projects)
             })
             HStack {
                 ProjectsTableView(projectsLandingPageVM: projectsLandingPageVM)

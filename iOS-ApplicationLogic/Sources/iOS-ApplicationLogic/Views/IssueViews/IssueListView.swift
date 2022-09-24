@@ -15,17 +15,15 @@ struct IssueListView: View {
     
     @State private var toBeDeleted: IndexSet? = nil
     @State private var showingDeleteAlert: Bool = false
-
     
     var body: some View {
             List {
-                ForEach(project.issues, id: \.id) {
+                ForEach(issueListVM.issues, id: \.id) {
                     NavigationLink($0.title, value: $0)
                         .alert(isPresented: $showingDeleteAlert) {
                             
                             Alert(title: Text("Are you sure?"), message: Text("Yes?"), primaryButton: .destructive(Text("Delete")) {
                                 guard let indexSet = toBeDeleted else { return }
-                                issueListVM.issues = project.issues
                                 let issueToDelete = indexSet.map { issueListVM.issues[$0] }
                                 
                                 issueListVM.issues.remove(atOffsets: toBeDeleted!)
@@ -50,9 +48,15 @@ struct IssueListView: View {
                
                 NavigationLink(destination: {
                     AddIssueView(project: project)
+                        .onDisappear {
+                            issueListVM.getIssues(for: project)
+                        }
                 }, label: {
                     Image(systemName: "plus")
                 })
+            }
+            .onAppear {
+                issueListVM.issues = project.issues
             }
             .navigationDestination(for: ProjectDM.self) { issue in
                 ProjectDetailView(project: self.project)

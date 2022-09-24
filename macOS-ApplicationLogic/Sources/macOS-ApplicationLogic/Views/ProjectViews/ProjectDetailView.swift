@@ -22,19 +22,6 @@ struct ProjectDetailView: View {
                     Spacer()
                     Text("Project Details")
                         .fixedSize()
-#if os(iOS)
-                    Button {
-                        showingShareView.toggle()
-                    } label: {
-                        Label("", systemImage: "pencil.circle")
-                            .labelsHidden()
-                            .fixedSize()
-                            .foregroundColor(.orange)
-                    }
-                    .popover(isPresented: $showingShareView, content: {
-                        SharedProjectDetailView(projectsLandingPageVM: projectsLandingPageVM)
-                    })
-#endif
                     Spacer()
                     Button {
                         showingEditView.toggle()

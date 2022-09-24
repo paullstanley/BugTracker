@@ -13,7 +13,6 @@ public struct DeleteIssueUseCase: IDeleteIssueUseCase {
         self.repository = repository
     }
     
-    @discardableResult
     public func execute(_ issue: IssueDM) -> Bool {
         repository.delete(issue)
     }

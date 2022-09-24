@@ -14,7 +14,6 @@ public struct EditIssueUseCase: IEditIssueUseCase {
         self.repository = repository
     }
     
-    @discardableResult
     public func execute(_ issue: IssueDM) -> IssueDM? {
         repository.edit(issue)
     }

@@ -14,7 +14,6 @@ public struct ViewAllProjectsUseCase: IViewAllProjectsUseCase {
         self.repository = repository
     }
     
-    @discardableResult
     public func execute()-> [ProjectDM] {
         return repository.getAll()
     }   

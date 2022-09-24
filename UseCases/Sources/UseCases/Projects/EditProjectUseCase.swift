@@ -14,7 +14,6 @@ public struct EditProjectUseCase: IEditProjectUseCase {
         self.repository = repository
     }
     
-    @discardableResult
     public func execute(_ project: ProjectDM) -> ProjectDM? {
         repository.edit(project)
     }

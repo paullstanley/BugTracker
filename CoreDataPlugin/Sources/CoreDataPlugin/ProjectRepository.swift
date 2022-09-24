@@ -30,22 +30,24 @@ extension ProjectRepository: IProjectRepository {
             do {
                 let projectsMO = try context.fetch(request)
                 
-                projectsDM = projectsMO.map {
+                projectsDM = projectsMO.map { project in
                     ProjectDM(
-                        id: $0.identifier.uuidString,
-                        name: $0.name,
-                        creationDate: $0.creationDate.formatted(),
-                        info: $0.info ?? "",
-                        lastModified: $0.lastModified?.formatted() ?? "",
-                        stage: $0.stage, deadline: $0.deadline,
-                        issues: $0.fetchedIssues.map {
+                        id: project.identifier.uuidString,
+                        name: project.name,
+                        creationDate: project.creationDate.formatted(),
+                        info: project.info ?? "",
+                        lastModified: project.lastModified?.formatted() ?? "",
+                        stage: project.stage, deadline: project.deadline,
+                        issues: project.fetchedIssues.map { issue in
                             IssueDM(
-                                id: $0.identifier.uuidString,
-                                title: $0.title,
-                                type: $0.type,
-                                creationDate: $0.creationDate.formatted(),
-                                info: $0.info ?? "",
-                                lastModified: $0.lastModified?.formatted() ?? ""
+                                id: issue.identifier.uuidString,
+                                title: issue.title,
+                                type: issue.type,
+                                creationDate: issue.creationDate.formatted(),
+                                info: issue.info ?? "",
+                                lastModified: issue.lastModified?.formatted() ?? "",
+                                project: ProjectDM(id: project.identifier.uuidString),
+                                projectIdentifier: issue.projectIdentifier.uuidString
                             )})
                 }
                 return projectsDM
@@ -107,6 +109,8 @@ extension ProjectRepository: IProjectRepository {
     
     public func edit(_ _project: ProjectDM) -> ProjectDM {
         guard let projectDMId = UUID(uuidString: _project.id) else {
+            print("!!!!!!!!!!!!!!!!!!!!!!!")
+            print(_project)
             fatalError("There was an issue converting the ProjectDMs Id to UUID")
         }
         
@@ -153,7 +157,6 @@ extension ProjectRepository: IProjectRepository {
             do {
                 if context.hasChanges {
                     try context.save()
-                    _ = getAll()
                 }
             } catch {
                 context.rollback()
@@ -177,7 +180,6 @@ extension ProjectRepository: IProjectRepository {
        
     }
     public func getAllIssues(for project: ProjectDM)-> [IssueDM] {
-        print("##################################################")
         guard let projectDMId = UUID(uuidString: project.id) else { return [] }
         guard let storageProviderContainer = storageProvider.persistentContainer else { return [] }
         let context = storageProviderContainer.viewContext
@@ -188,9 +190,6 @@ extension ProjectRepository: IProjectRepository {
             let issuesDM = projectMO.fetchedIssues.map {
                 IssueDM(id: $0.identifier.uuidString, title: $0.title, type: $0.type, creationDate: $0.creationDate.formatted(), info: $0.info ?? "", lastModified: $0.lastModified?.formatted() ?? "", projectIdentifier: projectMO.identifier.uuidString)
             }
-            context.reset()
-            print("##################################################")
-            print(issuesDM)
             return issuesDM
         }
     }

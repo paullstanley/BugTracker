@@ -7,14 +7,12 @@
 
 import SwiftUI
 import Domain
-import UseCases
 import CoreDataPlugin
 
 struct EditProjectView: View {
     @Environment(\.dismiss) var onDissmiss: DismissAction
     @StateObject var editProjectVM = EditProjectViewModel(repository: ProjectRepository(storageProvider: StorageProvider.shared))
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
-
     
     @State var name: String = ""
     @State var info: String = ""
@@ -41,7 +39,7 @@ struct EditProjectView: View {
                             if deadline.isEmpty { deadline = projectsLandingPageVM.selectedProject.name }
                             if info.isEmpty { info = projectsLandingPageVM.selectedProject.name }
                             
-                            let newProject = ProjectDM(name: name, info: info, stage: stage, deadline: deadline)
+                            let newProject = ProjectDM(id: projectsLandingPageVM.selectedProject.id, name: name, info: info, stage: stage, deadline: deadline)
                             _ = editProjectVM.execute(newProject)
                             projectsLandingPageVM.getProjects()
                             onDissmiss()

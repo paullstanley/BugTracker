@@ -6,17 +6,10 @@
 //
 
 import SwiftUI
-import Domain
-import CoreDataPlugin
 
 struct ProjectsTableView: View {
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     @State var selection: String?
-    
-    var sortedProjects: [ProjectDM]  {
-        projectsLandingPageVM.projects
-            .sorted(using: projectsLandingPageVM.projectOrder)
-    }
     
     var body: some View {
         VStack {
@@ -45,7 +38,7 @@ struct ProjectsTableView: View {
         }
         .scaleEffect()
         .onAppear( perform: {
-            selection = sortedProjects.first?.id
+            selection = projectsLandingPageVM.sortedProjects.first?.id
         })
         .onChange(of: selection, perform: { _ in
             projectsLandingPageVM.updateProjectSelection(selection)

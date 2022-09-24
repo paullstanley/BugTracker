@@ -36,5 +36,68 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32AFFE96-4E38-4BA7-8D89-075FC56CC5A6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoreDataPlugin/Sources/CoreDataPlugin/IssueRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "getAllIssues(for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "32AFFE96-4E38-4BA7-8D89-075FC56CC5A6 - bae2e5cd3a583ce1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; Swift.Array&lt;Domain.IssueDM&gt; in CoreDataPlugin.IssueRepository.getAllIssues(for: Domain.ProjectDM) -&gt; Swift.Array&lt;Domain.IssueDM&gt;"
+                  moduleName = "IssueTrackingSystem"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/paullstanley/Desktop/Apps/ITS/IssueTrackingSystem/CoreDataPlugin/Sources/CoreDataPlugin/IssueRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "189">
+               </Location>
+               <Location
+                  uuid = "32AFFE96-4E38-4BA7-8D89-075FC56CC5A6 - bae2e5cd3a583ce1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; Swift.Array&lt;Domain.IssueDM&gt; in CoreDataPlugin.IssueRepository.getAllIssues(for: Domain.ProjectDM) -&gt; Swift.Array&lt;Domain.IssueDM&gt;"
+                  moduleName = "IssueTrackingSystem"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/paullstanley/Desktop/Apps/ITS/IssueTrackingSystem/CoreDataPlugin/Sources/CoreDataPlugin/IssueRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "269">
+               </Location>
+               <Location
+                  uuid = "32AFFE96-4E38-4BA7-8D89-075FC56CC5A6 - bae2e5cd3a583ce1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; Swift.Array&lt;Domain.IssueDM&gt; in CoreDataPlugin.IssueRepository.getAllIssues(for: Domain.ProjectDM) -&gt; Swift.Array&lt;Domain.IssueDM&gt;"
+                  moduleName = "IssueTrackingSystem"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/paullstanley/Desktop/Apps/ITS/IssueTrackingSystem/CoreDataPlugin/Sources/CoreDataPlugin/IssueRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "344">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

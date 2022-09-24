@@ -8,13 +8,11 @@
 import SwiftUI
 import Domain
 import CoreDataPlugin
-import UseCases
 
 struct AddIssueView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @StateObject var addIssueVM = AddIssueViewModel(repository: IssueRepository(storageProvider: StorageProvider.shared))
-    
-    @State var issue: IssueDM
+    @State var project: ProjectDM
     
     var body: some View {
         DynamicStack {
@@ -27,24 +25,30 @@ struct AddIssueView: View {
                     Text("Description")
                     TextField("", text: $addIssueVM.issue.info)
                     HStack {
-                        Button("Save") {
-                            addIssueVM.issue.project = issue.project
+                        Button {
+                            addIssueVM.issue.project = project
                             addIssueVM.execute()
-                            presentationMode.wrappedValue.dismiss()
+                            self.presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Label("Create", systemImage: "plus")
                         }
-                        Button("Cancel") {
-                            presentationMode.wrappedValue.dismiss()
+                        Button {
+                            self.presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            Text("Cancel")
                         }
-                        .buttonStyle(.borderedProminent)
                     }
-                    .padding()
                     .cornerRadius(5)
+                    .buttonStyle(.borderedProminent)
                 }
-                .padding(5)
+                .padding()
                 .cornerRadius(5)
             }
+            .padding(5)
+            .cornerRadius(5)
         }
         .frame(width:300)
+        .shadow(color: Color.black.opacity(0.5), radius: 2.0, x: 2.0, y: 4.0)
     }
 }
 

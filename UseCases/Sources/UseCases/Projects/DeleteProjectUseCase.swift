@@ -14,7 +14,6 @@ public struct DeleteProjectUseCase: IDeleteProjectUseCase {
         self.repository = repository
     }
     
-    @discardableResult
     public func execute(_ project: ProjectDM) -> Bool {
         repository.delete(project)
     }

@@ -12,11 +12,6 @@ struct IssueTableView: View {
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
     @State var selection: String?
     
-    var sortedIssues: [IssueDM] {
-        projectsLandingPageVM.selectedProject.issues
-            .sorted(using: projectsLandingPageVM.issueOrder)
-    }
-    
     var body: some View {
         VStack {
             DynamicStack {
@@ -45,7 +40,7 @@ struct IssueTableView: View {
         }
         .scaleEffect()
         .onAppear( perform: {
-            selection = sortedIssues.first?.id
+            selection = projectsLandingPageVM.sortedIssues.first?.id
         })
         .onChange(of: selection, perform: { _ in
             projectsLandingPageVM.updateIssueSelection(selection)
