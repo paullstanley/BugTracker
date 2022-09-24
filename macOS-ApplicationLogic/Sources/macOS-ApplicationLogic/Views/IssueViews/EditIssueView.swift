@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Domain
-import UseCases
 import CoreDataPlugin
 
 struct EditIssueView: View {

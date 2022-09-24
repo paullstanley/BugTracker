@@ -10,7 +10,6 @@ import Domain
 
 struct ProjectDetailView: View {
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
-    @State var project: ProjectDM = .placeHolder
     
     @State var showingEditView: Bool = false
     @State var showingShareView: Bool = false
@@ -33,7 +32,11 @@ struct ProjectDetailView: View {
                     }
                     .buttonStyle(.plain)
                     .sheet(isPresented: $showingEditView, content: {
-                        EditProjectView(projectsLandingPageVM: projectsLandingPageVM)
+                        EditProjectView(project: projectsLandingPageVM.selectedProject)
+                            .onDisappear {
+                                projectsLandingPageVM.getProjects()
+                            }
+                        
                     })
                 }
                 .font(.title)

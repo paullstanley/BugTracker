@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProjectsTableView: View {
     @ObservedObject var projectsLandingPageVM: ProjectsLandingPageViewModel
-    @State var selection: String?
     
     var body: some View {
         VStack {
@@ -26,7 +25,7 @@ struct ProjectsTableView: View {
             .background(Color.accentColor.gradient)
             .cornerRadius(3)
             .scaleEffect()
-            Table(projectsLandingPageVM.sortedProjects, selection: $selection, sortOrder: $projectsLandingPageVM.projectOrder) {
+            Table(projectsLandingPageVM.sortedProjects.sorted(using: projectsLandingPageVM.projectOrder), selection: $projectsLandingPageVM.projectSelection, sortOrder: $projectsLandingPageVM.projectOrder) {
                 TableColumn("Id", value: \.id)
                 TableColumn("Name", value: \.name)
                 TableColumn("Creation date", value: \.creationDate)
@@ -37,12 +36,6 @@ struct ProjectsTableView: View {
             }
         }
         .scaleEffect()
-        .onAppear( perform: {
-            selection = projectsLandingPageVM.sortedProjects.first?.id
-        })
-        .onChange(of: selection, perform: { _ in
-            projectsLandingPageVM.updateProjectSelection(selection)
-        })
     }
 }
 
